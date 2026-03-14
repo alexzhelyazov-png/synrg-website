@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SYNRG — бутиково фитнес студио във Варна. Персонализирани тренировки, малки групи, реални резултати." />
+  <meta property="og:title" content="SYNRG — Beyond Fitness" />
+  <meta property="og:description" content="Бутиково фитнес студио във Варна. Персонализирани тренировки с резултати." />
+  <meta property="og:url" content="https://synrg-beyondfitness.com" />
+  <meta property="og:type" content="website" />
+  <title>SYNRG — Beyond Fitness · Варна</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsActivityLocation",
+    "name": "SYNRG Beyond Fitness",
+    "description": "Бутиково фитнес студио във Варна.",
+    "url": "https://synrg-beyondfitness.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Варна", "addressCountry": "BG" }
+  }
+  </script>
+
+  <style>
+    /* ── Fonts ─────────────────────────────────────── */
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-Bold.woff2') format('woff2');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-BoldItalic.woff2') format('woff2');
+      font-weight: 700; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-SemiBold.woff2') format('woff2');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+
+    /* ── Reset ─────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      /* Mint green — buttons, CTAs, primary highlights */
+      --mint:          #c4e9bf;
+      --mint-dim:      rgba(196,233,191,0.12);
+      --mint-border:   rgba(196,233,191,0.24);
+
+      /* Logan — dominant brand accent, backgrounds, labels */
+      --logan:         #AAA9CD;
+      --logan-dim:     rgba(170,169,205,0.12);
+      --logan-border:  rgba(170,169,205,0.26);
+      --logan-deep:    rgba(170,169,205,0.06);
+
+      --cream:         #f0eded;
+      --bg:            #0d1510;
+      --surface:       #111c13;
+      --border:        rgba(255,255,255,0.07);
+      --muted:         #5a6e5a;
+      --text:          #e8e4e4;
+
+      --nav-h:         76px;
+      --radius-sm:     12px;
+      --radius-md:     18px;
+      --radius-lg:     24px;
+      --ease:          cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'MontBlanc', system-ui, sans-serif;
+      font-weight: 600; line-height: 1.6; overflow-x: hidden;
+    }
+
+    /* All headings — italic everywhere */
+    h1, h2, h3, h4, h5, h6 {
+      font-style: italic; font-weight: 700; line-height: 1;
+      color: var(--cream); letter-spacing: -0.03em;
+    }
+    p { font-weight: 700; color: var(--muted); line-height: 1.65; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Layout ────────────────────────────────────── */
+    .container  { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+    .section    { padding: 112px 0; }
+    .section-sm { padding: 80px 0; }
+
+    /* Overline — logan */
+    .overline {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--logan);
+      font-style: normal; margin-bottom: 16px; display: block;
+    }
+
+    /* ── Buttons ── mint accent ──────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 100px;
+      font-family: 'MontBlanc', sans-serif;
+      font-weight: 700; font-size: 14px; font-style: normal;
+      cursor: pointer; border: none; white-space: nowrap;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s;
+    }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--mint); color: #0d1510;
+    }
+    .btn-primary:hover {
+      background: #d4f0cf;
+      box-shadow: 0 8px 32px rgba(196,233,191,0.28);
+    }
+    .btn-ghost {
+      background: transparent; color: var(--cream);
+      border: 1px solid var(--logan-border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--logan);
+      background: var(--logan-deep);
+    }
+
+    /* ── Tags / Badges ─────────────────────────────── */
+    .tag {
+      background: var(--logan-dim); border: 1px solid var(--logan-border);
+      color: var(--logan); font-size: 12px; font-weight: 700;
+      font-style: normal; padding: 6px 14px; border-radius: 100px;
+    }
+    .tag.mint {
+      background: var(--mint-dim); border-color: var(--mint-border); color: var(--mint);
+    }
+
+    /* ── Navbar ────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000; height: var(--nav-h);
+      display: flex; align-items: center;
+      padding: 0 32px;
+      transition: background 0.35s var(--ease), border-color 0.35s;
+      border-bottom: 1px solid transparent;
+    }
+    #navbar.scrolled {
+      background: rgba(13,21,16,0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom-color: var(--border);
+    }
+    .nav-inner {
+      width: 100%; max-width: 1160px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 34px; width: auto; display: block; }
+    .nav-links {
+      display: flex; align-items: center; gap: 40px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 700; color: var(--muted);
+      font-style: italic; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-right .btn { padding: 10px 20px; font-size: 13px; }
+
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 6px; background: none; border: none;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--cream); border-radius: 2px;
+      transition: all 0.3s var(--ease);
+    }
+
+    /* ── Decorative shapes ─────────────────────────── */
+    .deco {
+      position: absolute;
+      z-index: 0;
+      cursor: default;
+    }
+    .deco-inner {
+      display: block;
+      transition: transform 0.55s var(--ease-spring), opacity 0.3s;
+    }
+    .deco:hover {
+      animation-play-state: paused !important;
+    }
+    .deco:hover .deco-inner {
+      transform: rotate(90deg) scale(1.3);
+      opacity: 1 !important;
+    }
+
+    @keyframes floatA {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-20px) rotate(5deg); }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(16px) rotate(-4deg); }
+    }
+    @keyframes floatC {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50%       { transform: translateY(-14px) scale(1.04); }
+    }
+    @keyframes floatD {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(18px) rotate(3deg); }
+    }
+    @keyframes floatE {
+      0%, 100% { transform: translateY(0px) rotate(-10deg); }
+      50%       { transform: translateY(-16px) rotate(-7deg); }
+    }
+
+    /* ── Hero ──────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding-top: calc(var(--nav-h) + 40px);
+      padding-bottom: 100px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 65% 40%, var(--logan-deep) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 70%, rgba(196,233,191,0.04) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--logan-deep) 1px, transparent 1px),
+        linear-gradient(90deg, var(--logan-deep) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--logan-dim); border: 1px solid var(--logan-border);
+      color: var(--logan); font-size: 11px; font-weight: 700; font-style: normal;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 7px 16px; border-radius: 100px; margin-bottom: 32px;
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--logan); border-radius: 50%;
+    }
+    .hero-headline {
+      font-size: clamp(56px, 10vw, 116px);
+      font-weight: 700; font-style: italic;
+      line-height: 0.92; letter-spacing: -0.04em;
+      color: var(--cream); margin-bottom: 28px;
+    }
+    .hero-headline em { color: var(--mint); font-style: italic; }
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px); font-weight: 700;
+      color: var(--cream); max-width: 480px;
+      line-height: 1.65; margin-bottom: 44px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: 36px; right: 32px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 700; font-style: normal;
+      color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 40px; height: 1px; background: var(--muted);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--mint); transform: translateX(-100%);
+      animation: scrollLine 2.2s ease infinite 1s;
+    }
+    @keyframes scrollLine {
+      0%   { transform: translateX(-100%); }
+      50%  { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* ── Stats ─────────────────────────────────────── */
+    #stats {
+      border-top: 1px solid var(--logan-border);
+      border-bottom: 1px solid var(--logan-border);
+      background: linear-gradient(180deg, rgba(170,169,205,0.04) 0%, transparent 100%);
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .stat-item {
+      padding: 44px 0; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-size: 52px; font-weight: 700; font-style: italic;
+      color: var(--logan); line-height: 1; margin-bottom: 8px;
+    }
+    .stat-item:first-child .stat-number { color: var(--mint); }
+    .stat-label { font-size: 13px; font-weight: 700; color: var(--muted); font-style: italic; }
+
+    /* ── About ─────────────────────────────────────── */
+    #about { position: relative; overflow: hidden; }
+    #about .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center; position: relative; z-index: 1;
+    }
+    #about h2 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 24px; }
+    #about p  { font-size: 16px; margin-bottom: 16px; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+
+    /* About visual — no photo, editorial panel */
+    .about-panel {
+      background: linear-gradient(140deg,
+        var(--logan-dim) 0%,
+        rgba(170,169,205,0.06) 50%,
+        rgba(196,233,191,0.04) 100%);
+      border: 1px solid var(--logan-border);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      position: relative; overflow: hidden;
+      min-height: 460px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .about-panel::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(170,169,205,0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ap-eyebrow {
+      font-size: 11px; font-weight: 700; font-style: normal;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--logan); margin-bottom: 20px;
+    }
+    .ap-quote {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700; font-style: italic;
+      color: var(--cream); line-height: 1.2;
+      letter-spacing: -0.02em; flex: 1;
+      display: flex; align-items: center;
+    }
+    .ap-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; margin-top: 40px;
+      border: 1px solid var(--logan-border);
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .ap-stat {
+      padding: 20px 24px;
+      background: rgba(170,169,205,0.06);
+    }
+    .ap-stat:first-child {
+      border-right: 1px solid var(--logan-border);
+    }
+    .ap-stat-num {
+      font-size: 36px; font-weight: 700; font-style: italic;
+      color: var(--logan); line-height: 1; margin-bottom: 4px;
+    }
+    .ap-stat-label {
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      font-style: normal;
+    }
+    /* Deco shapes inside about-panel */
+    .ap-shape {
+      position: absolute; pointer-events: none;
+    }
+
+    /* ── Services ──────────────────────────────────── */
+    #services {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    #services .section-header {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; margin-bottom: 56px;
+    }
+    #services h2 { font-size: clamp(32px, 4vw, 48px); }
+    .services-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; }
+
+    .service-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px 32px;
+      display: flex; flex-direction: column; cursor: pointer;
+      transition: border-color 0.25s var(--ease), transform 0.25s var(--ease-spring);
+      position: relative; overflow: hidden; will-change: transform;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-card.featured {
+      background: linear-gradient(155deg,
+        rgba(196,233,191,0.1) 0%,
+        rgba(196,233,191,0.04) 60%, var(--bg) 100%);
+      border-color: var(--mint-border);
+    }
+    .service-card.featured::before {
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(196,233,191,0.07) 0%, transparent 70%);
+    }
+    .service-card.featured:hover { border-color: var(--mint); }
+
+    .service-card.upcoming {
+      border-color: var(--logan-border);
+      background: linear-gradient(155deg, var(--logan-dim) 0%, var(--bg) 100%);
+    }
+    .service-card.upcoming::before {
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(170,169,205,0.1) 0%, transparent 70%);
+    }
+    .service-card.upcoming:hover { border-color: var(--logan); }
+
+    .service-num { font-size: 11px; font-weight: 700; font-style: normal; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 40px; }
+    .service-name { font-size: clamp(22px, 2.5vw, 30px); font-weight: 700; font-style: italic; color: var(--cream); margin-bottom: 14px; }
+    .service-desc { font-size: 14px; color: var(--muted); font-weight: 700; line-height: 1.65; flex: 1; margin-bottom: 32px; }
+    .service-arrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 700; font-style: normal;
+      transition: gap 0.2s var(--ease);
+    }
+    .service-card.featured .service-arrow { color: var(--mint); }
+    .service-card.upcoming .service-arrow { color: var(--logan); }
+    .service-card:hover .service-arrow { gap: 12px; }
+
+    .soon-badge {
+      display: inline-block;
+      background: var(--logan-dim); border: 1px solid var(--logan-border);
+      color: var(--logan); font-size: 10px; font-weight: 700;
+      font-style: normal; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 100px; margin-bottom: 12px;
+    }
+
+    /* ── Team ──────────────────────────────────────── */
+    #team h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 8px; }
+    #team > .container > p { margin-bottom: 56px; font-size: 16px; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .team-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden; cursor: pointer;
+      transition: border-color 0.25s var(--ease), transform 0.25s var(--ease-spring);
+      will-change: transform;
+    }
+    .team-card:hover { border-color: var(--logan-border); transform: translateY(-6px); }
+    .team-photo {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      object-position: center top; display: block;
+      transition: transform 0.5s var(--ease);
+    }
+    .team-card:hover .team-photo { transform: scale(1.03); }
+    .team-info { padding: 20px 22px 24px; }
+    .team-name  { font-size: 18px; font-weight: 700; font-style: italic; color: var(--cream); margin-bottom: 4px; }
+    .team-role  { font-size: 13px; font-weight: 700; color: var(--muted); font-style: italic; }
+    .team-badge {
+      display: inline-block;
+      background: var(--logan-dim); border: 1px solid var(--logan-border);
+      color: var(--logan); font-size: 10px; font-weight: 700;
+      font-style: normal; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 100px; margin-top: 10px;
+    }
+    .team-badge.mint {
+      background: var(--mint-dim); border-color: var(--mint-border); color: var(--mint);
+    }
+
+    /* ── CTA ───────────────────────────────────────── */
+    #cta { background: var(--surface); border-top: 1px solid var(--border); }
+    .cta-inner {
+      background: linear-gradient(135deg,
+        var(--logan-dim) 0%,
+        rgba(196,233,191,0.05) 60%,
+        transparent 100%);
+      border: 1px solid var(--logan-border);
+      border-radius: var(--radius-lg); padding: 96px 80px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-inner::before {
+      content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(170,169,205,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #cta h2 { font-size: clamp(36px, 5vw, 64px); margin-bottom: 20px; position: relative; }
+    #cta p { font-size: 17px; max-width: 440px; margin: 0 auto 44px; position: relative; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+    /* ── Footer ────────────────────────────────────── */
+    footer { border-top: 1px solid var(--border); padding: 56px 0 40px; }
+    .footer-divider {
+      width: 100%; height: 1px; margin-bottom: 56px;
+      background: linear-gradient(90deg, transparent, var(--logan-border), transparent);
+    }
+    .footer-main {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 40px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 16px; }
+    .footer-logo img { height: 32px; width: auto; }
+    .footer-tagline { font-size: 13px; font-weight: 700; color: var(--muted); font-style: italic; line-height: 1.5; }
+    .footer-links-inline {
+      display: flex; align-items: center; gap: 28px; list-style: none;
+    }
+    .footer-links-inline a {
+      font-size: 14px; font-weight: 700; color: var(--muted);
+      font-style: italic; transition: color 0.2s;
+    }
+    .footer-links-inline a:hover { color: var(--cream); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 24px; }
+    .footer-copy { font-size: 12px; font-weight: 700; color: var(--muted); font-style: normal; }
+
+    /* ── Logomark rotating hero bg ────────────────── */
+    .hero-mark {
+      position: absolute; right: -6%; top: 50%;
+      transform: translateY(-50%);
+      width: min(52vw, 640px); height: auto;
+      opacity: 0.07; pointer-events: none; z-index: 0;
+      animation: markSpin 55s linear infinite;
+    }
+    @keyframes markSpin {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to   { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    /* ── SYNRG System ───────────────────────────── */
+    #system {
+      position: relative; overflow: hidden;
+      border-top: 1px solid var(--border);
+    }
+    #system::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 100%, var(--logan-deep) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #system h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 12px; }
+    #system > .container > p { font-size: 16px; margin-bottom: 56px; }
+    .system-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .system-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px 36px;
+      transition: border-color 0.25s var(--ease), transform 0.25s var(--ease-spring);
+      will-change: transform;
+    }
+    .system-card:hover { border-color: var(--logan-border); transform: translateY(-3px); }
+    .system-num {
+      font-size: 64px; font-weight: 700; font-style: italic;
+      color: var(--logan); opacity: 0.22; line-height: 1;
+      margin-bottom: 20px; letter-spacing: -0.04em;
+    }
+    .system-title {
+      font-size: 22px; font-weight: 700; font-style: italic;
+      color: var(--cream); margin-bottom: 12px;
+    }
+    .system-desc { font-size: 14px; font-weight: 700; color: var(--muted); line-height: 1.65; }
+
+    /* ── We Care About You ──────────────────────── */
+    #care {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    #care::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, var(--logan-deep) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .care-centered {
+      text-align: center; max-width: 860px;
+      margin: 0 auto; position: relative; z-index: 1;
+    }
+    #care h2 {
+      font-size: clamp(48px, 8vw, 96px);
+      margin-bottom: 24px; line-height: 0.95;
+    }
+    #care .care-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 700; color: var(--muted); max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Animations ────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp 0.7s var(--ease) forwards; }
+    .fade-up[data-delay="1"] { animation-delay: 0.1s; }
+    .fade-up[data-delay="2"] { animation-delay: 0.2s; }
+    .fade-up[data-delay="3"] { animation-delay: 0.35s; }
+    .fade-up[data-delay="4"] { animation-delay: 0.5s; }
+
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Mobile ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .section { padding: 72px 0; }
+      .nav-links, .nav-right .btn-ghost { display: none; }
+      .nav-toggle { display: flex; }
+      .mobile-menu {
+        display: none; position: fixed; inset: 0; background: var(--bg);
+        z-index: 999; flex-direction: column; align-items: center;
+        justify-content: center; gap: 32px;
+      }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a { font-size: 28px; font-weight: 700; font-style: italic; color: var(--cream); }
+      .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--cream); font-size: 28px; cursor: pointer; }
+      .hero-headline { font-size: clamp(48px, 14vw, 80px); }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { justify-content: center; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      #about .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-panel { min-height: auto; padding: 40px 32px; }
+      .system-grid { grid-template-columns: 1fr; }
+      .hero-mark   { opacity: 0.04; right: -15%; }
+      .services-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      #cta .cta-inner { padding: 56px 24px; }
+      .footer-main { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-links-inline { flex-wrap: wrap; justify-content: center; gap: 20px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .deco { display: none; }
+    }
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Mobile menu ──────────────────────────────── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
+    <a href="#about"    onclick="closeMobileMenu()">Студио</a>
+    <a href="#services" onclick="closeMobileMenu()">Услуги</a>
+    <a href="#team"     onclick="closeMobileMenu()">Екип</a>
+    <a href="#cta"      onclick="closeMobileMenu()">Контакт</a>
+    <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary" style="font-style:normal">Влез в app-а</a>
+  </div>
+
+  <!-- ── Navbar ───────────────────────────────────── -->
+  <header id="navbar" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="SYNRG Начало">
+        <img src="assets/synrg_Primary_Logo.svg" alt="SYNRG Beyond Fitness" />
+      </a>
+      <nav aria-label="Основна навигация">
+        <ul class="nav-links">
+          <li><a href="#about">Студио</a></li>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#team">Екип</a></li>
+          <li><a href="#cta">Контакт</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <a href="#cta" class="btn btn-ghost">Запиши се</a>
+        <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary">Влез →</a>
+        <button class="nav-toggle" onclick="openMobileMenu()" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Hero ─────────────────────────────────────── -->
+  <main>
+  <section id="hero" aria-label="Начало">
+    <div class="hero-bg"  aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <!-- Rotating logomark background -->
+    <img src="assets/synrg_Logomark.svg" class="hero-mark" alt="" aria-hidden="true" />
+
+    <!-- Double chevron — top right, mint -->
+    <div class="deco" aria-hidden="true"
+         style="top:14%;right:5%;opacity:0.35;animation:floatA 7s ease-in-out infinite;">
+      <div class="deco-inner">
+        <svg width="78" height="108" viewBox="0 0 78 108" fill="none">
+          <path d="M10 7 L42 54 L10 101" stroke="#c4e9bf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M36 7 L68 54 L36 101" stroke="#c4e9bf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Lightning bolt — right mid, logan -->
+    <div class="deco" aria-hidden="true"
+         style="top:44%;right:13%;opacity:0.3;animation:floatB 9s ease-in-out infinite 1.2s;">
+      <div class="deco-inner">
+        <svg width="46" height="66" viewBox="0 0 46 66" fill="#AAA9CD">
+          <path d="M28 3 L8 36 L22 36 L18 63 L38 30 L24 30 L28 3Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Zigzag — upper mid, logan faint -->
+    <div class="deco" aria-hidden="true"
+         style="top:20%;right:30%;opacity:0.2;animation:floatC 11s ease-in-out infinite 0.6s;">
+      <div class="deco-inner">
+        <svg width="106" height="38" viewBox="0 0 106 38" fill="none">
+          <path d="M4 30 L22 8 L40 30 L58 8 L76 30 L94 8" stroke="#AAA9CD" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Single chevron left — bottom right, logan -->
+    <div class="deco" aria-hidden="true"
+         style="bottom:18%;right:7%;opacity:0.22;animation:floatE 13s ease-in-out infinite 2s;">
+      <div class="deco-inner">
+        <svg width="42" height="68" viewBox="0 0 42 68" fill="none">
+          <path d="M34 4 L8 34 L34 64" stroke="#AAA9CD" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="container hero-content">
+      <div class="hero-tag fade-up" data-delay="1">Beyond Fitness · Варна</div>
+      <h1 class="hero-headline fade-up" data-delay="2">
+        Фитнес<br>
+        студио.<br>
+        <em>Без<br>компромиси.</em>
+      </h1>
+      <p class="hero-sub fade-up" data-delay="3">
+        Бутиково студио с персонализиран подход, малки групи и треньори, на които резултатите ти имат значение.
+      </p>
+      <div class="hero-actions fade-up" data-delay="4">
+        <a href="#cta" class="btn btn-primary">Запиши се за консултация</a>
+        <a href="#services" class="btn btn-ghost">Разгледай услугите</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Скрол</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── Stats ────────────────────────────────────── -->
+  <section id="stats" aria-label="Статистики">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-number">300+</div>
+          <div class="stat-label">Трансформирани животи</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Години опит</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number" style="color:var(--mint)">∞</div>
+          <div class="stat-label">Без компромиси</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About ────────────────────────────────────── -->
+  <section id="about" class="section" aria-labelledby="about-heading">
+    <!-- Background shape -->
+    <div class="deco" aria-hidden="true"
+         style="top:6%;right:-4px;opacity:0.28;animation:floatD 9s ease-in-out infinite;">
+      <div class="deco-inner">
+        <svg width="64" height="96" viewBox="0 0 64 96" fill="none">
+          <path d="M56 6 L24 48 L56 90" stroke="#AAA9CD" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M30 6 L0 48 L30 90" stroke="#AAA9CD" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="container">
+      <div class="about-grid">
+        <!-- Text left -->
+        <div>
+          <span class="overline reveal">За нас</span>
+          <h2 id="about-heading" class="reveal">Не сме обикновен фитнес.</h2>
+          <p class="reveal">SYNRG е бутиково студио, изградено с убеждението, че истинските резултати идват от индивидуален подход, правилна методология и треньори, на които им пука.</p>
+          <p class="reveal">Работим с малки групи, за да може всеки клиент да получи вниманието, което заслужава. Не продаваме масови планове — изграждаме лична стратегия за всеки.</p>
+          <div class="about-tags reveal">
+            <span class="tag">Лимитирано студио</span>
+            <span class="tag">Персонализиран подход</span>
+            <span class="tag">Рехабилитация</span>
+            <span class="tag mint">Онлайн програми</span>
+          </div>
+        </div>
+
+        <!-- Visual panel — no photo -->
+        <div class="about-panel reveal">
+          <!-- Floating shapes inside panel -->
+          <div class="ap-shape" style="bottom:20px;right:20px;opacity:0.18;">
+            <svg width="54" height="54" viewBox="0 0 54 54" fill="#AAA9CD">
+              <path d="M32 4 L10 27 L32 50" stroke="#AAA9CD" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="ap-shape" style="top:24px;right:48px;opacity:0.14;">
+            <svg width="40" height="52" viewBox="0 0 40 52" fill="#c4e9bf">
+              <path d="M22 2 L6 26 L16 26 L14 50 L30 26 L20 26 L22 2Z"/>
+            </svg>
+          </div>
+
+          <div class="ap-eyebrow">SYNRG Beyond Fitness</div>
+          <div class="ap-quote">
+            Изграждаме лична стратегия за всеки.
+          </div>
+          <div class="ap-stats">
+            <div class="ap-stat">
+              <div class="ap-stat-num">300+</div>
+              <div class="ap-stat-label">Трансформирани животи</div>
+            </div>
+            <div class="ap-stat">
+              <div class="ap-stat-num" style="color:var(--mint)">5</div>
+              <div class="ap-stat-label">Години опит</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ─────────────────────────────────── -->
+  <section id="services" class="section" aria-labelledby="services-heading">
+    <!-- Deco shape services corner -->
+    <div class="deco" aria-hidden="true"
+         style="top:8%;right:3%;opacity:0.28;animation:floatA 8s ease-in-out infinite 0.8s;">
+      <div class="deco-inner">
+        <svg width="38" height="56" viewBox="0 0 38 56" fill="#c4e9bf">
+          <path d="M24 2 L6 28 L16 28 L14 54 L32 28 L22 28 L24 2Z"/>
+        </svg>
+      </div>
+    </div>
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="overline reveal">Какво предлагаме</span>
+          <h2 id="services-heading" class="reveal">Твоята следваща<br>стъпка.</h2>
+        </div>
+        <a href="#cta" class="btn btn-ghost reveal" style="align-self:flex-end">Запиши се</a>
+      </div>
+      <div class="services-grid">
+        <article class="service-card featured reveal" tabindex="0">
+          <div class="service-num">01</div>
+          <div class="service-name">Тренировки в студиото</div>
+          <p class="service-desc">Персонализирани тренировки с опитен треньор. Малки групи до 6 човека, фокус върху техниката и прогреса. Записвай часове директно от app-а.</p>
+          <span class="service-arrow">Научи повече →</span>
+        </article>
+        <article class="service-card upcoming reveal" style="transition-delay:0.1s" tabindex="0">
+          <div class="service-num">02</div>
+          <span class="soon-badge">Скоро</span>
+          <div class="service-name">Онлайн програма</div>
+          <p class="service-desc">Тренировъчна и рехабилитационна програма от Кари и Виви. Работи от всяка точка.</p>
+          <span class="service-arrow">Очаквайте →</span>
+        </article>
+        <article class="service-card upcoming reveal" style="transition-delay:0.2s" tabindex="0">
+          <div class="service-num">03</div>
+          <span class="soon-badge">Скоро</span>
+          <div class="service-name">SYNRG Планер</div>
+          <p class="service-desc">Физически планер за структура в тренировките, храненето и ежедневието.</p>
+          <span class="service-arrow">Очаквайте →</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Team ─────────────────────────────────────── -->
+  <section id="team" class="section" aria-labelledby="team-heading">
+    <div class="container">
+      <span class="overline reveal">Екипът</span>
+      <h2 id="team-heading" class="reveal">Хората зад SYNRG.</h2>
+      <p class="reveal">Не наемаме треньори. Изграждаме екип от хора, на които им пука.</p>
+      <div class="team-grid">
+        <article class="team-card reveal" tabindex="0">
+          <img src="images/alex.jpg" alt="Александър — Head Coach и основател" class="team-photo" loading="lazy" />
+          <div class="team-info">
+            <h3 class="team-name">Александър</h3>
+            <p class="team-role">Основател · Head Coach</p>
+            <span class="team-badge mint">Coach</span>
+          </div>
+        </article>
+        <article class="team-card reveal" style="transition-delay:0.08s" tabindex="0">
+          <img src="images/kari.jpg" alt="Кари — треньор" class="team-photo" loading="lazy" />
+          <div class="team-info">
+            <h3 class="team-name">Кари</h3>
+            <p class="team-role">Треньор · Онлайн програми</p>
+            <span class="team-badge">Coach</span>
+          </div>
+        </article>
+        <article class="team-card reveal" style="transition-delay:0.16s" tabindex="0">
+          <img src="images/vivy.jpg" alt="Виви — физиотерапевт" class="team-photo" loading="lazy" />
+          <div class="team-info">
+            <h3 class="team-name">Виви</h3>
+            <p class="team-role">Физиотерапевт</p>
+            <span class="team-badge">Physio</span>
+          </div>
+        </article>
+        <article class="team-card reveal" style="transition-delay:0.08s" tabindex="0">
+          <img src="images/itzko.jpg" alt="Ицко — треньор" class="team-photo" loading="lazy" />
+          <div class="team-info">
+            <h3 class="team-name">Ицко</h3>
+            <p class="team-role">Треньор</p>
+            <span class="team-badge">Coach</span>
+          </div>
+        </article>
+        <article class="team-card reveal" style="transition-delay:0.16s" tabindex="0">
+          <img src="images/nikola.jpg" alt="Никола — треньор" class="team-photo" loading="lazy" />
+          <div class="team-info">
+            <h3 class="team-name">Никола</h3>
+            <p class="team-role">Треньор</p>
+            <span class="team-badge">Coach</span>
+          </div>
+        </article>
+        <article class="team-card reveal" style="transition-delay:0.24s" tabindex="0">
+          <img src="images/elina.jpg" alt="Елина — треньор" class="team-photo" loading="lazy" />
+          <div class="team-info">
+            <h3 class="team-name">Елина</h3>
+            <p class="team-role">Треньор</p>
+            <span class="team-badge">Coach</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── We Care About You ────────────────────────── -->
+  <section id="care" class="section" aria-labelledby="care-heading">
+    <div class="container care-centered">
+      <span class="overline reveal">Ценности</span>
+      <h2 id="care-heading" class="reveal">We Care<br>About You.</h2>
+      <p class="care-sub reveal"><!-- Текст от Wix --></p>
+    </div>
+  </section>
+
+  <!-- ── CTA ──────────────────────────────────────── -->
+  <section id="cta" class="section-sm" aria-labelledby="cta-heading">
+    <div class="container">
+      <div class="cta-inner">
+        <!-- Deco shapes inside CTA -->
+        <div class="deco" aria-hidden="true"
+             style="top:20px;left:24px;opacity:0.25;animation:floatB 10s ease-in-out infinite;">
+          <div class="deco-inner">
+            <svg width="86" height="32" viewBox="0 0 86 32" fill="none">
+              <path d="M4 24 L22 6 L40 24 L58 6 L76 24" stroke="#c4e9bf" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="deco" aria-hidden="true"
+             style="bottom:20px;right:24px;opacity:0.22;animation:floatA 8s ease-in-out infinite 1.5s;">
+          <div class="deco-inner">
+            <svg width="56" height="76" viewBox="0 0 56 76" fill="none">
+              <path d="M8 6 L32 38 L8 70" stroke="#AAA9CD" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M28 6 L52 38 L28 70" stroke="#AAA9CD" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <span class="overline" style="margin-bottom:16px">Готов ли си</span>
+        <h2 id="cta-heading">Започни сега.</h2>
+        <p>Запиши се за безплатна консултация и разбери как SYNRG може да работи за теб.</p>
+        <div class="cta-actions">
+          <a href="https://www.instagram.com/synrg.beyondfitness" class="btn btn-primary" target="_blank" rel="noopener">Свържи се с нас</a>
+          <a href="https://app.synrg-beyondfitness.com" class="btn btn-ghost">Влез в app-а</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ── Footer ───────────────────────────────────── -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-divider"></div>
+      <div class="footer-main">
+        <div class="footer-logo">
+          <img src="assets/synrg_Logomark.svg" alt="SYNRG Beyond Fitness" loading="lazy" style="height:40px;width:auto;" />
+          <p class="footer-tagline">Бутиково фитнес студио · Варна</p>
+        </div>
+        <ul class="footer-links-inline">
+          <li><a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="#cta">Запиши се</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 SYNRG Beyond Fitness. Всички права запазени.</p>
+        <p class="footer-copy">Варна, България</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar')
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40)
+    }, { passive: true })
+
+    // Mobile menu
+    function openMobileMenu() {
+      document.getElementById('mobileMenu').classList.add('open')
+      document.body.style.overflow = 'hidden'
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open')
+      document.body.style.overflow = ''
+    }
+
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target) }
+      })
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el))
+
+    // Grid stagger
+    document.querySelectorAll('.services-grid .service-card, .team-grid .team-card, .stats-grid .stat-item')
+      .forEach((el, i) => { if (!el.style.transitionDelay) el.style.transitionDelay = `${i * 0.06}s` })
+  </script>
+</body>
+</html>
