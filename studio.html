@@ -137,42 +137,44 @@
 
     /* ── App section ── */
     #studio-app {
-      padding: 72px 0 96px;
-      background: var(--surface);
+      padding: 80px 0 96px;
       border-top: 1px solid var(--border);
     }
-    #studio-app .section-header { margin-bottom: 40px; }
     #studio-app h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 8px; }
-    #studio-app > .container > p { font-size: 16px; margin-bottom: 40px; }
+    #studio-app > .container > p { font-size: 16px; margin-bottom: 44px; }
 
-    .studio-app-wrap {
-      position: relative;
-      height: 88vh; min-height: 600px;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--logan-border);
-      background: var(--bg);
+    /* Photo grid */
+    .app-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 36px;
     }
-    .studio-app-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+    .app-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 24px;
+      display: block;
+      transition: transform 0.4s var(--ease-spring), filter 0.3s;
+      filter: brightness(0.88) saturate(0.9);
+    }
+    .app-photo:hover { transform: scale(1.025); filter: brightness(1) saturate(1); }
 
-    /* Fallback if iframe is blocked */
-    .iframe-fallback {
-      display: none;
-      position: absolute; inset: 0;
-      flex-direction: column; align-items: center; justify-content: center;
-      gap: 20px; background: var(--bg); text-align: center; padding: 40px;
+    .app-cta {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px;
     }
-    .iframe-fallback h3 { font-size: 28px; color: var(--cream); margin-bottom: 8px; }
-    .iframe-fallback p { color: var(--muted); font-size: 15px; max-width: 380px; }
 
     /* ── Pricing ── */
     #pricing {
-      padding: 96px 0 112px;
+      padding: 96px 0 120px;
       border-top: 1px solid var(--border);
     }
-    #pricing .pricing-header { margin-bottom: 56px; }
+    #pricing .pricing-header { margin-bottom: 52px; text-align: center; }
     #pricing .pricing-header h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 12px; }
-    #pricing .pricing-sub { font-size: 16px; color: var(--muted); max-width: 540px; }
+    #pricing .pricing-sub { font-size: 16px; color: var(--muted); max-width: 540px; margin: 0 auto; }
 
     /* Common features box */
     .pricing-includes {
@@ -180,7 +182,7 @@
       border: 1px solid var(--logan-border);
       border-radius: var(--radius-md);
       padding: 28px 32px;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
     }
     .pricing-includes-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
@@ -200,73 +202,141 @@
       background: var(--mint); border-radius: 50%;
     }
 
-    /* Plan cards */
+    /* ── Plan bubbles ── */
     .pricing-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 16px; align-items: start;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: center;
     }
+
     .price-card {
       background: rgba(255,255,255,0.03);
-      border: 1px solid var(--logan-border);
-      border-radius: var(--radius-lg);
-      padding: 36px 28px 32px;
-      display: flex; flex-direction: column;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 36px;
+      padding: 52px 36px 48px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
       position: relative;
-      transition: border-color 0.25s var(--ease), transform 0.25s var(--ease-spring);
+      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease), border-color 0.25s;
     }
-    .price-card:hover { border-color: var(--logan); transform: translateY(-4px); }
-    .price-card.featured { background: var(--logan-dim); border-color: var(--logan); }
-    .price-card.featured:hover { border-color: var(--mint); }
+    .price-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 64px rgba(0,0,0,0.45);
+      border-color: var(--logan-border);
+    }
+
+    /* ── Featured bubble ── */
+    .price-card.featured {
+      background: linear-gradient(160deg,
+        rgba(196,233,191,0.11) 0%,
+        rgba(196,233,191,0.05) 55%,
+        rgba(13,21,16,0.5) 100%);
+      border-color: rgba(196,233,191,0.38);
+      box-shadow:
+        0 0 0 1px rgba(196,233,191,0.16),
+        0 8px 80px rgba(196,233,191,0.1);
+      padding: 64px 36px 56px;
+    }
+    .price-card.featured:hover {
+      transform: translateY(-10px);
+      box-shadow:
+        0 0 0 1px rgba(196,233,191,0.55),
+        0 28px 80px rgba(196,233,191,0.18);
+      border-color: rgba(196,233,191,0.65);
+    }
 
     .price-badge {
-      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
       background: var(--mint); color: #0d1510;
       font-size: 10px; font-weight: 700; font-style: normal;
       letter-spacing: 0.14em; text-transform: uppercase;
-      padding: 4px 16px; border-radius: 100px; white-space: nowrap;
+      padding: 5px 18px; border-radius: 100px; white-space: nowrap;
     }
 
     .price-plan-name {
-      font-size: 11px; font-weight: 700; font-style: normal;
-      color: var(--logan); letter-spacing: 0.15em; text-transform: uppercase;
-      margin-bottom: 20px;
+      font-size: 10px; font-weight: 700; font-style: normal;
+      color: var(--logan); letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 24px;
     }
+    .price-card.featured .price-plan-name { color: var(--mint); }
 
-    /* Session count — the hero number */
+    /* Session count — centrepiece */
     .price-sessions {
-      font-size: clamp(64px, 9vw, 96px); font-weight: 700; font-style: italic;
+      font-size: clamp(72px, 10vw, 104px); font-weight: 700; font-style: italic;
       color: var(--cream); line-height: 1; letter-spacing: -0.04em;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .price-card.featured .price-sessions { color: var(--mint); }
+
     .price-sessions-label {
-      font-size: 13px; font-weight: 700; color: var(--muted);
-      font-style: italic; margin-bottom: 28px;
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      font-style: italic; margin-bottom: 32px; letter-spacing: 0.04em;
     }
+
+    .price-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      width: 100%;
+      margin-bottom: 28px;
+    }
+    .price-card.featured .price-divider { border-color: rgba(196,233,191,0.15); }
 
     .price-amount {
-      display: flex; align-items: baseline; gap: 4px;
-      margin-bottom: 4px;
+      display: flex; align-items: baseline; gap: 5px;
+      margin-bottom: 6px;
     }
-    .price-currency { font-size: 16px; font-weight: 700; font-style: italic; color: var(--cream); }
-    .price-number { font-size: clamp(32px, 4vw, 44px); font-weight: 700; font-style: italic; color: var(--cream); line-height: 1; letter-spacing: -0.03em; }
-    .price-bgn { font-size: 12px; font-weight: 700; color: var(--muted); font-style: italic; margin-bottom: 20px; }
+    .price-currency {
+      font-size: 20px; font-weight: 700; font-style: italic;
+      color: var(--cream); align-self: flex-start; margin-top: 8px;
+    }
+    .price-number {
+      font-size: clamp(40px, 5vw, 56px); font-weight: 700; font-style: italic;
+      color: var(--cream); line-height: 1; letter-spacing: -0.03em;
+    }
+    .price-bgn {
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      font-style: italic;
+    }
 
-    .price-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 20px; }
+    /* Features list inside each card */
+    .price-features {
+      list-style: none;
+      width: 100%;
+      margin-top: 24px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .price-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; font-weight: 700; color: var(--muted);
+      font-style: normal; text-align: left; line-height: 1.4;
+    }
+    .price-features li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      margin-top: 1px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.5' stroke='%235a6e5a'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%23c4e9bf' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+    .price-card.featured .price-features li { color: rgba(196,233,191,0.7); }
+    .price-card.featured .price-features li::before {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.5' stroke='%23c4e9bf' stroke-opacity='.5'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%23c4e9bf' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
 
     .price-cta-note {
       font-size: 13px; font-weight: 700; font-style: italic;
-      color: var(--muted); text-align: center; margin-top: 16px;
+      color: var(--muted); text-align: center; margin-top: 40px;
     }
     .price-cta-note a { color: var(--logan); text-decoration: underline; text-underline-offset: 3px; }
     .price-cta-note a:hover { color: var(--cream); }
 
     @media (max-width: 960px) {
-      .pricing-includes-grid { grid-template-columns: repeat(2, 1fr); }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .app-photo-grid { grid-template-columns: repeat(3, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .price-card.featured { padding: 64px 32px 52px; }
     }
     @media (max-width: 640px) {
-      .pricing-includes-grid { grid-template-columns: 1fr; }
+      .app-photo-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* ── Footer ── */
@@ -416,22 +486,21 @@
       <h2 data-bg="Запиши се.<br>Управлявай всичко." data-en="Book sessions.<br>Manage everything.">Запиши се.<br>Управлявай всичко.</h2>
       <p data-bg="Записвай часове, следи напредъка си и общувай с треньора — директно от app-а." data-en="Book sessions, track your progress and communicate with your coach — directly from the app.">Записвай часове, следи напредъка си и общувай с треньора — директно от app-а.</p>
 
-      <div class="studio-app-wrap" id="appWrap">
-        <iframe
-          src="https://app.synrg-beyondfitness.com"
-          title="SYNRG App"
-          id="appIframe"
-          allow="fullscreen; camera; microphone"
-          loading="lazy">
-        </iframe>
+      <div class="app-photo-grid">
+        <img src="images/itzko.jpg"  alt="Александър — Head Coach" class="app-photo" />
+        <img src="images/nikola.jpg" alt="Никола — Треньор"        class="app-photo" />
+        <img src="images/kari.jpg"   alt="Елина — Треньор"         class="app-photo" />
+        <img src="images/alex.jpg"   alt="Ицко — Треньор"          class="app-photo" />
+        <img src="images/vivy.jpg"   alt="Виви — Треньор"          class="app-photo" />
+        <img src="images/elina.jpg"  alt="Д-р Желязова"            class="app-photo" />
+      </div>
 
-        <!-- Fallback if X-Frame-Options blocks the iframe -->
-        <div class="iframe-fallback" id="iframeFallback">
-          <div style="font-size:48px">📱</div>
-          <h3 data-bg="Отвори в нов прозорец" data-en="Open in a new window">Отвори в нов прозорец</h3>
-          <p data-bg="Приложението може да се отвори само директно в браузъра." data-en="The app can only be opened directly in the browser.">Приложението може да се отвори само директно в браузъра.</p>
-          <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener" class="btn btn-primary" data-bg="Отвори app-а →" data-en="Open the app →">Отвори app-а →</a>
-        </div>
+      <div class="app-cta">
+        <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener"
+           class="btn btn-primary"
+           data-bg="Влез в app-а →" data-en="Open the app →">Влез в app-а →</a>
+        <a href="index.html#cta" class="btn btn-ghost"
+           data-bg="Запиши се" data-en="Sign up">Запиши се</a>
       </div>
     </div>
   </section>
@@ -445,23 +514,10 @@
         <p class="pricing-sub" data-bg="Всички планове включват едно и също. Единствената разлика е броят тренировки в студиото." data-en="All plans include the same. The only difference is the number of studio sessions.">Всички планове включват едно и също. Единствената разлика е броят тренировки в студиото.</p>
       </div>
 
-      <!-- What's included (same for all plans) -->
-      <div class="pricing-includes">
-        <span class="pricing-includes-label" data-bg="Всички планове включват" data-en="All plans include">Всички планове включват</span>
-        <div class="pricing-includes-grid">
-          <div class="pricing-includes-item" data-bg="Онлайн консултация с лекар" data-en="Online doctor consultation">Онлайн консултация с лекар</div>
-          <div class="pricing-includes-item" data-bg="Изграждане и проследяване" data-en="Strategy & tracking">Изграждане и проследяване</div>
-          <div class="pricing-includes-item" data-bg="SYNRG Inner Circle група" data-en="SYNRG Inner Circle group">SYNRG Inner Circle група</div>
-          <div class="pricing-includes-item" data-bg="Достъп до SYNRG App" data-en="Access to SYNRG App">Достъп до SYNRG App</div>
-          <div class="pricing-includes-item" data-bg="Онлайн програми Physio & Doctor" data-en="Physio & Doctor online programs">Онлайн програми Physio &amp; Doctor</div>
-          <div class="pricing-includes-item" data-bg="Онлайн тренировки за вкъщи" data-en="Online home workouts">Онлайн тренировки за вкъщи</div>
-        </div>
-      </div>
-
       <!-- Plan cards -->
       <div class="pricing-grid">
 
-        <!-- Flex -->
+        <!-- SYNRG FLEX -->
         <div class="price-card">
           <div class="price-plan-name" data-bg="SYNRG FLEX" data-en="SYNRG FLEX">SYNRG FLEX</div>
           <div class="price-sessions" data-bg="8" data-en="8">8</div>
@@ -472,9 +528,17 @@
             <span class="price-number">154</span>
           </div>
           <div class="price-bgn" data-bg="≈ 300лв / месец" data-en="≈ 300 BGN / month">≈ 300лв / месец</div>
+          <ul class="price-features">
+            <li data-bg="Онлайн консултация с лекар"        data-en="Online doctor consultation">Онлайн консултация с лекар</li>
+            <li data-bg="Изграждане и проследяване"          data-en="Strategy &amp; tracking">Изграждане и проследяване</li>
+            <li data-bg="SYNRG Inner Circle група"           data-en="SYNRG Inner Circle group">SYNRG Inner Circle група</li>
+            <li data-bg="Достъп до SYNRG App"                data-en="Access to SYNRG App">Достъп до SYNRG App</li>
+            <li data-bg="Онлайн програми Physio &amp; Doctor" data-en="Physio &amp; Doctor programs">Онлайн програми Physio &amp; Doctor</li>
+            <li data-bg="Онлайн тренировки за вкъщи"         data-en="Online home workouts">Онлайн тренировки за вкъщи</li>
+          </ul>
         </div>
 
-        <!-- Progress (featured) -->
+        <!-- SYNRG PROGRESS (featured) -->
         <div class="price-card featured">
           <div class="price-badge" data-bg="Най-популярен" data-en="Most popular">Най-популярен</div>
           <div class="price-plan-name" data-bg="SYNRG PROGRESS" data-en="SYNRG PROGRESS">SYNRG PROGRESS</div>
@@ -486,9 +550,17 @@
             <span class="price-number">179</span>
           </div>
           <div class="price-bgn" data-bg="≈ 350лв / месец" data-en="≈ 350 BGN / month">≈ 350лв / месец</div>
+          <ul class="price-features">
+            <li data-bg="Онлайн консултация с лекар"        data-en="Online doctor consultation">Онлайн консултация с лекар</li>
+            <li data-bg="Изграждане и проследяване"          data-en="Strategy &amp; tracking">Изграждане и проследяване</li>
+            <li data-bg="SYNRG Inner Circle група"           data-en="SYNRG Inner Circle group">SYNRG Inner Circle група</li>
+            <li data-bg="Достъп до SYNRG App"                data-en="Access to SYNRG App">Достъп до SYNRG App</li>
+            <li data-bg="Онлайн програми Physio &amp; Doctor" data-en="Physio &amp; Doctor programs">Онлайн програми Physio &amp; Doctor</li>
+            <li data-bg="Онлайн тренировки за вкъщи"         data-en="Online home workouts">Онлайн тренировки за вкъщи</li>
+          </ul>
         </div>
 
-        <!-- Plus -->
+        <!-- SYNRG PLUS -->
         <div class="price-card">
           <div class="price-plan-name" data-bg="SYNRG PLUS" data-en="SYNRG PLUS">SYNRG PLUS</div>
           <div class="price-sessions" data-bg="∞" data-en="∞">∞</div>
@@ -499,6 +571,14 @@
             <span class="price-number">202</span>
           </div>
           <div class="price-bgn" data-bg="≈ 400лв / месец · само Варна" data-en="≈ 400 BGN / month · Varna only">≈ 400лв / месец · само Варна</div>
+          <ul class="price-features">
+            <li data-bg="Онлайн консултация с лекар"        data-en="Online doctor consultation">Онлайн консултация с лекар</li>
+            <li data-bg="Изграждане и проследяване"          data-en="Strategy &amp; tracking">Изграждане и проследяване</li>
+            <li data-bg="SYNRG Inner Circle група"           data-en="SYNRG Inner Circle group">SYNRG Inner Circle група</li>
+            <li data-bg="Достъп до SYNRG App"                data-en="Access to SYNRG App">Достъп до SYNRG App</li>
+            <li data-bg="Онлайн програми Physio &amp; Doctor" data-en="Physio &amp; Doctor programs">Онлайн програми Physio &amp; Doctor</li>
+            <li data-bg="Онлайн тренировки за вкъщи"         data-en="Online home workouts">Онлайн тренировки за вкъщи</li>
+          </ul>
         </div>
 
       </div><!-- /pricing-grid -->
@@ -549,20 +629,6 @@
     function openMobileMenu()  { document.getElementById('mobileMenu').classList.add('open');    document.body.style.overflow = 'hidden' }
     function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow = '' }
 
-    // Detect iframe blocked (X-Frame-Options / CSP)
-    const iframe = document.getElementById('appIframe')
-    const fallback = document.getElementById('iframeFallback')
-    // Check after a short delay — if iframe has no content, show fallback
-    setTimeout(() => {
-      try {
-        // If same-origin this works; if blocked, contentDocument is null
-        if (!iframe.contentDocument && !iframe.contentWindow?.location?.href) {
-          fallback.style.display = 'flex'; iframe.style.display = 'none'
-        }
-      } catch (e) {
-        // Cross-origin but loaded — probably fine, do nothing
-      }
-    }, 4000)
   </script>
 </body>
 </html>
