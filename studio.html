@@ -176,32 +176,6 @@
     #pricing .pricing-header h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 12px; }
     #pricing .pricing-sub { font-size: 16px; color: var(--muted); max-width: 540px; margin: 0 auto; }
 
-    /* Common features box */
-    .pricing-includes {
-      background: var(--logan-deep);
-      border: 1px solid var(--logan-border);
-      border-radius: var(--radius-md);
-      padding: 28px 32px;
-      margin-bottom: 48px;
-    }
-    .pricing-includes-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--logan); margin-bottom: 16px; display: block;
-    }
-    .pricing-includes-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 10px 24px;
-    }
-    .pricing-includes-item {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 700; color: var(--cream);
-    }
-    .pricing-includes-item::before {
-      content: ''; flex-shrink: 0;
-      width: 6px; height: 6px;
-      background: var(--mint); border-radius: 50%;
-    }
-
     /* ── Plan bubbles ── */
     .pricing-grid {
       display: grid;
@@ -211,39 +185,34 @@
     }
 
     .price-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 36px;
-      padding: 52px 36px 48px;
+      background: rgba(170,169,205,0.09);
+      border: 1px solid rgba(170,169,205,0.22);
+      border-radius: 32px;
+      padding: 48px 36px 44px;
       display: flex; flex-direction: column; align-items: center;
       text-align: center;
       position: relative;
-      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease), border-color 0.25s;
+      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease), border-color 0.25s, background 0.25s;
     }
     .price-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 64px rgba(0,0,0,0.45);
-      border-color: var(--logan-border);
+      background: rgba(170,169,205,0.13);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+      border-color: rgba(170,169,205,0.4);
     }
 
     /* ── Featured bubble ── */
     .price-card.featured {
-      background: linear-gradient(160deg,
-        rgba(196,233,191,0.11) 0%,
-        rgba(196,233,191,0.05) 55%,
-        rgba(13,21,16,0.5) 100%);
-      border-color: rgba(196,233,191,0.38);
-      box-shadow:
-        0 0 0 1px rgba(196,233,191,0.16),
-        0 8px 80px rgba(196,233,191,0.1);
-      padding: 64px 36px 56px;
+      background: rgba(170,169,205,0.18);
+      border-color: rgba(170,169,205,0.45);
+      box-shadow: 0 4px 60px rgba(170,169,205,0.1);
+      padding: 64px 36px 52px;
     }
     .price-card.featured:hover {
-      transform: translateY(-10px);
-      box-shadow:
-        0 0 0 1px rgba(196,233,191,0.55),
-        0 28px 80px rgba(196,233,191,0.18);
-      border-color: rgba(196,233,191,0.65);
+      transform: translateY(-8px);
+      background: rgba(170,169,205,0.24);
+      box-shadow: 0 24px 72px rgba(170,169,205,0.18);
+      border-color: rgba(196,233,191,0.5);
     }
 
     .price-badge {
@@ -251,47 +220,49 @@
       background: var(--mint); color: #0d1510;
       font-size: 10px; font-weight: 700; font-style: normal;
       letter-spacing: 0.14em; text-transform: uppercase;
-      padding: 5px 18px; border-radius: 100px; white-space: nowrap;
+      padding: 5px 20px; border-radius: 100px; white-space: nowrap;
     }
 
+    /* Plan name — big italic heading like production site */
     .price-plan-name {
-      font-size: 10px; font-weight: 700; font-style: normal;
-      color: var(--logan); letter-spacing: 0.2em; text-transform: uppercase;
-      margin-bottom: 24px;
+      font-size: clamp(18px, 2.2vw, 24px);
+      font-weight: 700; font-style: italic;
+      color: var(--cream); letter-spacing: -0.02em;
+      margin-bottom: 28px; line-height: 1.1;
     }
     .price-card.featured .price-plan-name { color: var(--mint); }
 
     /* Session count — centrepiece */
     .price-sessions {
-      font-size: clamp(72px, 10vw, 104px); font-weight: 700; font-style: italic;
+      font-size: clamp(64px, 9vw, 96px); font-weight: 700; font-style: italic;
       color: var(--cream); line-height: 1; letter-spacing: -0.04em;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .price-card.featured .price-sessions { color: var(--mint); }
 
     .price-sessions-label {
       font-size: 12px; font-weight: 700; color: var(--muted);
-      font-style: italic; margin-bottom: 32px; letter-spacing: 0.04em;
+      font-style: italic; margin-bottom: 28px; letter-spacing: 0.04em;
     }
 
     .price-divider {
       border: none;
-      border-top: 1px solid rgba(255,255,255,0.07);
+      border-top: 1px solid rgba(170,169,205,0.18);
       width: 100%;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
-    .price-card.featured .price-divider { border-color: rgba(196,233,191,0.15); }
+    .price-card.featured .price-divider { border-color: rgba(170,169,205,0.35); }
 
     .price-amount {
-      display: flex; align-items: baseline; gap: 5px;
-      margin-bottom: 6px;
+      display: flex; align-items: baseline; gap: 4px;
+      margin-bottom: 4px;
     }
     .price-currency {
-      font-size: 20px; font-weight: 700; font-style: italic;
+      font-size: 18px; font-weight: 700; font-style: italic;
       color: var(--cream); align-self: flex-start; margin-top: 8px;
     }
     .price-number {
-      font-size: clamp(40px, 5vw, 56px); font-weight: 700; font-style: italic;
+      font-size: clamp(44px, 5.5vw, 60px); font-weight: 700; font-style: italic;
       color: var(--cream); line-height: 1; letter-spacing: -0.03em;
     }
     .price-bgn {
