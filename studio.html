@@ -165,6 +165,110 @@
     .iframe-fallback h3 { font-size: 28px; color: var(--cream); margin-bottom: 8px; }
     .iframe-fallback p { color: var(--muted); font-size: 15px; max-width: 380px; }
 
+    /* ── Pricing ── */
+    #pricing {
+      padding: 96px 0 112px;
+      border-top: 1px solid var(--border);
+    }
+    #pricing .pricing-header { margin-bottom: 56px; }
+    #pricing .pricing-header h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 12px; }
+    #pricing .pricing-sub { font-size: 16px; color: var(--muted); max-width: 540px; }
+
+    /* Common features box */
+    .pricing-includes {
+      background: var(--logan-deep);
+      border: 1px solid var(--logan-border);
+      border-radius: var(--radius-md);
+      padding: 28px 32px;
+      margin-bottom: 40px;
+    }
+    .pricing-includes-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--logan); margin-bottom: 16px; display: block;
+    }
+    .pricing-includes-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px 24px;
+    }
+    .pricing-includes-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 700; color: var(--cream);
+    }
+    .pricing-includes-item::before {
+      content: ''; flex-shrink: 0;
+      width: 6px; height: 6px;
+      background: var(--mint); border-radius: 50%;
+    }
+
+    /* Plan cards */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; align-items: start;
+    }
+    .price-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--logan-border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px 32px;
+      display: flex; flex-direction: column;
+      position: relative;
+      transition: border-color 0.25s var(--ease), transform 0.25s var(--ease-spring);
+    }
+    .price-card:hover { border-color: var(--logan); transform: translateY(-4px); }
+    .price-card.featured { background: var(--logan-dim); border-color: var(--logan); }
+    .price-card.featured:hover { border-color: var(--mint); }
+
+    .price-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--mint); color: #0d1510;
+      font-size: 10px; font-weight: 700; font-style: normal;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 4px 16px; border-radius: 100px; white-space: nowrap;
+    }
+
+    .price-plan-name {
+      font-size: 11px; font-weight: 700; font-style: normal;
+      color: var(--logan); letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* Session count — the hero number */
+    .price-sessions {
+      font-size: clamp(64px, 9vw, 96px); font-weight: 700; font-style: italic;
+      color: var(--cream); line-height: 1; letter-spacing: -0.04em;
+      margin-bottom: 4px;
+    }
+    .price-card.featured .price-sessions { color: var(--mint); }
+    .price-sessions-label {
+      font-size: 13px; font-weight: 700; color: var(--muted);
+      font-style: italic; margin-bottom: 28px;
+    }
+
+    .price-amount {
+      display: flex; align-items: baseline; gap: 4px;
+      margin-bottom: 4px;
+    }
+    .price-currency { font-size: 16px; font-weight: 700; font-style: italic; color: var(--cream); }
+    .price-number { font-size: clamp(32px, 4vw, 44px); font-weight: 700; font-style: italic; color: var(--cream); line-height: 1; letter-spacing: -0.03em; }
+    .price-bgn { font-size: 12px; font-weight: 700; color: var(--muted); font-style: italic; margin-bottom: 20px; }
+
+    .price-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 20px; }
+
+    .price-cta-note {
+      font-size: 13px; font-weight: 700; font-style: italic;
+      color: var(--muted); text-align: center; margin-top: 16px;
+    }
+    .price-cta-note a { color: var(--logan); text-decoration: underline; text-underline-offset: 3px; }
+    .price-cta-note a:hover { color: var(--cream); }
+
+    @media (max-width: 960px) {
+      .pricing-includes-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    }
+    @media (max-width: 640px) {
+      .pricing-includes-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── Footer ── */
     footer { border-top: 1px solid var(--border); padding: 40px 0 32px; }
     .footer-main { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
@@ -196,11 +300,9 @@
   <!-- ── Mobile menu ── -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
-    <a href="index.html"  onclick="closeMobileMenu()" data-bg="Начало"   data-en="Home">Начало</a>
-    <a href="studio.html" onclick="closeMobileMenu()" data-bg="Студио"   data-en="Studio">Студио</a>
-    <a href="index.html#services" onclick="closeMobileMenu()" data-bg="Услуги" data-en="Services">Услуги</a>
-    <a href="index.html#team"     onclick="closeMobileMenu()" data-bg="Екип"   data-en="Team">Екип</a>
-    <a href="index.html#cta"      onclick="closeMobileMenu()" data-bg="Контакт" data-en="Contact">Контакт</a>
+    <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"                data-en="Studio">Студио</a>
+    <a href="remote.html"  onclick="closeMobileMenu()" data-bg="Дистанционни продукти" data-en="Remote products">Дистанционни продукти</a>
+    <a href="index.html#cta" onclick="closeMobileMenu()" data-bg="Контакт"             data-en="Contact">Контакт</a>
     <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary" style="font-style:normal" data-bg="Влез в app-а" data-en="Enter the app">Влез в app-а</a>
   </div>
 
@@ -212,11 +314,9 @@
       </a>
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
-          <li><a href="index.html"          data-bg="Начало"   data-en="Home">Начало</a></li>
-          <li><a href="studio.html" class="active" data-bg="Студио"   data-en="Studio">Студио</a></li>
-          <li><a href="services.html" data-bg="Услуги"   data-en="Services">Услуги</a></li>
-          <li><a href="index.html#team"     data-bg="Екип"     data-en="Team">Екип</a></li>
-          <li><a href="index.html#cta"      data-bg="Контакт"  data-en="Contact">Контакт</a></li>
+          <li><a href="studio.html" class="active" data-bg="Студио"                data-en="Studio">Студио</a></li>
+          <li><a href="remote.html"               data-bg="Дистанционни продукти"  data-en="Remote products">Дистанционни продукти</a></li>
+          <li><a href="index.html#cta"             data-bg="Контакт"               data-en="Contact">Контакт</a></li>
         </ul>
       </nav>
       <div class="nav-right">
@@ -225,8 +325,8 @@
           <span>|</span>
           <button onclick="setLang('en')" class="lang-btn" id="btn-en">EN</button>
         </div>
-        <a href="index.html#cta" class="btn btn-ghost" data-bg="Запиши се" data-en="Sign up">Запиши се</a>
-        <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary" data-bg="Влез →" data-en="Enter →">Влез →</a>
+        <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener" class="btn btn-ghost" data-bg="Акаунт" data-en="Account">Акаунт</a>
+        <a href="index.html#cta" class="btn btn-primary" data-bg="Запиши се →" data-en="Sign up →">Запиши се →</a>
         <button class="nav-toggle" onclick="openMobileMenu()" aria-label="Меню">
           <span></span><span></span><span></span>
         </button>
@@ -333,6 +433,78 @@
           <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener" class="btn btn-primary" data-bg="Отвори app-а →" data-en="Open the app →">Отвори app-а →</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── Pricing ── -->
+  <section id="pricing">
+    <div class="container">
+      <div class="pricing-header">
+        <span class="overline" data-bg="Членство" data-en="Membership">Членство</span>
+        <h2 data-bg="Избери своя план." data-en="Choose your plan.">Избери своя план.</h2>
+        <p class="pricing-sub" data-bg="Всички планове включват едно и също. Единствената разлика е броят тренировки в студиото." data-en="All plans include the same. The only difference is the number of studio sessions.">Всички планове включват едно и също. Единствената разлика е броят тренировки в студиото.</p>
+      </div>
+
+      <!-- What's included (same for all plans) -->
+      <div class="pricing-includes">
+        <span class="pricing-includes-label" data-bg="Всички планове включват" data-en="All plans include">Всички планове включват</span>
+        <div class="pricing-includes-grid">
+          <div class="pricing-includes-item" data-bg="Онлайн консултация с лекар" data-en="Online doctor consultation">Онлайн консултация с лекар</div>
+          <div class="pricing-includes-item" data-bg="Изграждане и проследяване" data-en="Strategy & tracking">Изграждане и проследяване</div>
+          <div class="pricing-includes-item" data-bg="SYNRG Inner Circle група" data-en="SYNRG Inner Circle group">SYNRG Inner Circle група</div>
+          <div class="pricing-includes-item" data-bg="Достъп до SYNRG App" data-en="Access to SYNRG App">Достъп до SYNRG App</div>
+          <div class="pricing-includes-item" data-bg="Онлайн програми Physio & Doctor" data-en="Physio & Doctor online programs">Онлайн програми Physio &amp; Doctor</div>
+          <div class="pricing-includes-item" data-bg="Онлайн тренировки за вкъщи" data-en="Online home workouts">Онлайн тренировки за вкъщи</div>
+        </div>
+      </div>
+
+      <!-- Plan cards -->
+      <div class="pricing-grid">
+
+        <!-- Flex -->
+        <div class="price-card">
+          <div class="price-plan-name" data-bg="SYNRG FLEX" data-en="SYNRG FLEX">SYNRG FLEX</div>
+          <div class="price-sessions" data-bg="8" data-en="8">8</div>
+          <div class="price-sessions-label" data-bg="тренировки / месец" data-en="sessions / month">тренировки / месец</div>
+          <hr class="price-divider" />
+          <div class="price-amount">
+            <span class="price-currency">€</span>
+            <span class="price-number">154</span>
+          </div>
+          <div class="price-bgn" data-bg="≈ 300лв / месец" data-en="≈ 300 BGN / month">≈ 300лв / месец</div>
+        </div>
+
+        <!-- Progress (featured) -->
+        <div class="price-card featured">
+          <div class="price-badge" data-bg="Най-популярен" data-en="Most popular">Най-популярен</div>
+          <div class="price-plan-name" data-bg="SYNRG PROGRESS" data-en="SYNRG PROGRESS">SYNRG PROGRESS</div>
+          <div class="price-sessions" data-bg="12" data-en="12">12</div>
+          <div class="price-sessions-label" data-bg="тренировки / месец" data-en="sessions / month">тренировки / месец</div>
+          <hr class="price-divider" />
+          <div class="price-amount">
+            <span class="price-currency">€</span>
+            <span class="price-number">179</span>
+          </div>
+          <div class="price-bgn" data-bg="≈ 350лв / месец" data-en="≈ 350 BGN / month">≈ 350лв / месец</div>
+        </div>
+
+        <!-- Plus -->
+        <div class="price-card">
+          <div class="price-plan-name" data-bg="SYNRG PLUS" data-en="SYNRG PLUS">SYNRG PLUS</div>
+          <div class="price-sessions" data-bg="∞" data-en="∞">∞</div>
+          <div class="price-sessions-label" data-bg="неограничени тренировки" data-en="unlimited sessions">неограничени тренировки</div>
+          <hr class="price-divider" />
+          <div class="price-amount">
+            <span class="price-currency">€</span>
+            <span class="price-number">202</span>
+          </div>
+          <div class="price-bgn" data-bg="≈ 400лв / месец · само Варна" data-en="≈ 400 BGN / month · Varna only">≈ 400лв / месец · само Варна</div>
+        </div>
+
+      </div><!-- /pricing-grid -->
+
+      <p class="price-cta-note" data-bg="Запиши се директно чрез <a href='index.html#cta'>формата</a> или пиши ни в <a href='https://www.instagram.com/synrg.beyondfitness' target='_blank' rel='noopener'>Instagram</a>." data-en="Sign up via <a href='index.html#cta'>the form</a> or message us on <a href='https://www.instagram.com/synrg.beyondfitness' target='_blank' rel='noopener'>Instagram</a>.">Запиши се директно чрез <a href="index.html#cta">формата</a> или пиши ни в <a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a>.</p>
+
     </div>
   </section>
 

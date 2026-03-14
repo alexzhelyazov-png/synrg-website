@@ -682,10 +682,9 @@
   <!-- ── Mobile menu ──────────────────────────────── -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
-    <a href="studio.html" onclick="closeMobileMenu()" data-bg="Студио"   data-en="Studio">Студио</a>
-    <a href="#services" onclick="closeMobileMenu()" data-bg="Услуги"   data-en="Services">Услуги</a>
-    <a href="#team"     onclick="closeMobileMenu()" data-bg="Екип"     data-en="Team">Екип</a>
-    <a href="#cta"      onclick="closeMobileMenu()" data-bg="Контакт"  data-en="Contact">Контакт</a>
+    <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"                data-en="Studio">Студио</a>
+    <a href="remote.html"  onclick="closeMobileMenu()" data-bg="Дистанционни продукти" data-en="Remote products">Дистанционни продукти</a>
+    <a href="#cta"         onclick="closeMobileMenu()" data-bg="Контакт"               data-en="Contact">Контакт</a>
     <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary" style="font-style:normal" data-bg="Влез в app-а" data-en="Enter the app">Влез в app-а</a>
   </div>
 
@@ -697,10 +696,9 @@
       </a>
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
-          <li><a href="studio.html" data-bg="Студио"  data-en="Studio">Студио</a></li>
-          <li><a href="services.html" data-bg="Услуги"  data-en="Services">Услуги</a></li>
-          <li><a href="#team"     data-bg="Екип"    data-en="Team">Екип</a></li>
-          <li><a href="#cta"      data-bg="Контакт" data-en="Contact">Контакт</a></li>
+          <li><a href="studio.html"  data-bg="Студио"                  data-en="Studio">Студио</a></li>
+          <li><a href="remote.html"  data-bg="Дистанционни продукти"   data-en="Remote products">Дистанционни продукти</a></li>
+          <li><a href="#cta"         data-bg="Контакт"                 data-en="Contact">Контакт</a></li>
         </ul>
       </nav>
       <div class="nav-right">
@@ -709,8 +707,8 @@
           <span>|</span>
           <button onclick="setLang('en')" class="lang-btn" id="btn-en">EN</button>
         </div>
-        <a href="#cta" class="btn btn-ghost" data-bg="Запиши се" data-en="Sign up">Запиши се</a>
-        <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary" data-bg="Влез →" data-en="Enter →">Влез →</a>
+        <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener" class="btn btn-ghost" data-bg="Акаунт" data-en="Account">Акаунт</a>
+        <a href="#cta" class="btn btn-primary" data-bg="Запиши се →" data-en="Sign up →">Запиши се →</a>
         <button class="nav-toggle" onclick="openMobileMenu()" aria-label="Меню">
           <span></span><span></span><span></span>
         </button>
@@ -778,7 +776,7 @@
       </p>
       <div class="hero-actions fade-up" data-delay="4">
         <a href="#cta" class="btn btn-primary" data-bg="Запиши се за консултация" data-en="Book a consultation">Запиши се за консултация</a>
-        <a href="services.html" class="btn btn-ghost" data-bg="Разгледай услугите" data-en="Explore services">Разгледай услугите</a>
+        <a href="studio.html" class="btn btn-ghost" data-bg="Разгледай студиото" data-en="Explore the studio">Разгледай студиото</a>
       </div>
     </div>
 
@@ -889,7 +887,7 @@
           <div class="service-num">01</div>
           <div class="service-name" data-bg="Тренировки в студиото" data-en="Studio training">Тренировки в студиото</div>
           <p class="service-desc" data-bg="Персонализирани тренировки с опитен треньор. Лимитирано студио с фокус върху техниката и прогреса. Записвай часове директно от app-а." data-en="Personalized training with an experienced coach. Limited studio with a focus on technique and progress. Book sessions directly from the app.">Персонализирани тренировки с опитен треньор. Лимитирано студио с фокус върху техниката и прогреса. Записвай часове директно от app-а.</p>
-          <span class="service-arrow" data-bg="Научи повече →" data-en="Learn more →">Научи повече →</span>
+          <a href="studio.html" class="service-arrow" data-bg="Научи повече →" data-en="Learn more →">Научи повече →</a>
         </article>
         <article class="service-card upcoming reveal" style="transition-delay:0.1s" tabindex="0">
           <div class="service-num">02</div>
@@ -917,7 +915,7 @@
       <p class="reveal" data-bg="Не наемаме треньори. Изграждаме екип от хора, на които им пука." data-en="We don't hire trainers. We build a team of people who care.">Не наемаме треньори. Изграждаме екип от хора, на които им пука.</p>
       <div class="team-grid">
         <article class="team-card reveal" tabindex="0">
-          <img src="images/alex.jpg" alt="Александър — Head Coach и основател" class="team-photo" loading="lazy" />
+          <img src="images/itzko.jpg" alt="Александър — Head Coach и основател" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Александър</h3>
             <p class="team-role" data-bg="Основател · Head Coach" data-en="Founder · Head Coach">Основател · Head Coach</p>
@@ -925,9 +923,9 @@
           </div>
         </article>
         <article class="team-card reveal" style="transition-delay:0.08s" tabindex="0">
-          <img src="images/kari.jpg" alt="Кари — треньор" class="team-photo" loading="lazy" />
+          <img src="images/kari.jpg" alt="Елина — треньор" class="team-photo" loading="lazy" />
           <div class="team-info">
-            <h3 class="team-name">Кари</h3>
+            <h3 class="team-name">Елина</h3>
             <p class="team-role" data-bg="Треньор · Онлайн програми" data-en="Coach · Online programs">Треньор · Онлайн програми</p>
             <span class="team-badge">Coach</span>
           </div>
@@ -941,7 +939,7 @@
           </div>
         </article>
         <article class="team-card reveal" style="transition-delay:0.08s" tabindex="0">
-          <img src="images/itzko.jpg" alt="Ицко — треньор" class="team-photo" loading="lazy" />
+          <img src="images/alex.jpg" alt="Ицко — треньор" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Ицко</h3>
             <p class="team-role" data-bg="Треньор" data-en="Coach">Треньор</p>
@@ -957,11 +955,11 @@
           </div>
         </article>
         <article class="team-card reveal" style="transition-delay:0.24s" tabindex="0">
-          <img src="images/elina.jpg" alt="Елина — треньор" class="team-photo" loading="lazy" />
+          <img src="images/elina.jpg" alt="Д-р Желязова — Лекар и рехабилитатор" class="team-photo" loading="lazy" />
           <div class="team-info">
-            <h3 class="team-name">Елина</h3>
-            <p class="team-role" data-bg="Треньор" data-en="Coach">Треньор</p>
-            <span class="team-badge">Coach</span>
+            <h3 class="team-name">Д-р Желязова</h3>
+            <p class="team-role" data-bg="Лекар · Рехабилитация" data-en="Doctor · Rehabilitation">Лекар · Рехабилитация</p>
+            <span class="team-badge">Doctor</span>
           </div>
         </article>
       </div>
