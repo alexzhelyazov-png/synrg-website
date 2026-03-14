@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SYNRG Beyond Fitness — Дистанционни продукти. Програми и планер от SYNRG. Достъпни от всяка точка." />
-  <title>Дистанционни продукти — SYNRG Beyond Fitness</title>
+  <meta name="description" content="SYNRG Beyond Fitness — С нас навсякъде. Програми и планер от SYNRG. Достъпни от всяка точка." />
+  <title>С нас навсякъде — SYNRG Beyond Fitness</title>
 
   <style>
     @font-face {
@@ -122,8 +122,8 @@
     }
     .remote-products-header { margin-bottom: 56px; }
     .products-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px; align-items: stretch;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px; align-items: stretch; max-width: 800px;
     }
     .product-card {
       background: rgba(255,255,255,0.03);
@@ -170,7 +170,7 @@
     .footer-links-inline a:hover { color: var(--cream); }
     .footer-copy { font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; }
 
-    @media (max-width: 900px) { .products-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .products-grid { grid-template-columns: 1fr; } }
     @media (max-width: 768px) {
       .deco { display: none; }
       .nav-links, .nav-right .btn-ghost { display: none; }
@@ -191,9 +191,9 @@
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
     <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"                data-en="Studio">Студио</a>
-    <a href="remote.html"  onclick="closeMobileMenu()" data-bg="Дистанционни продукти" data-en="Remote products">Дистанционни продукти</a>
+    <a href="remote.html"  onclick="closeMobileMenu()" data-bg="С нас навсякъде" data-en="With us anywhere">С нас навсякъде</a>
     <a href="index.html#cta" onclick="closeMobileMenu()" data-bg="Контакт"             data-en="Contact">Контакт</a>
-    <a href="./app/index.html" class="btn btn-primary" style="font-style:normal" data-bg="Влез в app-а" data-en="Enter the app">Влез в app-а</a>
+    <a href="index.html#cta" onclick="closeMobileMenu()" class="btn btn-primary" style="font-style:normal" data-bg="Запиши се →" data-en="Sign up →">Запиши се →</a>
   </div>
 
   <!-- ── Navbar ── -->
@@ -205,7 +205,7 @@
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
           <li><a href="studio.html"  data-bg="Студио"                data-en="Studio">Студио</a></li>
-          <li><a href="remote.html" class="active" data-bg="Дистанционни продукти" data-en="Remote products">Дистанционни продукти</a></li>
+          <li><a href="remote.html" class="active" data-bg="С нас навсякъде" data-en="With us anywhere">С нас навсякъде</a></li>
           <li><a href="index.html#cta" data-bg="Контакт"             data-en="Contact">Контакт</a></li>
         </ul>
       </nav>
@@ -262,7 +262,7 @@
 
     <div class="container remote-hero-content">
       <span class="overline" data-bg="SYNRG · Онлайн" data-en="SYNRG · Online">SYNRG · Онлайн</span>
-      <h1 data-bg="Дистанционни<br>продукти." data-en="Remote<br>products.">Дистанционни<br>продукти.</h1>
+      <h1 data-bg="С нас<br>навсякъде." data-en="With us<br>anywhere.">С нас<br>навсякъде.</h1>
       <p data-bg="Програмите и продуктите на SYNRG, достъпни от всяка точка. Без да живееш във Варна." data-en="SYNRG programs and products available from anywhere. No need to live in Varna.">Програмите и продуктите на SYNRG, достъпни от всяка точка. Без да живееш във Варна.</p>
     </div>
   </section>
@@ -277,28 +277,19 @@
 
       <div class="products-grid">
 
-        <!-- SYNRG Physio програми -->
+        <!-- SYNRG Програма -->
         <div class="product-card soon">
           <span class="soon-pill" data-bg="Детайли предстоят" data-en="Details coming">Детайли предстоят</span>
           <div class="product-num">01</div>
-          <div class="product-name" data-bg="SYNRG Physio програми" data-en="SYNRG Physio programs">SYNRG Physio програми</div>
-          <p class="product-desc" data-bg="Рехабилитационни и физиотерапевтични програми от Виви. Структурирани протоколи за болки, наранявания и функционално възстановяване." data-en="Rehabilitation and physiotherapy programs by Vivy. Structured protocols for pain, injuries and functional recovery.">Рехабилитационни и физиотерапевтични програми от Виви. Структурирани протоколи за болки, наранявания и функционално възстановяване.</p>
-          <span class="product-tag" data-bg="Онлайн достъп" data-en="Online access">Онлайн достъп</span>
-        </div>
-
-        <!-- SYNRG Doctor програми -->
-        <div class="product-card soon">
-          <span class="soon-pill" data-bg="Детайли предстоят" data-en="Details coming">Детайли предстоят</span>
-          <div class="product-num">02</div>
-          <div class="product-name" data-bg="SYNRG Doctor програми" data-en="SYNRG Doctor programs">SYNRG Doctor програми</div>
-          <p class="product-desc" data-bg="Медицински консултации и протоколи от Д-р Желязова. Онлайн консултации, изграждане на стратегия и проследяване на напредъка." data-en="Medical consultations and protocols by Dr. Zhelyazova. Online consultations, strategy building and progress tracking.">Медицински консултации и протоколи от Д-р Желязова. Онлайн консултации, изграждане на стратегия и проследяване на напредъка.</p>
+          <div class="product-name" data-bg="SYNRG Програма" data-en="SYNRG Program">SYNRG Програма</div>
+          <p class="product-desc" data-bg="Онлайн програми от екипа на SYNRG — за рехабилитация, физиотерапия и медицински протоколи. Достъпни от всяка точка." data-en="Online programs by the SYNRG team — for rehabilitation, physiotherapy and medical protocols. Available from anywhere.">Онлайн програми от екипа на SYNRG — за рехабилитация, физиотерапия и медицински протоколи. Достъпни от всяка точка.</p>
           <span class="product-tag" data-bg="Онлайн достъп" data-en="Online access">Онлайн достъп</span>
         </div>
 
         <!-- SYNRG Планер -->
         <div class="product-card soon">
           <span class="soon-pill" data-bg="Детайли предстоят" data-en="Details coming">Детайли предстоят</span>
-          <div class="product-num">03</div>
+          <div class="product-num">02</div>
           <div class="product-name" data-bg="SYNRG Планер" data-en="SYNRG Planner">SYNRG Планер</div>
           <p class="product-desc" data-bg="Физически планер за структура в храненето и ежедневието. Инструмент за хора, които искат да контролират процеса." data-en="A physical planner for structure in nutrition and daily life. A tool for people who want to control the process.">Физически планер за структура в храненето и ежедневието. Инструмент за хора, които искат да контролират процеса.</p>
           <span class="product-tag" data-bg="Физически продукт" data-en="Physical product">Физически продукт</span>
