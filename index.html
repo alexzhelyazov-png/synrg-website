@@ -501,6 +501,32 @@
     #cta p { font-size: 17px; max-width: 440px; margin: 0 auto 44px; position: relative; }
     .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
 
+    /* ── CTA Form ───────────────────────────────────── */
+    .cta-form { width: 100%; max-width: 480px; margin: 0 auto; text-align: left; position: relative; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .form-field label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--logan); font-style: normal; }
+    .form-field input,
+    .form-field textarea {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--logan-border);
+      border-radius: var(--radius-sm); padding: 14px 16px;
+      font-family: 'MontBlanc', sans-serif; font-size: 14px; font-weight: 700;
+      color: var(--cream); outline: none; width: 100%;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus { border-color: var(--logan); }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: var(--muted); }
+    .form-field textarea { resize: vertical; min-height: 96px; }
+    .form-submit { width: 100%; margin-top: 8px; justify-content: center; }
+    .cta-form-footer { text-align: center; margin-top: 20px; }
+    .cta-success { display: none; text-align: center; padding: 40px 0; }
+    .cta-success .success-icon { font-size: 48px; margin-bottom: 16px; }
+    .cta-success h3 { font-size: 28px; color: var(--cream); margin-bottom: 8px; }
+    .cta-success p { color: var(--muted); font-size: 15px; margin-bottom: 0; max-width: none; }
+    @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+
     /* ── Footer ────────────────────────────────────── */
     footer { border-top: 1px solid var(--border); padding: 56px 0 40px; }
     .footer-divider {
@@ -653,7 +679,7 @@
   <!-- ── Mobile menu ──────────────────────────────── -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
-    <a href="#about"    onclick="closeMobileMenu()" data-bg="Студио"   data-en="Studio">Студио</a>
+    <a href="studio.html" onclick="closeMobileMenu()" data-bg="Студио"   data-en="Studio">Студио</a>
     <a href="#services" onclick="closeMobileMenu()" data-bg="Услуги"   data-en="Services">Услуги</a>
     <a href="#team"     onclick="closeMobileMenu()" data-bg="Екип"     data-en="Team">Екип</a>
     <a href="#cta"      onclick="closeMobileMenu()" data-bg="Контакт"  data-en="Contact">Контакт</a>
@@ -663,12 +689,12 @@
   <!-- ── Navbar ───────────────────────────────────── -->
   <header id="navbar" role="banner">
     <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="SYNRG Начало">
+      <a href="./index.html" class="nav-logo" aria-label="SYNRG Начало">
         <img src="assets/synrg_Primary_Logo.svg" alt="SYNRG Beyond Fitness" />
       </a>
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
-          <li><a href="#about"    data-bg="Студио"  data-en="Studio">Студио</a></li>
+          <li><a href="studio.html" data-bg="Студио"  data-en="Studio">Студио</a></li>
           <li><a href="#services" data-bg="Услуги"  data-en="Services">Услуги</a></li>
           <li><a href="#team"     data-bg="Екип"    data-en="Team">Екип</a></li>
           <li><a href="#cta"      data-bg="Контакт" data-en="Contact">Контакт</a></li>
@@ -974,9 +1000,46 @@
         <span class="overline" style="margin-bottom:16px" data-bg="Готов ли си" data-en="Ready?">Готов ли си</span>
         <h2 id="cta-heading" data-bg="Започни сега." data-en="Start now.">Започни сега.</h2>
         <p data-bg="Запиши се за безплатна консултация и разбери как SYNRG може да работи за теб." data-en="Sign up for a free consultation and find out how SYNRG can work for you.">Запиши се за безплатна консултация и разбери как SYNRG може да работи за теб.</p>
-        <div class="cta-actions">
-          <a href="https://www.instagram.com/synrg.beyondfitness" class="btn btn-primary" target="_blank" rel="noopener" data-bg="Свържи се с нас" data-en="Get in touch">Свържи се с нас</a>
-          <a href="https://app.synrg-beyondfitness.com" class="btn btn-ghost" data-bg="Влез в app-а" data-en="Enter the app">Влез в app-а</a>
+
+        <!-- ✅ Success state -->
+        <div class="cta-success" id="ctaSuccess">
+          <div class="success-icon">💪</div>
+          <h3 data-bg="Получихме съобщението ти!" data-en="Message received!">Получихме съобщението ти!</h3>
+          <p data-bg="Ще се свържем с теб скоро." data-en="We'll be in touch soon.">Ще се свържем с теб скоро.</p>
+        </div>
+
+        <!-- ── Sign-up form
+             SETUP: Register at formspree.io with info@synrg-beyondfitness.com
+             then replace YOUR_FORM_ID below with your actual form ID.
+        ──────────────────────────────────────────────── -->
+        <form class="cta-form" id="ctaForm"
+              action="https://formspree.io/f/YOUR_FORM_ID"
+              method="POST">
+          <div class="form-row">
+            <div class="form-field">
+              <label data-bg="Твоето Име" data-en="Your name">Твоето Име</label>
+              <input type="text" name="name" placeholder="Александър" required
+                     data-placeholder-bg="Александър" data-placeholder-en="Alexander" />
+            </div>
+            <div class="form-field">
+              <label data-bg="Телефон / Имейл" data-en="Phone / Email">Телефон / Имейл</label>
+              <input type="text" name="contact" placeholder="+359 88 …" required />
+            </div>
+          </div>
+          <div class="form-field">
+            <label data-bg="Съобщение (по желание)" data-en="Message (optional)">Съобщение (по желание)</label>
+            <textarea name="message"
+                      data-placeholder-bg="Разкажи ни малко за целите си…"
+                      data-placeholder-en="Tell us a bit about your goals…"
+                      placeholder="Разкажи ни малко за целите си…"></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="Ново запитване от synrg-beyondfitness.com" />
+          <button type="submit" class="btn btn-primary form-submit"
+                  data-bg="Запиши се" data-en="Sign up">Запиши се</button>
+        </form>
+        <div class="cta-form-footer">
+          <a href="https://app.synrg-beyondfitness.com" class="btn btn-ghost"
+             style="display:inline-flex" data-bg="Влез в app-а →" data-en="Enter the app →">Влез в app-а →</a>
         </div>
       </div>
     </div>
@@ -1005,6 +1068,31 @@
   </footer>
 
   <script>
+    // CTA Form submit
+    const ctaForm = document.getElementById('ctaForm')
+    if (ctaForm) {
+      ctaForm.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const btn = ctaForm.querySelector('[type=submit]')
+        const origText = btn.textContent
+        btn.textContent = '…'; btn.disabled = true
+        try {
+          const res = await fetch(ctaForm.action, {
+            method: 'POST', body: new FormData(ctaForm),
+            headers: { 'Accept': 'application/json' }
+          })
+          if (res.ok) {
+            ctaForm.style.display = 'none'
+            document.querySelector('.cta-form-footer').style.display = 'none'
+            document.getElementById('ctaSuccess').style.display = 'block'
+          } else { throw new Error('error') }
+        } catch {
+          btn.textContent = origText; btn.disabled = false
+          alert('Нещо се обърка. Пробвай пак или ни пиши в Instagram.')
+        }
+      })
+    }
+
     // Language toggle
     function setLang(lang) {
       document.querySelectorAll('[data-bg]').forEach(el => {
