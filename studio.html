@@ -139,6 +139,7 @@
     #studio-app {
       padding: 80px 0 96px;
       border-top: 1px solid var(--border);
+      position: relative; overflow: hidden;
     }
     #studio-app h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 8px; }
     #studio-app > .container > p { font-size: 16px; margin-bottom: 44px; }
@@ -452,6 +453,58 @@
 
   <!-- ── App section ── -->
   <section id="studio-app">
+
+    <!-- Zigzag — top left, mint faint -->
+    <div class="deco" aria-hidden="true"
+         style="top:6%;left:3%;opacity:0.18;animation:floatC 12s ease-in-out infinite 0.8s;">
+      <div class="deco-inner">
+        <svg width="106" height="38" viewBox="0 0 106 38" fill="none">
+          <path d="M4 30 L22 8 L40 30 L58 8 L76 30 L94 8" stroke="#c4e9bf" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Double chevron — top right, logan -->
+    <div class="deco" aria-hidden="true"
+         style="top:8%;right:4%;opacity:0.28;animation:floatA 8s ease-in-out infinite 1.5s;">
+      <div class="deco-inner">
+        <svg width="78" height="108" viewBox="0 0 78 108" fill="none">
+          <path d="M10 7 L42 54 L10 101" stroke="#AAA9CD" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M36 7 L68 54 L36 101" stroke="#AAA9CD" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Lightning bolt — left mid, logan -->
+    <div class="deco" aria-hidden="true"
+         style="top:45%;left:2%;opacity:0.22;animation:floatB 10s ease-in-out infinite 2.5s;">
+      <div class="deco-inner">
+        <svg width="46" height="66" viewBox="0 0 46 66" fill="#AAA9CD">
+          <path d="M28 3 L8 36 L22 36 L18 63 L38 30 L24 30 L28 3Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Small lightning — right bottom, mint -->
+    <div class="deco" aria-hidden="true"
+         style="bottom:10%;right:6%;opacity:0.2;animation:floatD 11s ease-in-out infinite 0.3s;">
+      <div class="deco-inner">
+        <svg width="30" height="44" viewBox="0 0 30 44" fill="#c4e9bf">
+          <path d="M18 2 L4 22 L13 22 L12 42 L26 22 L17 22 L18 2Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Single chevron — bottom left, logan -->
+    <div class="deco" aria-hidden="true"
+         style="bottom:14%;left:5%;opacity:0.16;animation:floatE 14s ease-in-out infinite 4s;">
+      <div class="deco-inner">
+        <svg width="42" height="68" viewBox="0 0 42 68" fill="none">
+          <path d="M8 4 L34 34 L8 64" stroke="#AAA9CD" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
     <div class="container">
       <span class="overline" data-bg="Апликацията" data-en="The App">Апликацията</span>
       <h2 data-bg="Запиши се.<br>Управлявай всичко." data-en="Book sessions.<br>Manage everything.">Запиши се.<br>Управлявай всичко.</h2>
