@@ -9,17 +9,20 @@
   <style>
     @font-face {
       font-family: 'MontBlanc';
-      src: url('fonts/MontBlanc-Bold.woff2') format('woff2');
+      src: url('fonts/MontBlanc-Bold.woff2') format('woff2'),
+           url('fonts/MontBlanc-Bold.woff') format('woff');
       font-weight: 700; font-style: normal; font-display: swap;
     }
     @font-face {
       font-family: 'MontBlanc';
-      src: url('fonts/MontBlanc-BoldItalic.woff2') format('woff2');
+      src: url('fonts/MontBlanc-BoldItalic.woff2') format('woff2'),
+           url('fonts/MontBlanc-BoldItalic.woff') format('woff');
       font-weight: 700; font-style: italic; font-display: swap;
     }
     @font-face {
       font-family: 'MontBlanc';
-      src: url('fonts/MontBlanc-SemiBold.woff2') format('woff2');
+      src: url('fonts/MontBlanc-SemiBold.woff2') format('woff2'),
+           url('fonts/MontBlanc-SemiBold.woff') format('woff');
       font-weight: 600; font-style: normal; font-display: swap;
     }
 
@@ -43,6 +46,7 @@
       --radius-md:    18px;
       --radius-lg:    24px;
       --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
@@ -85,6 +89,33 @@
     .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
     .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; }
     .mobile-menu { display: none; }
+
+    /* ── Decorative shapes ── */
+    .deco { position: absolute; z-index: 0; cursor: default; }
+    .deco-inner { display: block; transition: transform 0.55s var(--ease-spring), opacity 0.3s; }
+    .deco:hover { animation-play-state: paused !important; }
+    .deco:hover .deco-inner { transform: rotate(90deg) scale(1.3); opacity: 1 !important; }
+
+    @keyframes floatA {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-20px) rotate(5deg); }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(16px) rotate(-4deg); }
+    }
+    @keyframes floatC {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50%       { transform: translateY(-14px) scale(1.04); }
+    }
+    @keyframes floatD {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(18px) rotate(3deg); }
+    }
+    @keyframes floatE {
+      0%, 100% { transform: translateY(0px) rotate(-10deg); }
+      50%       { transform: translateY(-16px) rotate(-7deg); }
+    }
 
     /* ── Hero ── */
     #studio-hero {
@@ -146,6 +177,7 @@
     .footer-copy { font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; }
 
     @media (max-width: 768px) {
+      .deco { display: none; }
       .nav-links, .nav-right .btn-ghost { display: none; }
       .nav-toggle { display: flex; }
       .mobile-menu { position: fixed; inset: 0; background: var(--bg); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
@@ -182,7 +214,7 @@
         <ul class="nav-links">
           <li><a href="index.html"          data-bg="Начало"   data-en="Home">Начало</a></li>
           <li><a href="studio.html" class="active" data-bg="Студио"   data-en="Studio">Студио</a></li>
-          <li><a href="index.html#services" data-bg="Услуги"   data-en="Services">Услуги</a></li>
+          <li><a href="services.html" data-bg="Услуги"   data-en="Services">Услуги</a></li>
           <li><a href="index.html#team"     data-bg="Екип"     data-en="Team">Екип</a></li>
           <li><a href="index.html#cta"      data-bg="Контакт"  data-en="Contact">Контакт</a></li>
         </ul>
@@ -204,6 +236,58 @@
 
   <!-- ── Studio Hero ── -->
   <section id="studio-hero">
+
+    <!-- Double chevron — top right, mint -->
+    <div class="deco" aria-hidden="true"
+         style="top:14%;right:5%;opacity:0.35;animation:floatA 7s ease-in-out infinite;">
+      <div class="deco-inner">
+        <svg width="78" height="108" viewBox="0 0 78 108" fill="none">
+          <path d="M10 7 L42 54 L10 101" stroke="#c4e9bf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M36 7 L68 54 L36 101" stroke="#c4e9bf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Lightning bolt — right mid, logan -->
+    <div class="deco" aria-hidden="true"
+         style="top:48%;right:12%;opacity:0.3;animation:floatB 9s ease-in-out infinite 1.2s;">
+      <div class="deco-inner">
+        <svg width="46" height="66" viewBox="0 0 46 66" fill="#AAA9CD">
+          <path d="M28 3 L8 36 L22 36 L18 63 L38 30 L24 30 L28 3Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Zigzag — upper mid, logan faint -->
+    <div class="deco" aria-hidden="true"
+         style="top:22%;right:28%;opacity:0.18;animation:floatC 11s ease-in-out infinite 0.6s;">
+      <div class="deco-inner">
+        <svg width="106" height="38" viewBox="0 0 106 38" fill="none">
+          <path d="M4 30 L22 8 L40 30 L58 8 L76 30 L94 8" stroke="#AAA9CD" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Single chevron — bottom right -->
+    <div class="deco" aria-hidden="true"
+         style="bottom:12%;right:6%;opacity:0.22;animation:floatE 13s ease-in-out infinite 2s;">
+      <div class="deco-inner">
+        <svg width="42" height="68" viewBox="0 0 42 68" fill="none">
+          <path d="M34 4 L8 34 L34 64" stroke="#AAA9CD" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Small lightning — left mid -->
+    <div class="deco" aria-hidden="true"
+         style="top:35%;right:42%;opacity:0.15;animation:floatD 10s ease-in-out infinite 3s;">
+      <div class="deco-inner">
+        <svg width="30" height="44" viewBox="0 0 30 44" fill="#c4e9bf">
+          <path d="M18 2 L4 22 L13 22 L12 42 L26 22 L17 22 L18 2Z"/>
+        </svg>
+      </div>
+    </div>
+
     <div class="container studio-hero-content">
       <span class="overline" data-bg="SYNRG · Варна" data-en="SYNRG · Varna">SYNRG · Варна</span>
       <h1 data-bg="Студиото." data-en="The Studio.">Студиото.</h1>
@@ -218,8 +302,8 @@
           <span class="studio-meta-value" data-bg="Пн – Сб, 08:00 – 20:00" data-en="Mon – Sat, 08:00 – 20:00">Пн – Сб, 08:00 – 20:00</span>
         </div>
         <div class="studio-meta-item">
-          <span class="studio-meta-label" data-bg="Групи" data-en="Groups">Групи</span>
-          <span class="studio-meta-value" data-bg="до 6 човека" data-en="up to 6 people">до 6 човека</span>
+          <span class="studio-meta-label" data-bg="Студио" data-en="Studio">Студио</span>
+          <span class="studio-meta-value" data-bg="Лимитирано" data-en="Limited">Лимитирано</span>
         </div>
       </div>
     </div>
