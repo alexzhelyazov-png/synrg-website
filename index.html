@@ -167,6 +167,11 @@
     .nav-links a:hover { color: var(--cream); }
     .nav-right { display: flex; align-items: center; gap: 10px; }
     .nav-right .btn { padding: 10px 20px; font-size: 13px; }
+    .lang-toggle { display: flex; align-items: center; gap: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; }
+    .lang-toggle span { color: var(--muted); }
+    .lang-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-family: inherit; font-size: 11px; font-weight: 700; font-style: italic; letter-spacing: 0.1em; padding: 4px 5px; border-radius: 4px; transition: color 0.2s; }
+    .lang-btn:hover { color: var(--cream); }
+    .lang-btn.active { color: var(--cream); }
 
     .nav-toggle {
       display: none; flex-direction: column; gap: 5px;
@@ -648,11 +653,11 @@
   <!-- ── Mobile menu ──────────────────────────────── -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
-    <a href="#about"    onclick="closeMobileMenu()">Студио</a>
-    <a href="#services" onclick="closeMobileMenu()">Услуги</a>
-    <a href="#team"     onclick="closeMobileMenu()">Екип</a>
-    <a href="#cta"      onclick="closeMobileMenu()">Контакт</a>
-    <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary" style="font-style:normal">Влез в app-а</a>
+    <a href="#about"    onclick="closeMobileMenu()" data-bg="Студио"   data-en="Studio">Студио</a>
+    <a href="#services" onclick="closeMobileMenu()" data-bg="Услуги"   data-en="Services">Услуги</a>
+    <a href="#team"     onclick="closeMobileMenu()" data-bg="Екип"     data-en="Team">Екип</a>
+    <a href="#cta"      onclick="closeMobileMenu()" data-bg="Контакт"  data-en="Contact">Контакт</a>
+    <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary" style="font-style:normal" data-bg="Влез в app-а" data-en="Enter the app">Влез в app-а</a>
   </div>
 
   <!-- ── Navbar ───────────────────────────────────── -->
@@ -663,15 +668,20 @@
       </a>
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
-          <li><a href="#about">Студио</a></li>
-          <li><a href="#services">Услуги</a></li>
-          <li><a href="#team">Екип</a></li>
-          <li><a href="#cta">Контакт</a></li>
+          <li><a href="#about"    data-bg="Студио"  data-en="Studio">Студио</a></li>
+          <li><a href="#services" data-bg="Услуги"  data-en="Services">Услуги</a></li>
+          <li><a href="#team"     data-bg="Екип"    data-en="Team">Екип</a></li>
+          <li><a href="#cta"      data-bg="Контакт" data-en="Contact">Контакт</a></li>
         </ul>
       </nav>
       <div class="nav-right">
-        <a href="#cta" class="btn btn-ghost">Запиши се</a>
-        <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary">Влез →</a>
+        <div class="lang-toggle">
+          <button onclick="setLang('bg')" class="lang-btn active" id="btn-bg">BG</button>
+          <span>|</span>
+          <button onclick="setLang('en')" class="lang-btn" id="btn-en">EN</button>
+        </div>
+        <a href="#cta" class="btn btn-ghost" data-bg="Запиши се" data-en="Sign up">Запиши се</a>
+        <a href="https://app.synrg-beyondfitness.com" class="btn btn-primary" data-bg="Влез →" data-en="Enter →">Влез →</a>
         <button class="nav-toggle" onclick="openMobileMenu()" aria-label="Меню">
           <span></span><span></span><span></span>
         </button>
@@ -729,17 +739,17 @@
     </div>
 
     <div class="container hero-content">
-      <div class="hero-tag fade-up" data-delay="1">Beyond Fitness · Варна</div>
+      <div class="hero-tag fade-up" data-delay="1" data-bg="Beyond Fitness · Варна" data-en="Beyond Fitness · Varna">Beyond Fitness · Варна</div>
       <h1 class="hero-headline fade-up" data-delay="2">
         Beyond<br>
         Fitness.<br>
-        <em>Не фитнес верига.<br>Нещо различно.</em>
+        <em data-bg="Не фитнес верига.<br>Нещо различно." data-en="Not a fitness chain.<br>Something different.">Не фитнес верига.<br>Нещо различно.</em>
       </h1>
       <p class="hero-sub fade-up" data-delay="3">
       </p>
       <div class="hero-actions fade-up" data-delay="4">
-        <a href="#cta" class="btn btn-primary">Запиши се за консултация</a>
-        <a href="#services" class="btn btn-ghost">Разгледай услугите</a>
+        <a href="#cta" class="btn btn-primary" data-bg="Запиши се за консултация" data-en="Book a consultation">Запиши се за консултация</a>
+        <a href="#services" class="btn btn-ghost" data-bg="Разгледай услугите" data-en="Explore services">Разгледай услугите</a>
       </div>
     </div>
 
@@ -751,15 +761,15 @@
       <div class="stats-grid">
         <div class="stat-item reveal">
           <div class="stat-number">300+</div>
-          <div class="stat-label">Трансформирани животи</div>
+          <div class="stat-label" data-bg="Трансформирани животи" data-en="Lives transformed">Трансформирани животи</div>
         </div>
         <div class="stat-item reveal">
           <div class="stat-number">5</div>
-          <div class="stat-label">Години опит</div>
+          <div class="stat-label" data-bg="Години опит" data-en="Years of experience">Години опит</div>
         </div>
         <div class="stat-item reveal">
           <div class="stat-number" style="color:var(--mint)">∞</div>
-          <div class="stat-label">Отвъд нормалното</div>
+          <div class="stat-label" data-bg="Отвъд нормалното" data-en="Beyond normal">Отвъд нормалното</div>
         </div>
       </div>
     </div>
@@ -781,15 +791,15 @@
       <div class="about-grid">
         <!-- Text left -->
         <div>
-          <span class="overline reveal">За нас</span>
-          <h2 id="about-heading" class="reveal">Не сме обикновен фитнес.</h2>
-          <p class="reveal">SYNRG е бутиково студио, изградено с убеждението, че истинските резултати идват от индивидуален подход, правилна методология и треньори, на които им пука.</p>
-          <p class="reveal">Работим с малки групи, за да може всеки клиент да получи вниманието, което заслужава. Не продаваме масови планове — изграждаме лична стратегия за всеки.</p>
+          <span class="overline reveal" data-bg="За нас" data-en="About">За нас</span>
+          <h2 id="about-heading" class="reveal" data-bg="Не сме обикновен фитнес." data-en="We're not your typical gym.">Не сме обикновен фитнес.</h2>
+          <p class="reveal" data-bg="SYNRG е бутиково студио, изградено с убеждението, че истинските резултати идват от индивидуален подход, правилна методология и треньори, на които им пука." data-en="SYNRG is a boutique studio built on the belief that real results come from a personalized approach, proper methodology and coaches who genuinely care.">SYNRG е бутиково студио, изградено с убеждението, че истинските резултати идват от индивидуален подход, правилна методология и треньори, на които им пука.</p>
+          <p class="reveal" data-bg="Работим с малки групи, за да може всеки клиент да получи вниманието, което заслужава. Не продаваме масови планове — изграждаме лична стратегия за всеки." data-en="We work with small groups so each client gets the attention they deserve. We don't sell mass plans — we build personal strategies.">Работим с малки групи, за да може всеки клиент да получи вниманието, което заслужава. Не продаваме масови планове — изграждаме лична стратегия за всеки.</p>
           <div class="about-tags reveal">
-            <span class="tag">Лимитирано студио</span>
-            <span class="tag">Персонализиран подход</span>
-            <span class="tag">Рехабилитация</span>
-            <span class="tag mint">Онлайн програми</span>
+            <span class="tag" data-bg="Лимитирано студио"    data-en="Limited spots">Лимитирано студио</span>
+            <span class="tag" data-bg="Персонализиран подход" data-en="Personalized approach">Персонализиран подход</span>
+            <span class="tag" data-bg="Рехабилитация"        data-en="Rehabilitation">Рехабилитация</span>
+            <span class="tag mint" data-bg="Онлайн програми" data-en="Online programs">Онлайн програми</span>
           </div>
         </div>
 
@@ -808,17 +818,17 @@
           </div>
 
           <div class="ap-eyebrow">SYNRG Beyond Fitness</div>
-          <div class="ap-quote">
+          <div class="ap-quote" data-bg="Изграждаме лична стратегия за всеки." data-en="We build a personal strategy for everyone.">
             Изграждаме лична стратегия за всеки.
           </div>
           <div class="ap-stats">
             <div class="ap-stat">
               <div class="ap-stat-num">300+</div>
-              <div class="ap-stat-label">Трансформирани животи</div>
+              <div class="ap-stat-label" data-bg="Трансформирани животи" data-en="Lives transformed">Трансформирани животи</div>
             </div>
             <div class="ap-stat">
               <div class="ap-stat-num" style="color:var(--mint)">5</div>
-              <div class="ap-stat-label">Години опит</div>
+              <div class="ap-stat-label" data-bg="Години опит" data-en="Years of experience">Години опит</div>
             </div>
           </div>
         </div>
@@ -840,31 +850,31 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <span class="overline reveal">Какво предлагаме</span>
-          <h2 id="services-heading" class="reveal">Твоята следваща<br>стъпка.</h2>
+          <span class="overline reveal" data-bg="Какво предлагаме" data-en="What we offer">Какво предлагаме</span>
+          <h2 id="services-heading" class="reveal" data-bg="Твоята следваща<br>стъпка." data-en="Your next<br>step.">Твоята следваща<br>стъпка.</h2>
         </div>
-        <a href="#cta" class="btn btn-ghost reveal" style="align-self:flex-end">Запиши се</a>
+        <a href="#cta" class="btn btn-ghost reveal" style="align-self:flex-end" data-bg="Запиши се" data-en="Sign up">Запиши се</a>
       </div>
       <div class="services-grid">
         <article class="service-card featured reveal" tabindex="0">
           <div class="service-num">01</div>
-          <div class="service-name">Тренировки в студиото</div>
-          <p class="service-desc">Персонализирани тренировки с опитен треньор. Малки групи до 6 човека, фокус върху техниката и прогреса. Записвай часове директно от app-а.</p>
-          <span class="service-arrow">Научи повече →</span>
+          <div class="service-name" data-bg="Тренировки в студиото" data-en="Studio training">Тренировки в студиото</div>
+          <p class="service-desc" data-bg="Персонализирани тренировки с опитен треньор. Малки групи до 6 човека, фокус върху техниката и прогреса. Записвай часове директно от app-а." data-en="Personalized training with an experienced coach. Small groups up to 6 people, focused on technique and progress. Book sessions directly from the app.">Персонализирани тренировки с опитен треньор. Малки групи до 6 човека, фокус върху техниката и прогреса. Записвай часове директно от app-а.</p>
+          <span class="service-arrow" data-bg="Научи повече →" data-en="Learn more →">Научи повече →</span>
         </article>
         <article class="service-card upcoming reveal" style="transition-delay:0.1s" tabindex="0">
           <div class="service-num">02</div>
-          <span class="soon-badge">Скоро</span>
-          <div class="service-name">Онлайн програма</div>
-          <p class="service-desc">Тренировъчна и рехабилитационна програма от Кари и Виви. Работи от всяка точка.</p>
-          <span class="service-arrow">Очаквайте →</span>
+          <span class="soon-badge" data-bg="Скоро" data-en="Coming soon">Скоро</span>
+          <div class="service-name" data-bg="Онлайн програма" data-en="Online program">Онлайн програма</div>
+          <p class="service-desc" data-bg="Тренировъчна и рехабилитационна програма от Кари и Виви. Работи от всяка точка." data-en="Training and rehabilitation program by Kari and Vivy. Train from anywhere.">Тренировъчна и рехабилитационна програма от Кари и Виви. Работи от всяка точка.</p>
+          <span class="service-arrow" data-bg="Очаквайте →" data-en="Coming soon →">Очаквайте →</span>
         </article>
         <article class="service-card upcoming reveal" style="transition-delay:0.2s" tabindex="0">
           <div class="service-num">03</div>
-          <span class="soon-badge">Скоро</span>
-          <div class="service-name">SYNRG Планер</div>
-          <p class="service-desc">Физически планер за структура в тренировките, храненето и ежедневието.</p>
-          <span class="service-arrow">Очаквайте →</span>
+          <span class="soon-badge" data-bg="Скоро" data-en="Coming soon">Скоро</span>
+          <div class="service-name" data-bg="SYNRG Планер" data-en="SYNRG Planner">SYNRG Планер</div>
+          <p class="service-desc" data-bg="Физически планер за структура в тренировките, храненето и ежедневието." data-en="A physical planner for structure in training, nutrition, and daily life.">Физически планер за структура в тренировките, храненето и ежедневието.</p>
+          <span class="service-arrow" data-bg="Очаквайте →" data-en="Coming soon →">Очаквайте →</span>
         </article>
       </div>
     </div>
@@ -873,15 +883,15 @@
   <!-- ── Team ─────────────────────────────────────── -->
   <section id="team" class="section" aria-labelledby="team-heading">
     <div class="container">
-      <span class="overline reveal">Екипът</span>
-      <h2 id="team-heading" class="reveal">Хората зад SYNRG.</h2>
-      <p class="reveal">Не наемаме треньори. Изграждаме екип от хора, на които им пука.</p>
+      <span class="overline reveal" data-bg="Екипът" data-en="The team">Екипът</span>
+      <h2 id="team-heading" class="reveal" data-bg="Хората зад SYNRG." data-en="The people behind SYNRG.">Хората зад SYNRG.</h2>
+      <p class="reveal" data-bg="Не наемаме треньори. Изграждаме екип от хора, на които им пука." data-en="We don't hire trainers. We build a team of people who care.">Не наемаме треньори. Изграждаме екип от хора, на които им пука.</p>
       <div class="team-grid">
         <article class="team-card reveal" tabindex="0">
           <img src="images/alex.jpg" alt="Александър — Head Coach и основател" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Александър</h3>
-            <p class="team-role">Основател · Head Coach</p>
+            <p class="team-role" data-bg="Основател · Head Coach" data-en="Founder · Head Coach">Основател · Head Coach</p>
             <span class="team-badge mint">Coach</span>
           </div>
         </article>
@@ -889,7 +899,7 @@
           <img src="images/kari.jpg" alt="Кари — треньор" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Кари</h3>
-            <p class="team-role">Треньор · Онлайн програми</p>
+            <p class="team-role" data-bg="Треньор · Онлайн програми" data-en="Coach · Online programs">Треньор · Онлайн програми</p>
             <span class="team-badge">Coach</span>
           </div>
         </article>
@@ -897,7 +907,7 @@
           <img src="images/vivy.jpg" alt="Виви — физиотерапевт" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Виви</h3>
-            <p class="team-role">Физиотерапевт</p>
+            <p class="team-role" data-bg="Физиотерапевт" data-en="Physiotherapist">Физиотерапевт</p>
             <span class="team-badge">Physio</span>
           </div>
         </article>
@@ -905,7 +915,7 @@
           <img src="images/itzko.jpg" alt="Ицко — треньор" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Ицко</h3>
-            <p class="team-role">Треньор</p>
+            <p class="team-role" data-bg="Треньор" data-en="Coach">Треньор</p>
             <span class="team-badge">Coach</span>
           </div>
         </article>
@@ -913,7 +923,7 @@
           <img src="images/nikola.jpg" alt="Никола — треньор" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Никола</h3>
-            <p class="team-role">Треньор</p>
+            <p class="team-role" data-bg="Треньор" data-en="Coach">Треньор</p>
             <span class="team-badge">Coach</span>
           </div>
         </article>
@@ -921,7 +931,7 @@
           <img src="images/elina.jpg" alt="Елина — треньор" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Елина</h3>
-            <p class="team-role">Треньор</p>
+            <p class="team-role" data-bg="Треньор" data-en="Coach">Треньор</p>
             <span class="team-badge">Coach</span>
           </div>
         </article>
@@ -932,7 +942,7 @@
   <!-- ── We Care About You ────────────────────────── -->
   <section id="care" class="section" aria-labelledby="care-heading">
     <div class="container care-centered">
-      <span class="overline reveal">Ценности</span>
+      <span class="overline reveal" data-bg="Ценности" data-en="Values">Ценности</span>
       <h2 id="care-heading" class="reveal">We Care<br>About You.</h2>
       <p class="care-sub reveal"><!-- Текст от Wix --></p>
     </div>
@@ -961,12 +971,12 @@
           </div>
         </div>
 
-        <span class="overline" style="margin-bottom:16px">Готов ли си</span>
-        <h2 id="cta-heading">Започни сега.</h2>
-        <p>Запиши се за безплатна консултация и разбери как SYNRG може да работи за теб.</p>
+        <span class="overline" style="margin-bottom:16px" data-bg="Готов ли си" data-en="Ready?">Готов ли си</span>
+        <h2 id="cta-heading" data-bg="Започни сега." data-en="Start now.">Започни сега.</h2>
+        <p data-bg="Запиши се за безплатна консултация и разбери как SYNRG може да работи за теб." data-en="Sign up for a free consultation and find out how SYNRG can work for you.">Запиши се за безплатна консултация и разбери как SYNRG може да работи за теб.</p>
         <div class="cta-actions">
-          <a href="https://www.instagram.com/synrg.beyondfitness" class="btn btn-primary" target="_blank" rel="noopener">Свържи се с нас</a>
-          <a href="https://app.synrg-beyondfitness.com" class="btn btn-ghost">Влез в app-а</a>
+          <a href="https://www.instagram.com/synrg.beyondfitness" class="btn btn-primary" target="_blank" rel="noopener" data-bg="Свържи се с нас" data-en="Get in touch">Свържи се с нас</a>
+          <a href="https://app.synrg-beyondfitness.com" class="btn btn-ghost" data-bg="Влез в app-а" data-en="Enter the app">Влез в app-а</a>
         </div>
       </div>
     </div>
@@ -980,21 +990,35 @@
       <div class="footer-main">
         <div class="footer-logo">
           <img src="assets/synrg_Logomark.svg" alt="SYNRG Beyond Fitness" loading="lazy" style="height:40px;width:auto;" />
-          <p class="footer-tagline">Бутиково фитнес студио · Варна</p>
+          <p class="footer-tagline" data-bg="Бутиково фитнес студио · Варна" data-en="Boutique fitness studio · Varna">Бутиково фитнес студио · Варна</p>
         </div>
         <ul class="footer-links-inline">
           <li><a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="#cta">Запиши се</a></li>
+          <li><a href="#cta" data-bg="Запиши се" data-en="Sign up">Запиши се</a></li>
         </ul>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copy">© 2025 SYNRG Beyond Fitness. Всички права запазени.</p>
-        <p class="footer-copy">Варна, България</p>
+        <p class="footer-copy" data-bg="© 2025 SYNRG Beyond Fitness. Всички права запазени." data-en="© 2025 SYNRG Beyond Fitness. All rights reserved.">© 2025 SYNRG Beyond Fitness. Всички права запазени.</p>
+        <p class="footer-copy" data-bg="Варна, България" data-en="Varna, Bulgaria">Варна, България</p>
       </div>
     </div>
   </footer>
 
   <script>
+    // Language toggle
+    function setLang(lang) {
+      document.querySelectorAll('[data-bg]').forEach(el => {
+        const val = el.getAttribute('data-' + lang)
+        if (val !== null) el.innerHTML = val
+      })
+      document.getElementById('btn-bg').classList.toggle('active', lang === 'bg')
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en')
+      document.documentElement.lang = lang === 'bg' ? 'bg' : 'en'
+      localStorage.setItem('synrg-lang', lang)
+    }
+    // Restore on load
+    setLang(localStorage.getItem('synrg-lang') || 'bg')
+
     // Navbar scroll
     const navbar = document.getElementById('navbar')
     window.addEventListener('scroll', () => {
