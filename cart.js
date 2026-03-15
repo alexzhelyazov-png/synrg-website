@@ -226,10 +226,20 @@ async function handleCheckout() {
   var cart = getCart();
   if (cart.length === 0) return;
 
+  var lang = localStorage.getItem('synrg-lang') || 'bg';
+
+  // Block checkout if any item still has a placeholder price
+  var hasPlaceholder = cart.some(function (item) { return !item.priceId || item.priceId.indexOf('PLACEHOLDER') !== -1; });
+  if (hasPlaceholder) {
+    alert(lang === 'en'
+      ? 'This product is not available for purchase yet. Coming soon!'
+      : 'Този продукт все още не е наличен за покупка. Очаквайте скоро!');
+    return;
+  }
+
   var btn = document.getElementById('cartCheckoutBtn');
   if (btn) { btn.disabled = true; btn.textContent = '…'; }
 
-  var lang = localStorage.getItem('synrg-lang') || 'bg';
   var items = cart.map(function (item) {
     return { price: item.priceId, quantity: item.quantity };
   });
