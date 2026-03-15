@@ -1109,13 +1109,7 @@
           <p data-bg="Ще се свържем с теб скоро." data-en="We'll be in touch soon.">Ще се свържем с теб скоро.</p>
         </div>
 
-        <!-- ── Sign-up form
-             SETUP: Register at formspree.io with info@synrg-beyondfitness.com
-             then replace YOUR_FORM_ID below with your actual form ID.
-        ──────────────────────────────────────────────── -->
-        <form class="cta-form" id="ctaForm"
-              action="https://formspree.io/f/YOUR_FORM_ID"
-              method="POST">
+        <form class="cta-form" id="ctaForm">
           <div class="form-row">
             <div class="form-field">
               <label data-bg="Твоето Име" data-en="Your name">Твоето Име</label>
@@ -1134,7 +1128,6 @@
                       data-placeholder-en="Tell us a bit about your goals…"
                       placeholder="Разкажи ни малко за целите си…"></textarea>
           </div>
-          <input type="hidden" name="_subject" value="Ново запитване от synrg-beyondfitness.com" />
           <button type="submit" class="btn btn-primary form-submit"
                   data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</button>
         </form>
@@ -1166,7 +1159,9 @@
   </footer>
 
   <script>
-    // CTA Form submit
+    // CTA Form submit → Supabase
+    const SUPABASE_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co'
+    const SUPABASE_ANON = 'sb_publishable_Rs2gzY1pSf67S-uq6VpGGA_fQdSgMah'
     const ctaForm = document.getElementById('ctaForm')
     if (ctaForm) {
       ctaForm.addEventListener('submit', async (e) => {
@@ -1175,9 +1170,19 @@
         const origText = btn.textContent
         btn.textContent = '…'; btn.disabled = true
         try {
-          const res = await fetch(ctaForm.action, {
-            method: 'POST', body: new FormData(ctaForm),
-            headers: { 'Accept': 'application/json' }
+          const res = await fetch(SUPABASE_URL + '/rest/v1/inquiries', {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_ANON,
+              'Authorization': 'Bearer ' + SUPABASE_ANON,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({
+              name: ctaForm.querySelector('[name=name]').value.trim(),
+              contact: ctaForm.querySelector('[name=contact]').value.trim(),
+              message: ctaForm.querySelector('[name=message]').value.trim() || null
+            })
           })
           if (res.ok) {
             ctaForm.style.display = 'none'
