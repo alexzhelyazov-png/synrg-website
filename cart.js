@@ -92,6 +92,12 @@ function injectCartDrawer() {
   document.getElementById('cartCloseBtn').addEventListener('click', closeCartDrawer);
   document.getElementById('cartCheckoutBtn').addEventListener('click', handleCheckout);
 
+  // Event delegation for remove buttons (survives innerHTML rebuilds)
+  document.getElementById('cartItems').addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-remove]');
+    if (btn) removeFromCart(btn.getAttribute('data-remove'));
+  });
+
   // Close on Escape
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeCartDrawer();
@@ -167,12 +173,7 @@ function renderCartItems() {
     );
   }).join('');
 
-  // Attach remove listeners
-  container.querySelectorAll('[data-remove]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      removeFromCart(btn.getAttribute('data-remove'));
-    });
-  });
+  // Remove listeners are handled via event delegation on the container
 
   if (totalEl) {
     var total = getCartTotal();
