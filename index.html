@@ -641,6 +641,92 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── Cart icon ─────────────────────────────────── */
+    .cart-btn {
+      position: relative; background: none; border: none; cursor: pointer;
+      color: var(--muted); transition: color 0.2s; padding: 4px;
+      display: flex; align-items: center;
+    }
+    .cart-btn:hover { color: var(--cream); }
+    .cart-btn svg { width: 22px; height: 22px; }
+    .cart-badge {
+      position: absolute; top: -4px; right: -6px;
+      background: var(--mint); color: #0d1510;
+      font-size: 10px; font-weight: 700; font-style: normal;
+      min-width: 18px; height: 18px; border-radius: 100px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'MontBlanc', sans-serif; line-height: 1;
+    }
+    .cart-badge:empty { display: none; }
+
+    /* ── Cart drawer ──────────────────────────────── */
+    .cart-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 1200; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s var(--ease);
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: auto; }
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(420px, 90vw); background: var(--surface);
+      z-index: 1201; transform: translateX(100%);
+      transition: transform 0.35s var(--ease);
+      display: flex; flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px; border-bottom: 1px solid var(--border);
+    }
+    .cart-header h3 { font-size: 18px; margin: 0; }
+    .cart-close {
+      background: none; border: none; color: var(--cream);
+      font-size: 24px; cursor: pointer; padding: 4px;
+    }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px 24px; }
+    .cart-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-name {
+      font-size: 15px; font-weight: 700; color: var(--cream);
+      font-style: italic; margin-bottom: 4px;
+    }
+    .cart-item-price { font-size: 13px; color: var(--muted); font-weight: 700; }
+    .cart-item-remove {
+      background: none; border: none; color: var(--muted);
+      font-size: 12px; cursor: pointer; font-family: inherit;
+      font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      margin-top: 8px; transition: color 0.2s;
+    }
+    .cart-item-remove:hover { color: #e05252; }
+    .cart-empty {
+      text-align: center; padding: 48px 24px;
+      color: var(--muted); font-style: italic; font-weight: 700;
+    }
+    .cart-footer { padding: 24px; border-top: 1px solid var(--border); }
+    .cart-total {
+      display: flex; justify-content: space-between;
+      font-size: 16px; font-weight: 700; color: var(--cream); margin-bottom: 16px;
+    }
+    .cart-checkout-btn {
+      width: 100%; padding: 14px 28px; border-radius: 100px;
+      background: var(--mint); color: #0d1510;
+      font-family: 'MontBlanc', sans-serif; font-weight: 700;
+      font-size: 14px; font-style: normal; cursor: pointer; border: none;
+      transition: transform 0.2s var(--ease), background 0.2s;
+    }
+    .cart-checkout-btn:hover { background: #d4f0cf; transform: translateY(-2px); }
+    .cart-checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .checkout-success-banner {
+      background: var(--mint-dim); border: 1px solid var(--mint-border);
+      color: var(--mint); padding: 16px 24px; border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 14px; text-align: center;
+      max-width: 1160px; margin: 0 auto 24px; box-sizing: border-box;
+    }
+
     .mobile-menu { display: none; }
 
     /* ── Mobile ────────────────────────────────────── */
@@ -690,6 +776,7 @@
     <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"                data-en="Studio">Студио</a>
     <a href="remote.html"  onclick="closeMobileMenu()" data-bg="С нас навсякъде" data-en="With us anywhere">С нас навсякъде</a>
     <a href="#cta"         onclick="closeMobileMenu()" data-bg="Контакт"               data-en="Contact">Контакт</a>
+    <a href="javascript:void(0)" onclick="closeMobileMenu();toggleCartDrawer()" data-bg="Кошница" data-en="Cart">Кошница</a>
     <a href="./app/index.html" onclick="closeMobileMenu()" data-bg="Влез" data-en="Login">Влез</a>
     <a href="#cta" onclick="closeMobileMenu()" class="btn btn-primary" style="font-style:normal" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
   </div>
@@ -713,6 +800,10 @@
           <span>|</span>
           <button onclick="setLang('en')" class="lang-btn" id="btn-en">EN</button>
         </div>
+        <button class="cart-btn" onclick="toggleCartDrawer()" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-badge"></span>
+        </button>
         <a href="./app/index.html" class="btn btn-ghost" data-bg="Влез" data-en="Login">Влез</a>
         <a href="#cta" class="btn btn-primary" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
         <button class="nav-toggle" onclick="openMobileMenu()" aria-label="Меню">
@@ -1068,7 +1159,7 @@
         </ul>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copy" data-bg="© 2025 SYNRG Beyond Fitness. Всички права запазени." data-en="© 2025 SYNRG Beyond Fitness. All rights reserved.">© 2025 SYNRG Beyond Fitness. Всички права запазени.</p>
+        <p class="footer-copy" data-bg="© 2026 SYNRG Beyond Fitness. Всички права запазени." data-en="© 2026 SYNRG Beyond Fitness. All rights reserved.">© 2026 SYNRG Beyond Fitness. Всички права запазени.</p>
         <p class="footer-copy" data-bg="Варна, България" data-en="Varna, Bulgaria">Варна, България</p>
       </div>
     </div>
@@ -1142,5 +1233,6 @@
     document.querySelectorAll('.services-grid .service-card, .team-grid .team-card, .stats-grid .stat-item')
       .forEach((el, i) => { if (!el.style.transitionDelay) el.style.transitionDelay = `${i * 0.06}s` })
   </script>
+  <script src="cart.js"></script>
 </body>
 </html>
