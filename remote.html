@@ -442,45 +442,71 @@
   <script src="cms.js"></script>
   <script src="cart.js"></script>
   <script>
-    // ── Load products from CMS ──────────────────────────
-    cmsGet('site_products', '?select=*&status=neq.archived&order=display_order.asc')
-      .then(function(products) {
-        if (!products || products.length === 0) return;
-        var lang = cmsLang();
-        var grid = document.querySelector('.products-grid');
-        if (!grid) return;
-        grid.innerHTML = products.map(function(p, i) {
-          var isActive = p.status === 'active';
-          var isFeatured = p.is_featured;
-          var cls = 'product-card' + (isFeatured ? ' featured' : '') + (!isActive ? ' soon' : '');
-          var html = '<div class="' + cls + '"';
-          if (isActive && p.stripe_price_id) {
-            html += ' data-price-id="' + p.stripe_price_id + '"'
-                 + ' data-product-bg="' + p.name_bg + '"'
-                 + ' data-product-en="' + p.name_en + '"'
-                 + ' data-price="' + p.price_cents + '"'
-                 + ' data-currency="' + p.currency + '"';
-          }
-          html += '>';
-          if (!isActive) {
-            html += '<span class="soon-pill" data-bg="\u0414\u0435\u0442\u0430\u0439\u043b\u0438 \u043f\u0440\u0435\u0434\u0441\u0442\u043e\u044f\u0442" data-en="Details coming">'
-                 + (lang === 'en' ? 'Details coming' : '\u0414\u0435\u0442\u0430\u0439\u043b\u0438 \u043f\u0440\u0435\u0434\u0441\u0442\u043e\u044f\u0442') + '</span>';
-          }
-          html += '<div class="product-num">' + String(i + 1).padStart(2, '0') + '</div>';
-          html += '<div class="product-name" data-bg="' + p.name_bg + '" data-en="' + p.name_en + '">' + cmsText(p, 'name') + '</div>';
-          html += '<p class="product-desc" data-bg="' + p.description_bg + '" data-en="' + p.description_en + '">' + cmsText(p, 'description') + '</p>';
-          html += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
-          html += '<span class="product-tag" data-bg="' + p.tag_bg + '" data-en="' + p.tag_en + '">' + cmsText(p, 'tag') + '</span>';
-          if (isActive && p.stripe_price_id) {
-            html += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
-                 + ' data-bg="\u0414\u043e\u0431\u0430\u0432\u0438 \u2192" data-en="Add to cart \u2192">'
-                 + (lang === 'en' ? 'Add to cart \u2192' : '\u0414\u043e\u0431\u0430\u0432\u0438 \u2192') + '</button>';
-          }
-          html += '</div></div>';
-          return html;
-        }).join('');
-        if (typeof setupAddToCartButtons === 'function') setupAddToCartButtons();
+    // ── Load programs + products and merge into grid ──────
+    Promise.all([
+      cmsGet('programs', '?select=*&status=eq.active&order=display_order.asc'),
+      cmsGet('site_products', '?select=*&status=neq.archived&order=display_order.asc')
+    ]).then(function(results) {
+      var programs = results[0] || [];
+      var products = results[1] || [];
+      var lang = cmsLang();
+      var grid = document.querySelector('.products-grid');
+      if (!grid) return;
+      var idx = 0;
+      var html = '';
+
+      // Programs from admin (featured cards)
+      programs.forEach(function(pg) {
+        idx++;
+        var img = pg.cover_url
+          ? '<img src="' + pg.cover_url + '" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:20px;">'
+          : '';
+        html += '<div class="product-card featured">';
+        html += img;
+        html += '<div class="product-num">' + String(idx).padStart(2, '0') + '</div>';
+        html += '<div class="product-name" data-bg="' + (pg.name_bg || '') + '" data-en="' + (pg.name_en || '') + '">' + (lang === 'en' ? (pg.name_en || pg.name_bg) : pg.name_bg) + '</div>';
+        html += '<p class="product-desc" data-bg="' + (pg.description_bg || '') + '" data-en="' + (pg.description_en || '') + '">' + (lang === 'en' ? (pg.description_en || pg.description_bg || '') : (pg.description_bg || '')) + '</p>';
+        html += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
+        html += '<span class="product-tag" data-bg="Онлайн програма" data-en="Online program">' + (lang === 'en' ? 'Online program' : 'Онлайн програма') + '</span>';
+        html += '</div></div>';
       });
+
+      // Products from CMS (site_products)
+      products.forEach(function(p) {
+        idx++;
+        var isActive = p.status === 'active';
+        var isFeatured = p.is_featured;
+        var cls = 'product-card' + (isFeatured ? ' featured' : '') + (!isActive ? ' soon' : '');
+        var h = '<div class="' + cls + '"';
+        if (isActive && p.stripe_price_id) {
+          h += ' data-price-id="' + p.stripe_price_id + '"'
+             + ' data-product-bg="' + p.name_bg + '"'
+             + ' data-product-en="' + p.name_en + '"'
+             + ' data-price="' + p.price_cents + '"'
+             + ' data-currency="' + p.currency + '"';
+        }
+        h += '>';
+        if (!isActive) {
+          h += '<span class="soon-pill" data-bg="Детайли предстоят" data-en="Details coming">'
+             + (lang === 'en' ? 'Details coming' : 'Детайли предстоят') + '</span>';
+        }
+        h += '<div class="product-num">' + String(idx).padStart(2, '0') + '</div>';
+        h += '<div class="product-name" data-bg="' + p.name_bg + '" data-en="' + p.name_en + '">' + cmsText(p, 'name') + '</div>';
+        h += '<p class="product-desc" data-bg="' + p.description_bg + '" data-en="' + p.description_en + '">' + cmsText(p, 'description') + '</p>';
+        h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
+        h += '<span class="product-tag" data-bg="' + p.tag_bg + '" data-en="' + p.tag_en + '">' + cmsText(p, 'tag') + '</span>';
+        if (isActive && p.stripe_price_id) {
+          h += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
+             + ' data-bg="Добави →" data-en="Add to cart →">'
+             + (lang === 'en' ? 'Add to cart →' : 'Добави →') + '</button>';
+        }
+        h += '</div></div>';
+        html += h;
+      });
+
+      if (html) grid.innerHTML = html;
+      if (typeof setupAddToCartButtons === 'function') setupAddToCartButtons();
+    });
   </script>
   <script>cmsLoadContentBlocks('remote');</script>
 </body>
