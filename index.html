@@ -775,7 +775,7 @@
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
     <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"                data-en="Studio">Студио</a>
     <a href="remote.html"  onclick="closeMobileMenu()" data-bg="С нас навсякъде" data-en="With us anywhere">С нас навсякъде</a>
-    <a href="#cta"         onclick="closeMobileMenu()" data-bg="Контакт"               data-en="Contact">Контакт</a>
+    <a href="pricing.html" onclick="closeMobileMenu()" data-bg="Цени"                   data-en="Pricing">Цени</a>
     <a href="javascript:void(0)" onclick="closeMobileMenu();toggleCartDrawer()" data-bg="Кошница" data-en="Cart">Кошница</a>
     <a href="./app/index.html" onclick="closeMobileMenu()" data-bg="Влез" data-en="Login">Влез</a>
     <a href="#cta" onclick="closeMobileMenu()" class="btn btn-primary" style="font-style:normal" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
@@ -791,7 +791,7 @@
         <ul class="nav-links">
           <li><a href="studio.html"  data-bg="Студио"                  data-en="Studio">Студио</a></li>
           <li><a href="remote.html"  data-bg="С нас навсякъде"   data-en="With us anywhere">С нас навсякъде</a></li>
-          <li><a href="#cta"         data-bg="Контакт"                 data-en="Contact">Контакт</a></li>
+          <li><a href="pricing.html" data-bg="Цени"                     data-en="Pricing">Цени</a></li>
         </ul>
       </nav>
       <div class="nav-right">
@@ -1271,39 +1271,63 @@
         observeReveals();
       });
 
-    // ── Load services from CMS ──────────────────────────
-    cmsGet('site_services', '?select=*&status=neq.archived&order=display_order.asc')
-      .then(function(services) {
-        if (!services || services.length === 0) return;
-        var lang = cmsLang();
-        var grid = document.querySelector('.services-grid');
-        if (!grid) return;
-        grid.innerHTML = services.map(function(s, i) {
-          var isActive = s.status === 'active';
-          var isFeatured = s.is_featured;
-          var cls = 'service-card' + (isFeatured ? ' featured' : '') + (!isActive ? ' upcoming' : '') + ' reveal';
-          var html = '<article class="' + cls + '" style="transition-delay:' + (i * 0.1) + 's" tabindex="0">';
-          html += '<div class="service-num">' + String(i + 1).padStart(2, '0') + '</div>';
-          if (!isActive) {
-            html += '<span class="soon-badge" data-bg="\u0421\u043a\u043e\u0440\u043e" data-en="Coming soon">'
-                 + (lang === 'en' ? 'Coming soon' : '\u0421\u043a\u043e\u0440\u043e') + '</span>';
-          }
-          html += '<div class="service-name" data-bg="' + s.name_bg + '" data-en="' + s.name_en + '">' + cmsText(s, 'name') + '</div>';
-          html += '<p class="service-desc" data-bg="' + s.description_bg + '" data-en="' + s.description_en + '">' + cmsText(s, 'description') + '</p>';
-          if (isActive && s.link_url) {
-            var linkText = s['link_text_' + lang] || s.link_text_bg || '';
-            html += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
-            html += '<a href="' + s.link_url + '" class="btn btn-primary" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + linkText + '</a>';
-            html += '</div>';
-          } else {
-            var arrowText = s['link_text_' + lang] || s.link_text_bg || '';
-            html += '<span class="service-arrow" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + arrowText + '</span>';
-          }
-          html += '</article>';
-          return html;
-        }).join('');
-        observeReveals();
+    // ── Load services + programs into services grid ──────
+    Promise.all([
+      cmsGet('site_services', '?select=*&status=neq.archived&order=display_order.asc'),
+      cmsGet('programs', '?select=*&status=eq.active&order=display_order.asc')
+    ]).then(function(results) {
+      var services = results[0] || [];
+      var programs = results[1] || [];
+      var lang = cmsLang();
+      var grid = document.querySelector('.services-grid');
+      if (!grid) return;
+      var idx = 0;
+      var html = '';
+
+      // CMS services first
+      services.forEach(function(s) {
+        idx++;
+        var isActive = s.status === 'active';
+        var isFeatured = s.is_featured;
+        var cls = 'service-card' + (isFeatured ? ' featured' : '') + (!isActive ? ' upcoming' : '') + ' reveal';
+        var h = '<article class="' + cls + '" style="transition-delay:' + ((idx - 1) * 0.1) + 's" tabindex="0">';
+        h += '<div class="service-num">' + String(idx).padStart(2, '0') + '</div>';
+        if (!isActive) {
+          h += '<span class="soon-badge" data-bg="Скоро" data-en="Coming soon">'
+             + (lang === 'en' ? 'Coming soon' : 'Скоро') + '</span>';
+        }
+        h += '<div class="service-name" data-bg="' + s.name_bg + '" data-en="' + s.name_en + '">' + cmsText(s, 'name') + '</div>';
+        h += '<p class="service-desc" data-bg="' + s.description_bg + '" data-en="' + s.description_en + '">' + cmsText(s, 'description') + '</p>';
+        if (isActive && s.link_url) {
+          var linkText = s['link_text_' + lang] || s.link_text_bg || '';
+          h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
+          h += '<a href="' + s.link_url + '" class="btn btn-primary" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + linkText + '</a>';
+          h += '</div>';
+        } else {
+          var arrowText = s['link_text_' + lang] || s.link_text_bg || '';
+          h += '<span class="service-arrow" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + arrowText + '</span>';
+        }
+        h += '</article>';
+        html += h;
       });
+
+      // Active programs as service cards
+      programs.forEach(function(pg) {
+        idx++;
+        var cls = 'service-card featured reveal';
+        var h = '<article class="' + cls + '" style="transition-delay:' + ((idx - 1) * 0.1) + 's" tabindex="0">';
+        h += '<div class="service-num">' + String(idx).padStart(2, '0') + '</div>';
+        h += '<div class="service-name" data-bg="' + (pg.name_bg || '') + '" data-en="' + (pg.name_en || '') + '">' + (lang === 'en' ? (pg.name_en || pg.name_bg) : pg.name_bg) + '</div>';
+        h += '<p class="service-desc" data-bg="' + (pg.description_bg || '') + '" data-en="' + (pg.description_en || '') + '">' + (lang === 'en' ? (pg.description_en || pg.description_bg || '') : (pg.description_bg || '')) + '</p>';
+        h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
+        h += '<a href="remote.html" class="btn btn-primary" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="Виж програмата →" data-en="See program →">' + (lang === 'en' ? 'See program →' : 'Виж програмата →') + '</a>';
+        h += '</div></article>';
+        html += h;
+      });
+
+      if (html) grid.innerHTML = html;
+      observeReveals();
+    });
 
     // ── Load content blocks from CMS ─────────────────────
     cmsLoadContentBlocks('index');
