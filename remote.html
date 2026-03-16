@@ -462,13 +462,11 @@
           ? '<img src="' + pg.cover_url + '" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:20px;">'
           : '';
         var h = '<div class="product-card featured"';
-        if (pg.stripe_price_id) {
-          h += ' data-price-id="' + pg.stripe_price_id + '"'
-             + ' data-product-bg="' + (pg.name_bg || '') + '"'
-             + ' data-product-en="' + (pg.name_en || '') + '"'
-             + ' data-price="' + (pg.price_cents || 0) + '"'
-             + ' data-currency="' + (pg.currency || 'BGN') + '"';
-        }
+        h += ' data-price-id="' + (pg.stripe_price_id || 'pending') + '"'
+           + ' data-product-bg="' + (pg.name_bg || '') + '"'
+           + ' data-product-en="' + (pg.name_en || '') + '"'
+           + ' data-price="' + (pg.price_cents || 0) + '"'
+           + ' data-currency="' + (pg.currency || 'BGN') + '"';
         h += '>';
         h += img;
         h += '<div class="product-num">' + String(idx).padStart(2, '0') + '</div>';
@@ -476,11 +474,9 @@
         h += '<p class="product-desc" data-bg="' + (pg.description_bg || '') + '" data-en="' + (pg.description_en || '') + '">' + (lang === 'en' ? (pg.description_en || pg.description_bg || '') : (pg.description_bg || '')) + '</p>';
         h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
         h += '<span class="product-tag" data-bg="Онлайн програма" data-en="Online program">' + (lang === 'en' ? 'Online program' : 'Онлайн програма') + '</span>';
-        if (pg.stripe_price_id) {
-          h += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
-             + ' data-bg="Добави →" data-en="Add to cart →">'
-             + (lang === 'en' ? 'Add to cart →' : 'Добави →') + '</button>';
-        }
+        h += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
+           + ' data-bg="Добави →" data-en="Add to cart →">'
+           + (lang === 'en' ? 'Add to cart →' : 'Добави →') + '</button>';
         h += '</div></div>';
         html += h;
       });
