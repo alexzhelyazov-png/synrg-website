@@ -615,6 +615,44 @@
     function openMobileMenu()  { document.getElementById('mobileMenu').classList.add('open');    document.body.style.overflow = 'hidden' }
     function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow = '' }
   </script>
+  <script src="cms.js"></script>
   <script src="cart.js"></script>
+  <script>
+    // ── Load plans from CMS ─────────────────────────────
+    cmsGet('site_plans', '?select=*&order=display_order.asc')
+      .then(function(plans) {
+        if (!plans || plans.length === 0) return;
+        var lang = cmsLang();
+        var grid = document.querySelector('.plans-grid');
+        if (!grid) return;
+        grid.innerHTML = plans.map(function(p) {
+          var featured = p.is_featured;
+          var cls = 'plan-card' + (featured ? ' featured' : '');
+          var html = '<div class="' + cls + '">';
+          var badge = p['badge_' + lang] || p.badge_bg;
+          if (badge) html += '<div class="plan-badge" data-bg="' + (p.badge_bg || '') + '" data-en="' + (p.badge_en || '') + '">' + badge + '</div>';
+          html += '<div class="plan-name" data-bg="' + p.name_bg + '" data-en="' + p.name_en + '">' + cmsText(p, 'name') + '</div>';
+          // Extract title from slug
+          var title = p.slug.charAt(0).toUpperCase() + p.slug.slice(1);
+          html += '<div class="plan-title">' + title + '</div>';
+          html += '<div class="plan-price-wrap"><span class="plan-currency">\u20AC</span><span class="plan-price">' + p.price_eur + '</span></div>';
+          html += '<div class="plan-price-sub" data-bg="' + p.price_bgn_text_bg + '" data-en="' + p.price_bgn_text_en + '">' + cmsText(p, 'price_bgn_text') + '</div>';
+          html += '<hr class="plan-divider" />';
+          var features = p.features || [];
+          if (features.length > 0) {
+            html += '<ul class="plan-features">';
+            features.forEach(function(f) {
+              var text = f[lang] || f.bg || '';
+              html += '<li><span class="feat-icon"><span class="feat-check"></span></span><span data-bg="' + (f.bg || '') + '" data-en="' + (f.en || '') + '">' + text + '</span></li>';
+            });
+            html += '</ul>';
+          }
+          var btnClass = featured ? 'btn btn-primary plan-cta' : 'btn btn-ghost plan-cta';
+          html += '<a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener" class="' + btnClass + '" data-bg="\u0418\u0437\u0431\u0435\u0440\u0435\u0442\u0435" data-en="Choose">' + (lang === 'en' ? 'Choose' : '\u0418\u0437\u0431\u0435\u0440\u0435\u0442\u0435') + '</a>';
+          html += '</div>';
+          return html;
+        }).join('');
+      });
+  </script>
 </body>
 </html>

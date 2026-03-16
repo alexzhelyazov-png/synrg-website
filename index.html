@@ -1238,6 +1238,72 @@
     document.querySelectorAll('.services-grid .service-card, .team-grid .team-card, .stats-grid .stat-item')
       .forEach((el, i) => { if (!el.style.transitionDelay) el.style.transitionDelay = `${i * 0.06}s` })
   </script>
+  <script src="cms.js"></script>
   <script src="cart.js"></script>
+  <script>
+    // Helper to re-observe new elements for scroll reveal
+    function observeReveals() {
+      var io2 = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io2.unobserve(e.target) }
+        })
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+      document.querySelectorAll('.reveal:not(.visible)').forEach(function(el) { io2.observe(el) })
+    }
+
+    // ── Load team from CMS ──────────────────────────────
+    cmsGet('site_team_members', '?select=*&is_visible=eq.true&order=display_order.asc')
+      .then(function(members) {
+        if (!members || members.length === 0) return;
+        var lang = cmsLang();
+        var grid = document.querySelector('.team-grid');
+        if (!grid) return;
+        grid.innerHTML = members.map(function(m, i) {
+          var delay = (i % 3) * 0.08;
+          return '<article class="team-card reveal" style="transition-delay:' + delay + 's" tabindex="0">'
+            + '<img src="' + m.photo_url + '" alt="' + m.name + '" class="team-photo" loading="lazy" />'
+            + '<div class="team-info">'
+            + '<h3 class="team-name">' + m.name + '</h3>'
+            + '<p class="team-role" data-bg="' + m.role_bg + '" data-en="' + m.role_en + '">' + cmsText(m, 'role') + '</p>'
+            + '<span class="team-badge' + (m.badge_style === 'mint' ? ' mint' : '') + '">' + m.badge_text + '</span>'
+            + '</div></article>';
+        }).join('');
+        observeReveals();
+      });
+
+    // ── Load services from CMS ──────────────────────────
+    cmsGet('site_services', '?select=*&status=neq.archived&order=display_order.asc')
+      .then(function(services) {
+        if (!services || services.length === 0) return;
+        var lang = cmsLang();
+        var grid = document.querySelector('.services-grid');
+        if (!grid) return;
+        grid.innerHTML = services.map(function(s, i) {
+          var isActive = s.status === 'active';
+          var isFeatured = s.is_featured;
+          var cls = 'service-card' + (isFeatured ? ' featured' : '') + (!isActive ? ' upcoming' : '') + ' reveal';
+          var html = '<article class="' + cls + '" style="transition-delay:' + (i * 0.1) + 's" tabindex="0">';
+          html += '<div class="service-num">' + String(i + 1).padStart(2, '0') + '</div>';
+          if (!isActive) {
+            html += '<span class="soon-badge" data-bg="\u0421\u043a\u043e\u0440\u043e" data-en="Coming soon">'
+                 + (lang === 'en' ? 'Coming soon' : '\u0421\u043a\u043e\u0440\u043e') + '</span>';
+          }
+          html += '<div class="service-name" data-bg="' + s.name_bg + '" data-en="' + s.name_en + '">' + cmsText(s, 'name') + '</div>';
+          html += '<p class="service-desc" data-bg="' + s.description_bg + '" data-en="' + s.description_en + '">' + cmsText(s, 'description') + '</p>';
+          if (isActive && s.link_url) {
+            var linkText = s['link_text_' + lang] || s.link_text_bg || '';
+            html += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
+            html += '<a href="' + s.link_url + '" class="btn btn-primary" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + linkText + '</a>';
+            html += '</div>';
+          } else {
+            var arrowText = s['link_text_' + lang] || s.link_text_bg || '';
+            html += '<span class="service-arrow" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + arrowText + '</span>';
+          }
+          html += '</article>';
+          return html;
+        }).join('');
+        observeReveals();
+      });
+  </script>
 </body>
 </html>
