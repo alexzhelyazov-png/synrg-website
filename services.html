@@ -455,9 +455,9 @@
     </div>
 
     <div class="container services-hero-content">
-      <span class="overline" data-bg="SYNRG · Членство" data-en="SYNRG · Membership">SYNRG · Членство</span>
-      <h1 data-bg="Избери<br>своя план." data-en="Choose<br>your plan.">Избери<br>своя план.</h1>
-      <p data-bg="Три нива на ангажираност. Един стандарт на качество. Намери плана, който е за теб." data-en="Three levels of commitment. One standard of quality. Find the plan that's right for you.">Три нива на ангажираност. Един стандарт на качество. Намери плана, който е за теб.</p>
+      <span class="overline" data-cms="services.hero.overline" data-bg="SYNRG · Членство" data-en="SYNRG · Membership">SYNRG · Членство</span>
+      <h1 data-cms="services.hero.title" data-bg="Избери<br>своя план." data-en="Choose<br>your plan.">Избери<br>своя план.</h1>
+      <p data-cms="services.hero.desc" data-bg="Три нива на ангажираност. Един стандарт на качество. Намери плана, който е за теб." data-en="Three levels of commitment. One standard of quality. Find the plan that's right for you.">Три нива на ангажираност. Един стандарт на качество. Намери плана, който е за теб.</p>
     </div>
   </section>
 
@@ -466,9 +466,9 @@
     <div class="container">
       <div class="plans-header">
         <div>
-          <span class="overline" data-bg="Членство" data-en="Membership">Членство</span>
-          <h2 data-bg="Три плана.<br>Твоят избор." data-en="Three plans.<br>Your choice.">Три плана.<br>Твоят избор.</h2>
-          <p class="plans-sub" data-bg="Всички планове включват достъп до лимитираното студио и персонализиран подход." data-en="All plans include access to the limited studio and a personalized approach.">Всички планове включват достъп до лимитираното студио и персонализиран подход.</p>
+          <span class="overline" data-cms="services.plans.overline" data-bg="Членство" data-en="Membership">Членство</span>
+          <h2 data-cms="services.plans.heading" data-bg="Три плана.<br>Твоят избор." data-en="Three plans.<br>Your choice.">Три плана.<br>Твоят избор.</h2>
+          <p class="plans-sub" data-cms="services.plans.subheading" data-bg="Всички планове включват достъп до лимитираното студио и персонализиран подход." data-en="All plans include access to the limited studio and a personalized approach.">Всички планове включват достъп до лимитираното студио и персонализиран подход.</p>
         </div>
         <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener"
            class="btn btn-ghost" data-bg="Запиши се в app-а →" data-en="Sign up in the app →">Запиши се в app-а →</a>
@@ -580,14 +580,14 @@
       <div class="footer-main">
         <div class="footer-logo">
           <img src="assets/synrg_Logomark.svg" alt="SYNRG Beyond Fitness" style="height:36px;width:auto;" />
-          <p class="footer-tagline" data-bg="Бутиково фитнес студио · Варна" data-en="Boutique fitness studio · Varna">Бутиково фитнес студио · Варна</p>
+          <p class="footer-tagline" data-cms="shared.footer.tagline" data-bg="Бутиково фитнес студио · Варна" data-en="Boutique fitness studio · Varna">Бутиково фитнес студио · Варна</p>
         </div>
         <ul class="footer-links-inline">
           <li><a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="index.html#cta" data-bg="Запиши се" data-en="Sign up">Запиши се</a></li>
+          <li><a href="index.html#cta" data-cms="shared.footer.cta_link" data-bg="Запиши се" data-en="Sign up">Запиши се</a></li>
         </ul>
       </div>
-      <p class="footer-copy" data-bg="© 2026 SYNRG Beyond Fitness. Всички права запазени." data-en="© 2026 SYNRG Beyond Fitness. All rights reserved.">© 2026 SYNRG Beyond Fitness. Всички права запазени.</p>
+      <p class="footer-copy" data-cms="shared.footer.copyright" data-bg="© 2026 SYNRG Beyond Fitness. Всички права запазени." data-en="© 2026 SYNRG Beyond Fitness. All rights reserved.">© 2026 SYNRG Beyond Fitness. Всички права запазени.</p>
     </div>
   </footer>
 
@@ -653,6 +653,7 @@
           return html;
         }).join('');
       });
+    cmsLoadContentBlocks('services');
   </script>
 </body>
 </html>

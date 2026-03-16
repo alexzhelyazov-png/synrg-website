@@ -354,9 +354,9 @@
     </div>
 
     <div class="container remote-hero-content">
-      <span class="overline" data-bg="SYNRG · Онлайн" data-en="SYNRG · Online">SYNRG · Онлайн</span>
-      <h1 data-bg="С нас<br>навсякъде." data-en="With us<br>anywhere.">С нас<br>навсякъде.</h1>
-      <p data-bg="Програмите и продуктите на SYNRG, достъпни от всяка точка. Без да живееш във Варна." data-en="SYNRG programs and products available from anywhere. No need to live in Varna.">Програмите и продуктите на SYNRG, достъпни от всяка точка. Без да живееш във Варна.</p>
+      <span class="overline" data-cms="remote.hero.overline" data-bg="SYNRG · Онлайн" data-en="SYNRG · Online">SYNRG · Онлайн</span>
+      <h1 data-cms="remote.hero.title" data-bg="С нас<br>навсякъде." data-en="With us<br>anywhere.">С нас<br>навсякъде.</h1>
+      <p data-cms="remote.hero.desc" data-bg="Програмите и продуктите на SYNRG, достъпни от всяка точка. Без да живееш във Варна." data-en="SYNRG programs and products available from anywhere. No need to live in Varna.">Програмите и продуктите на SYNRG, достъпни от всяка точка. Без да живееш във Варна.</p>
     </div>
   </section>
 
@@ -364,8 +364,8 @@
   <section id="remote-products">
     <div class="container">
       <div class="remote-products-header">
-        <span class="overline" data-bg="Нашите продукти" data-en="Our products">Нашите продукти</span>
-        <h2 data-bg="Програмите.<br>Навсякъде." data-en="The programs.<br>From anywhere.">Програмите.<br>Навсякъде.</h2>
+        <span class="overline" data-cms="remote.products.overline" data-bg="Нашите продукти" data-en="Our products">Нашите продукти</span>
+        <h2 data-cms="remote.products.heading" data-bg="Програмите.<br>Навсякъде." data-en="The programs.<br>From anywhere.">Програмите.<br>Навсякъде.</h2>
       </div>
 
       <div class="products-grid">
@@ -407,14 +407,14 @@
       <div class="footer-main">
         <div class="footer-logo">
           <img src="assets/synrg_Logomark.svg" alt="SYNRG Beyond Fitness" style="height:36px;width:auto;" />
-          <p class="footer-tagline" data-bg="Бутиково фитнес студио · Варна" data-en="Boutique fitness studio · Varna">Бутиково фитнес студио · Варна</p>
+          <p class="footer-tagline" data-cms="shared.footer.tagline" data-bg="Бутиково фитнес студио · Варна" data-en="Boutique fitness studio · Varna">Бутиково фитнес студио · Варна</p>
         </div>
         <ul class="footer-links-inline">
           <li><a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="index.html#cta" data-bg="Безплатна консултация" data-en="Free consultation">Безплатна консултация</a></li>
+          <li><a href="index.html#cta" data-cms="shared.footer.cta_link" data-bg="Безплатна консултация" data-en="Free consultation">Безплатна консултация</a></li>
         </ul>
       </div>
-      <p class="footer-copy" data-bg="© 2026 SYNRG Beyond Fitness. Всички права запазени." data-en="© 2026 SYNRG Beyond Fitness. All rights reserved.">© 2026 SYNRG Beyond Fitness. Всички права запазени.</p>
+      <p class="footer-copy" data-cms="shared.footer.copyright" data-bg="© 2026 SYNRG Beyond Fitness. Всички права запазени." data-en="© 2026 SYNRG Beyond Fitness. All rights reserved.">© 2026 SYNRG Beyond Fitness. Всички права запазени.</p>
     </div>
   </footer>
 
@@ -482,5 +482,6 @@
         if (typeof setupAddToCartButtons === 'function') setupAddToCartButtons();
       });
   </script>
+  <script>cmsLoadContentBlocks('remote');</script>
 </body>
 </html>

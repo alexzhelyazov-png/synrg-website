@@ -32,4 +32,41 @@
       if (val !== null) el.innerHTML = val;
     });
   };
+
+  // ── Load content blocks from site_content_blocks ──────────
+  // Finds elements with data-cms="page.section.key" and replaces their innerHTML
+  // Also loads 'shared' blocks (footer, etc.)
+  window.cmsLoadContentBlocks = function(pageName) {
+    var lang = cmsLang();
+    var filter = '?select=*&or=(page.eq.' + pageName + ',page.eq.shared)';
+
+    cmsGet('site_content_blocks', filter).then(function(blocks) {
+      if (!blocks || blocks.length === 0) return;
+
+      blocks.forEach(function(b) {
+        var key = b.page + '.' + b.section + '.' + b.block_key;
+        var val = b['value_' + lang] || b.value_bg || '';
+        if (!val) return;
+
+        // Find element by data-cms attribute
+        var el = document.querySelector('[data-cms="' + key + '"]');
+        if (el) {
+          el.innerHTML = val;
+          // Also update data-bg and data-en for language switcher
+          el.setAttribute('data-bg', b.value_bg || '');
+          el.setAttribute('data-en', b.value_en || '');
+        }
+
+        // Also try shared blocks with just section.key
+        if (b.page === 'shared') {
+          var sharedKey = 'shared.' + b.section + '.' + b.block_key;
+          document.querySelectorAll('[data-cms="' + sharedKey + '"]').forEach(function(el2) {
+            el2.innerHTML = val;
+            el2.setAttribute('data-bg', b.value_bg || '');
+            el2.setAttribute('data-en', b.value_en || '');
+          });
+        }
+      });
+    });
+  };
 })();
