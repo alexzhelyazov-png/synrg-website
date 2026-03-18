@@ -691,19 +691,21 @@
         observeReveals();
       });
 
-    // ── Load products (planner etc.) into products grid ──
+    // ── Load products (exclude planner — it has its own tab) ──
     cmsGet('site_products', '?select=*&status=neq.archived&order=display_order.asc')
       .then(function(products) {
-        if (!products || products.length === 0) {
-          var sec = document.getElementById('products-section');
-          if (sec) sec.style.display = 'none';
-          return;
-        }
+        if (!products || products.length === 0) return;
+        // Filter out planner products — they go in the Planner tab
+        var filtered = products.filter(function(p) {
+          var name = (p.name_bg || '').toLowerCase();
+          return name.indexOf('планер') === -1 && name.indexOf('planner') === -1;
+        });
+        if (filtered.length === 0) return;
         var lang = cmsLang();
         var grid = document.getElementById('products-grid');
         if (!grid) return;
         var html = '';
-        products.forEach(function(p, i) {
+        filtered.forEach(function(p, i) {
           var isActive = p.status === 'active';
           var isFeatured = p.is_featured;
           var cls = 'product-card reveal' + (isFeatured ? ' featured' : '') + (!isActive ? ' soon' : '');
