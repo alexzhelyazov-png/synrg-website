@@ -1188,6 +1188,27 @@
             ctaForm.style.display = 'none'
             document.querySelector('.cta-form-footer').style.display = 'none'
             document.getElementById('ctaSuccess').style.display = 'block'
+            // Notify via Brevo Edge Function
+            const clientName = ctaForm.querySelector('[name=name]').value.trim()
+            const clientContact = ctaForm.querySelector('[name=contact]').value.trim()
+            const clientMsg = ctaForm.querySelector('[name=message]').value.trim()
+            fetch(SUPABASE_URL + '/functions/v1/mailerlite-sync', {
+              method: 'POST',
+              headers: { 'Authorization': 'Bearer ' + SUPABASE_ANON, 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'send_email',
+                email: 'info@synrg-beyondfitness.com',
+                name: 'SYNRG Team',
+                subject: 'Ново запитване от ' + clientName,
+                html: '<div style="font-family:sans-serif;padding:24px;background:#1a1a1a;color:#e0e0e0;border-radius:16px;max-width:480px">'
+                  + '<h2 style="color:#c4e9bf;margin:0 0 16px">Ново запитване</h2>'
+                  + '<p><strong>Име:</strong> ' + clientName + '</p>'
+                  + '<p><strong>Контакт:</strong> ' + clientContact + '</p>'
+                  + (clientMsg ? '<p><strong>Съобщение:</strong> ' + clientMsg + '</p>' : '')
+                  + '<hr style="border:none;border-top:1px solid #333;margin:20px 0">'
+                  + '<p style="font-size:12px;color:#666">От формата на сайта</p></div>'
+              })
+            }).catch(() => {})
           } else { throw new Error('error') }
         } catch {
           btn.textContent = origText; btn.disabled = false
