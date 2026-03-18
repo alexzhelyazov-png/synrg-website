@@ -504,10 +504,7 @@
   <section class="pricing-section" id="online-programs">
     <div class="container">
       <div class="products-grid" id="programs-grid">
-        <!-- Loaded dynamically from Supabase -->
-      </div>
-      <div class="products-grid" id="products-grid" style="margin-top:24px;">
-        <!-- Loaded dynamically from Supabase -->
+        <!-- Loaded dynamically from Supabase (programs only, no studio/planner) -->
       </div>
     </div>
   </section>
@@ -691,11 +688,13 @@
         observeReveals();
       });
 
-    // ── Load products (exclude planner — it has its own tab) ──
+    // ── Products grid removed — planner has its own tab, no other products needed ──
+    // If you add non-planner products in the future, uncomment and restore this section
+    void(function() { return; }());
+    /*
     cmsGet('site_products', '?select=*&status=neq.archived&order=display_order.asc')
       .then(function(products) {
         if (!products || products.length === 0) return;
-        // Filter out planner products — they go in the Planner tab
         var filtered = products.filter(function(p) {
           var name = (p.name_bg || '').toLowerCase();
           return name.indexOf('планер') === -1 && name.indexOf('planner') === -1;
@@ -745,6 +744,7 @@
         if (typeof setupAddToCartButtons === 'function') setupAddToCartButtons();
         observeReveals();
       });
+    */
 
     // ── Load CMS content blocks ──
     cmsLoadContentBlocks('pricing');
