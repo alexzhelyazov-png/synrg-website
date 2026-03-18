@@ -269,6 +269,38 @@
       margin-bottom: 16px;
     }
 
+    /* ── Tab bar ── */
+    .pricing-tabs {
+      display: flex; justify-content: center; gap: 4px;
+      padding: 6px; border-radius: 100px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      max-width: 480px; margin: 0 auto 56px;
+    }
+    .pricing-tab {
+      flex: 1; padding: 12px 24px;
+      border-radius: 100px; border: none;
+      background: transparent; color: var(--muted);
+      font-family: 'MontBlanc', sans-serif;
+      font-size: 13px; font-weight: 700; font-style: italic;
+      letter-spacing: 0.04em; cursor: pointer;
+      transition: all 0.25s var(--ease);
+      position: relative; white-space: nowrap;
+    }
+    .pricing-tab:hover { color: var(--cream); }
+    .pricing-tab.active {
+      background: var(--mint); color: #0d1510;
+    }
+    .pricing-tab .soon-badge {
+      position: absolute; top: -8px; right: -4px;
+      background: var(--logan); color: #0d1510;
+      font-size: 8px; font-weight: 700; font-style: normal;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 100px;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     .mobile-menu { display: none; }
 
     /* ── Footer ── */
@@ -316,9 +348,9 @@
   <!-- ── Mobile menu ── -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
-    <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"          data-en="Studio">Студио</a>
-    <a href="remote.html"  onclick="closeMobileMenu()" data-bg="С нас навсякъде"  data-en="With us anywhere">С нас навсякъде</a>
-    <a href="pricing.html" onclick="closeMobileMenu()" data-bg="Цени"             data-en="Pricing">Цени</a>
+    <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"    data-en="Studio">Студио</a>
+    <a href="pricing.html#programs" onclick="closeMobileMenu()" data-bg="Програми" data-en="Programs">Програми</a>
+    <a href="pricing.html" onclick="closeMobileMenu()" data-bg="Цени"      data-en="Pricing">Цени</a>
     <a href="javascript:void(0)" onclick="closeMobileMenu();toggleCartDrawer()" data-bg="Кошница" data-en="Cart">Кошница</a>
     <a href="./app/index.html" onclick="closeMobileMenu()" data-bg="Влез" data-en="Login">Влез</a>
     <a href="index.html#cta" onclick="closeMobileMenu()" class="btn btn-primary" style="font-style:normal" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
@@ -332,8 +364,8 @@
       </a>
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
-          <li><a href="studio.html"  data-bg="Студио"           data-en="Studio">Студио</a></li>
-          <li><a href="remote.html"  data-bg="С нас навсякъде"   data-en="With us anywhere">С нас навсякъде</a></li>
+          <li><a href="studio.html"  data-bg="Студио"    data-en="Studio">Студио</a></li>
+          <li><a href="pricing.html#programs" data-bg="Програми" data-en="Programs">Програми</a></li>
           <li><a href="pricing.html" class="active" data-bg="Цени" data-en="Pricing">Цени</a></li>
         </ul>
       </nav>
@@ -394,9 +426,24 @@
     </div>
   </section>
 
+  <!-- ── Tab bar ── -->
+  <section style="padding: 0 0 0; position: relative;">
+    <div class="container">
+      <div class="pricing-tabs reveal">
+        <button class="pricing-tab active" onclick="switchTab('studio')" data-tab="studio" data-bg="Студио" data-en="Studio">Студио</button>
+        <button class="pricing-tab" onclick="switchTab('programs')" data-tab="programs" data-bg="Програми" data-en="Programs">Програми</button>
+        <button class="pricing-tab" onclick="switchTab('planner')" data-tab="planner">
+          <span data-bg="Планер" data-en="Planner">Планер</span>
+          <span class="soon-badge" data-bg="СКОРО" data-en="SOON">СКОРО</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- ── Section 1: Studio plans ── -->
+  <!-- ── Tab 1: Studio plans ── -->
   <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="tab-panel active" id="tab-studio">
   <section class="pricing-section" id="studio-plans">
     <!-- Deco -->
     <div class="deco" aria-hidden="true"
@@ -485,9 +532,12 @@
     </div>
   </section>
 
+  </div><!-- /tab-studio -->
+
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- ── Section 2: Online programs ── -->
+  <!-- ── Tab 2: Programs + Products ── -->
   <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-programs">
   <section class="pricing-section" id="online-programs">
     <div class="container">
       <div class="pricing-section-header">
@@ -516,6 +566,24 @@
       </div>
     </div>
   </section>
+
+  </div><!-- /tab-programs -->
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ── Tab 3: Planner (Coming Soon) ── -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-planner">
+  <section class="pricing-section" style="min-height: 400px;">
+    <div class="container" style="text-align:center;">
+      <div class="pricing-section-header">
+        <span class="soon-pill" style="font-size:12px;padding:6px 20px;margin-bottom:24px;" data-bg="СКОРО" data-en="COMING SOON">СКОРО</span>
+        <h2 data-bg="SYNRG Планер" data-en="SYNRG Planner">SYNRG Планер</h2>
+        <p style="margin-top:16px;" data-bg="Физически планер за структура в тренировките, храненето и ежедневието. Очаквайте скоро." data-en="Physical planner for structure in training, nutrition, and daily life. Coming soon.">Физически планер за структура в тренировките, храненето и ежедневието. Очаквайте скоро.</p>
+      </div>
+      <a href="index.html#cta" class="btn btn-ghost" style="margin-top:32px;" data-bg="Научи първи →" data-en="Be the first to know →">Научи първи →</a>
+    </div>
+  </section>
+  </div><!-- /tab-planner -->
 
   </main>
 
@@ -559,6 +627,23 @@
     // Mobile menu
     function openMobileMenu()  { document.getElementById('mobileMenu').classList.add('open');    document.body.style.overflow = 'hidden'; }
     function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow = ''; }
+
+    // Tab switching
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('.pricing-tab').forEach(function(t) { t.classList.remove('active'); });
+      var panel = document.getElementById('tab-' + tab);
+      var btn = document.querySelector('.pricing-tab[data-tab="' + tab + '"]');
+      if (panel) panel.classList.add('active');
+      if (btn) btn.classList.add('active');
+      history.replaceState(null, '', '#' + tab);
+      window.scrollTo({ top: document.querySelector('.pricing-tabs').offsetTop - 120, behavior: 'smooth' });
+    }
+    // Handle hash on load
+    (function() {
+      var h = location.hash.replace('#', '');
+      if (h === 'programs' || h === 'planner') switchTab(h);
+    })();
 
     // Scroll reveal
     var io = new IntersectionObserver(function(entries) {
