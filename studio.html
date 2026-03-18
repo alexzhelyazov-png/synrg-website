@@ -360,14 +360,10 @@
       .price-card { padding: 36px 20px 32px; }
       .price-card.featured { padding: 52px 20px 40px; }
     }
-    @media (max-width: 640px) {
-      .pricing-grid { gap: 8px; }
-      .price-card { padding: 28px 14px 24px; border-radius: 22px; }
-      .price-card.featured { padding: 40px 14px 32px; }
-      .price-sessions { font-size: clamp(48px, 11vw, 72px); }
-      .price-number { font-size: clamp(36px, 8vw, 52px); }
-      .price-features { gap: 7px; }
-      .price-features li { font-size: 11px; }
+    @media (max-width: 768px) {
+      .pricing-grid { grid-template-columns: 1fr; gap: 16px; max-width: 400px; margin: 0 auto; }
+      .price-card { padding: 32px 24px 28px; }
+      .price-card.featured { padding: 44px 24px 36px; }
     }
 
     /* ── Footer ── */

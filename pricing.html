@@ -347,8 +347,12 @@
       .nav-links, .nav-right .btn-ghost, .nav-right .btn-primary { display: none; }
       .nav-toggle { display: flex; }
       .pricing-tabs { max-width: 100%; margin: 0 0 12px; }
-      .pricing-tab { padding: 12px 16px; font-size: 14px; }
+      .pricing-tab { padding: 12px 16px; font-size: 13px; }
       #pricing-hero { padding: calc(var(--nav-h) + 12px) 0 0; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 16px; max-width: 400px; margin: 0 auto; }
+      .price-card { padding: 32px 24px 28px; }
+      .price-card.featured { padding: 44px 24px 36px; }
+      .products-grid { grid-template-columns: 1fr; }
       .mobile-menu { position: fixed; top: 0; left: 0; right: 0; height: 100vh; height: 100dvh; background: var(--bg); z-index: 1100; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 48px 24px calc(32px + env(safe-area-inset-bottom, 0px)); box-sizing: border-box; }
       .mobile-menu.open { display: flex; }
       .mobile-menu a { font-size: 28px; font-weight: 700; font-style: italic; color: var(--cream); }
@@ -356,16 +360,6 @@
       .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--cream); font-size: 28px; cursor: pointer; }
       .footer-main { flex-direction: column; text-align: center; }
       .footer-links-inline { flex-wrap: wrap; justify-content: center; }
-    }
-    @media (max-width: 640px) {
-      .pricing-grid { gap: 8px; }
-      .price-card { padding: 28px 14px 24px; border-radius: 22px; }
-      .price-card.featured { padding: 40px 14px 32px; }
-      .price-sessions { font-size: clamp(48px, 11vw, 72px); }
-      .price-number { font-size: clamp(36px, 8vw, 52px); }
-      .price-features { gap: 7px; }
-      .price-features li { font-size: 11px; }
-      .products-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
