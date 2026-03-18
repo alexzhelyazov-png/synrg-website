@@ -394,8 +394,8 @@
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
           <li><a href="studio.html"  data-bg="Студио"    data-en="Studio">Студио</a></li>
-          <li><a href="pricing.html#programs" id="nav-programs" data-bg="Програми" data-en="Programs">Програми</a></li>
-          <li><a href="pricing.html" id="nav-ceni" class="active" data-bg="Цени" data-en="Pricing">Цени</a></li>
+          <li><a href="pricing.html#programs" id="nav-programs" onclick="event.preventDefault();switchTab('programs')" data-bg="Програми" data-en="Programs">Програми</a></li>
+          <li><a href="pricing.html" id="nav-ceni" class="active" onclick="event.preventDefault();switchTab('studio')" data-bg="Цени" data-en="Pricing">Цени</a></li>
         </ul>
       </nav>
       <div class="nav-right">
@@ -622,12 +622,15 @@
         history.replaceState(null, '', '#programs');
       }
     }
-    // Handle hash on load
-    (function() {
+    // Handle hash on load + hash change
+    function handleHash() {
       var h = location.hash.replace('#', '');
       if (h === 'programs') switchTab('programs');
-      if (h === 'planner') { switchTab('programs'); switchSubTab('planner'); }
-    })();
+      else if (h === 'planner') { switchTab('programs'); switchSubTab('planner'); }
+      else if (h === 'studio' || h === '') switchTab('studio');
+    }
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
 
     // Scroll reveal
     var io = new IntersectionObserver(function(entries) {
