@@ -324,6 +324,9 @@
       .deco { display: none; }
       .nav-links, .nav-right .btn-ghost, .nav-right .btn-primary { display: none; }
       .nav-toggle { display: flex; }
+      .pricing-tabs { max-width: 100%; margin: 0 0 12px; }
+      .pricing-tab { padding: 12px 16px; font-size: 14px; }
+      #pricing-hero { padding: calc(var(--nav-h) + 12px) 0 0; }
       .mobile-menu { position: fixed; top: 0; left: 0; right: 0; height: 100vh; height: 100dvh; background: var(--bg); z-index: 1100; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 48px 24px calc(32px + env(safe-area-inset-bottom, 0px)); box-sizing: border-box; }
       .mobile-menu.open { display: flex; }
       .mobile-menu a { font-size: 28px; font-weight: 700; font-style: italic; color: var(--cream); }
@@ -500,28 +503,10 @@
   <div class="tab-panel" id="tab-programs">
   <section class="pricing-section" id="online-programs">
     <div class="container">
-      <div class="pricing-section-header">
-        <span class="overline reveal" data-bg="Онлайн програми" data-en="Online programs">Онлайн програми</span>
-        <h2 class="reveal" data-bg="С нас навсякъде." data-en="With us anywhere.">С нас навсякъде.</h2>
-        <p class="reveal" data-bg="Тренировъчни и рехабилитационни програми от екипа на SYNRG — достъпни от всяка точка." data-en="Training and rehabilitation programs by the SYNRG team — available from anywhere.">Тренировъчни и рехабилитационни програми от екипа на SYNRG — достъпни от всяка точка.</p>
-      </div>
       <div class="products-grid" id="programs-grid">
         <!-- Loaded dynamically from Supabase -->
       </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- ── Section 3: Products (Planner etc.) ── -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <section class="pricing-section" id="products-section">
-    <div class="container">
-      <div class="pricing-section-header">
-        <span class="overline reveal" data-bg="Продукти" data-en="Products">Продукти</span>
-        <h2 class="reveal" data-bg="Инструменти за<br>ежедневието." data-en="Tools for<br>everyday life.">Инструменти за<br>ежедневието.</h2>
-        <p class="reveal" data-bg="Физически и дигитални продукти, създадени от екипа." data-en="Physical and digital products, created by the team.">Физически и дигитални продукти, създадени от екипа.</p>
-      </div>
-      <div class="products-grid" id="products-grid">
+      <div class="products-grid" id="products-grid" style="margin-top:24px;">
         <!-- Loaded dynamically from Supabase -->
       </div>
     </div>
