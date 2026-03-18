@@ -1325,8 +1325,9 @@
           h += '<a href="' + s.link_url + '" class="btn btn-primary" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + linkText + '</a>';
           h += '</div>';
         } else {
-          var arrowText = s['link_text_' + lang] || s.link_text_bg || '';
-          h += '<span class="service-arrow" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + arrowText + '</span>';
+          var arrowText = s['link_text_' + lang] || s.link_text_bg || (lang === 'en' ? 'Learn more →' : 'Виж повече →');
+          var arrowUrl = s.link_url || 'remote.html';
+          h += '<a href="' + arrowUrl + '" class="service-arrow" data-bg="' + (s.link_text_bg || 'Виж повече →') + '" data-en="' + (s.link_text_en || 'Learn more →') + '">' + arrowText + '</a>';
         }
         h += '</article>';
         html += h;
