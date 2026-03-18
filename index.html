@@ -408,6 +408,7 @@
     .service-card::before {
       content: ''; position: absolute; inset: 0;
       opacity: 0; transition: opacity 0.3s;
+      pointer-events: none;
     }
     .service-card:hover { transform: translateY(-4px); }
     .service-card:hover::before { opacity: 1; }
@@ -439,6 +440,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 13px; font-weight: 700; font-style: normal;
       transition: gap 0.2s var(--ease);
+      position: relative; z-index: 1;
     }
     .service-card.featured .service-arrow { color: var(--mint); }
     .service-card.upcoming .service-arrow { color: var(--logan); }
