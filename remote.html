@@ -188,17 +188,14 @@
 
     /* ── Hero ── */
     #remote-hero {
-      min-height: 52vh; display: flex; flex-direction: column; justify-content: flex-end;
-      padding-top: calc(var(--nav-h) + 40px); padding-bottom: 72px;
+      padding: calc(var(--nav-h) + 32px) 0 32px;
       position: relative; overflow: hidden;
-    }
-    #remote-hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 30% 50%, var(--mint-dim) 0%, transparent 60%);
+      text-align: center;
     }
     .remote-hero-content { position: relative; z-index: 1; }
-    .remote-hero-content h1 { font-size: clamp(48px, 8vw, 100px); margin-bottom: 20px; }
-    .remote-hero-content p { font-size: 17px; max-width: 560px; }
+    .remote-hero-content h1 { display: none; }
+    .remote-hero-content .overline { display: none; }
+    .remote-hero-content p { font-size: clamp(18px, 2.5vw, 22px); max-width: 600px; margin: 0 auto; color: var(--muted); }
 
     /* ── Products ── */
     #remote-products {
@@ -363,10 +360,7 @@
   <!-- ── Products ── -->
   <section id="remote-products">
     <div class="container">
-      <div class="remote-products-header">
-        <span class="overline" data-cms="remote.products.overline" data-bg="Нашите продукти" data-en="Our products">Нашите продукти</span>
-        <h2 data-cms="remote.products.heading" data-bg="Програмите.<br>Навсякъде." data-en="The programs.<br>From anywhere.">Програмите.<br>Навсякъде.</h2>
-      </div>
+      <!-- Header removed — subtitle in hero is enough -->
 
       <div class="products-grid">
 
