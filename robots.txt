@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alexzhelyazov-png.github.io/synrg-website/sitemap.xml
