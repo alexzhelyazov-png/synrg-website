@@ -656,58 +656,91 @@
         observeReveals();
       });
 
-    // ── Load site_products into Programs tab (non-planner only) ──
-    cmsGet('site_products', '?select=*&status=neq.archived&order=display_order.asc')
-      .then(function(products) {
-        if (!products || products.length === 0) return;
-        var filtered = products.filter(function(p) {
-          var name = (p.name_bg || '').toLowerCase();
-          return name.indexOf('планер') === -1 && name.indexOf('planner') === -1;
-        });
-        if (filtered.length === 0) return;
-        var lang = cmsLang();
-        var grid = document.getElementById('programs-grid');
-        if (!grid) return;
-        var html = '';
-        filtered.forEach(function(p, i) {
-          var isActive = p.status === 'active';
-          var isFeatured = p.is_featured;
-          var cls = 'product-card reveal' + (isFeatured ? ' featured' : '') + (!isActive ? ' soon' : '');
-          var h = '<div class="' + cls + '" style="transition-delay:' + (i * 0.06) + 's"';
-          if (isActive && p.stripe_price_id) {
-            h += ' data-price-id="' + p.stripe_price_id + '"'
-               + ' data-product-bg="' + p.name_bg + '"'
-               + ' data-product-en="' + p.name_en + '"'
-               + ' data-price="' + p.price_cents + '"'
-               + ' data-currency="' + p.currency + '"';
-          }
-          h += '>';
-          if (!isActive) {
-            h += '<span class="soon-pill" data-bg="Детайли предстоят" data-en="Details coming">'
-               + (lang === 'en' ? 'Details coming' : 'Детайли предстоят') + '</span>';
-          }
-          h += '<div class="product-num">' + String(i + 1).padStart(2, '0') + '</div>';
-          h += '<div class="product-name" data-bg="' + (p.name_bg || '') + '" data-en="' + (p.name_en || '') + '">' + cmsText(p, 'name') + '</div>';
-          h += '<p class="product-desc" data-bg="' + (p.description_bg || '') + '" data-en="' + (p.description_en || '') + '">' + cmsText(p, 'description') + '</p>';
-          if (isActive && p.price_cents > 0) {
-            var priceNum = (p.price_cents / 100).toFixed(2).replace('.00', '');
-            var cur = p.currency || 'BGN';
-            h += '<div class="product-price-tag">' + priceNum + ' ' + cur + '</div>';
-          }
-          h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
-          h += '<span class="product-tag" data-bg="' + (p.tag_bg || '') + '" data-en="' + (p.tag_en || '') + '">' + cmsText(p, 'tag') + '</span>';
-          if (isActive && p.stripe_price_id) {
-            h += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
-               + ' data-bg="Добави →" data-en="Add to cart →">'
-               + (lang === 'en' ? 'Add to cart →' : 'Добави →') + '</button>';
-          }
-          h += '</div></div>';
-          html += h;
-        });
-        grid.innerHTML = html;
-        if (typeof setupAddToCartButtons === 'function') setupAddToCartButtons();
-        observeReveals();
+    // ── Load programs + site_products into Programs tab ──
+    Promise.all([
+      cmsGet('programs', '?select=*&status=eq.active&order=display_order.asc'),
+      cmsGet('site_products', '?select=*&status=neq.archived&order=display_order.asc')
+    ]).then(function(results) {
+      var programs = results[0] || [];
+      var products = results[1] || [];
+      var lang = cmsLang();
+      var grid = document.getElementById('programs-grid');
+      if (!grid) return;
+      var idx = 0;
+      var html = '';
+
+      // Programs from programs table (featured)
+      programs.forEach(function(pg) {
+        idx++;
+        var h = '<div class="product-card featured reveal" style="transition-delay:' + ((idx - 1) * 0.06) + 's"';
+        h += ' data-price-id="' + (pg.stripe_price_id || 'pending') + '"'
+           + ' data-product-bg="' + (pg.name_bg || '') + '"'
+           + ' data-product-en="' + (pg.name_en || '') + '"'
+           + ' data-price="' + (pg.price_cents || 0) + '"'
+           + ' data-currency="' + (pg.currency || 'BGN') + '">';
+        h += '<div class="product-num">' + String(idx).padStart(2, '0') + '</div>';
+        h += '<div class="product-name" data-bg="' + (pg.name_bg || '') + '" data-en="' + (pg.name_en || '') + '">' + (lang === 'en' ? (pg.name_en || pg.name_bg) : pg.name_bg) + '</div>';
+        h += '<p class="product-desc" data-bg="' + (pg.description_bg || '') + '" data-en="' + (pg.description_en || '') + '">' + (lang === 'en' ? (pg.description_en || pg.description_bg || '') : (pg.description_bg || '')) + '</p>';
+        if (pg.price_cents > 0) {
+          var priceNum = (pg.price_cents / 100).toFixed(2).replace('.00', '');
+          h += '<div class="product-price-tag">' + priceNum + ' ' + (pg.currency || 'BGN') + '</div>';
+        }
+        h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
+        h += '<span class="product-tag" data-bg="Онлайн програма" data-en="Online program">' + (lang === 'en' ? 'Online program' : 'Онлайн програма') + '</span>';
+        if (pg.stripe_price_id) {
+          h += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
+             + ' data-bg="Добави →" data-en="Add to cart →">'
+             + (lang === 'en' ? 'Add to cart →' : 'Добави →') + '</button>';
+        }
+        h += '</div></div>';
+        html += h;
       });
+
+      // Products from site_products (filter out planners)
+      var filtered = products.filter(function(p) {
+        var name = (p.name_bg || '').toLowerCase();
+        return name.indexOf('планер') === -1 && name.indexOf('planner') === -1;
+      });
+      filtered.forEach(function(p) {
+        idx++;
+        var isActive = p.status === 'active';
+        var isFeatured = p.is_featured;
+        var cls = 'product-card reveal' + (isFeatured ? ' featured' : '') + (!isActive ? ' soon' : '');
+        var h = '<div class="' + cls + '" style="transition-delay:' + ((idx - 1) * 0.06) + 's"';
+        if (isActive && p.stripe_price_id) {
+          h += ' data-price-id="' + p.stripe_price_id + '"'
+             + ' data-product-bg="' + p.name_bg + '"'
+             + ' data-product-en="' + p.name_en + '"'
+             + ' data-price="' + p.price_cents + '"'
+             + ' data-currency="' + p.currency + '"';
+        }
+        h += '>';
+        if (!isActive) {
+          h += '<span class="soon-pill" data-bg="Детайли предстоят" data-en="Details coming">'
+             + (lang === 'en' ? 'Details coming' : 'Детайли предстоят') + '</span>';
+        }
+        h += '<div class="product-num">' + String(idx).padStart(2, '0') + '</div>';
+        h += '<div class="product-name" data-bg="' + (p.name_bg || '') + '" data-en="' + (p.name_en || '') + '">' + cmsText(p, 'name') + '</div>';
+        h += '<p class="product-desc" data-bg="' + (p.description_bg || '') + '" data-en="' + (p.description_en || '') + '">' + cmsText(p, 'description') + '</p>';
+        if (isActive && p.price_cents > 0) {
+          var priceNum = (p.price_cents / 100).toFixed(2).replace('.00', '');
+          h += '<div class="product-price-tag">' + priceNum + ' ' + (p.currency || 'BGN') + '</div>';
+        }
+        h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
+        h += '<span class="product-tag" data-bg="' + (p.tag_bg || '') + '" data-en="' + (p.tag_en || '') + '">' + cmsText(p, 'tag') + '</span>';
+        if (isActive && p.stripe_price_id) {
+          h += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
+             + ' data-bg="Добави →" data-en="Add to cart →">'
+             + (lang === 'en' ? 'Add to cart →' : 'Добави →') + '</button>';
+        }
+        h += '</div></div>';
+        html += h;
+      });
+
+      if (html) grid.innerHTML = html;
+      if (typeof setupAddToCartButtons === 'function') setupAddToCartButtons();
+      observeReveals();
+    });
 
     // ── Load CMS content blocks ──
     cmsLoadContentBlocks('pricing');
