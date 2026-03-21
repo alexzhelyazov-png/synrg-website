@@ -579,6 +579,18 @@
     .app-preview-text { flex: 1; }
     .app-preview-text h2 { font-size: clamp(24px, 3vw, 36px); margin-bottom: 12px; }
     .app-preview-text p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+    .app-features {
+      list-style: none; display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 28px;
+    }
+    .app-features li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; font-weight: 700; color: var(--muted); font-style: normal; line-height: 1.4;
+    }
+    .app-features li::before {
+      content: ''; flex-shrink: 0; width: 16px; height: 16px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.5' stroke='%235a6e5a'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%23c4e9bf' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
     .iphone-frame {
       width: 200px; height: 408px; flex-shrink: 0;
       border-radius: 32px;
@@ -1050,7 +1062,13 @@
         <div class="app-preview-text">
           <span class="overline reveal" data-bg="SYNRG App" data-en="SYNRG App">SYNRG App</span>
           <h2 class="reveal" data-bg="Всичко на едно място." data-en="Everything in one place.">Всичко на едно място.</h2>
-          <p class="reveal" data-bg="Проследявай прогреса, записвай тренировки, управлявай храненето си, трупай точки и се състезавай с останалите. Всичките ти програми и ресурси — на едно място." data-en="Track your progress, book workouts, manage nutrition, earn points and compete with others. All your programs and resources — in one place.">Проследявай прогреса, записвай тренировки, управлявай храненето си, трупай точки и се състезавай с останалите. Всичките ти програми и ресурси — на едно място.</p>
+          <ul class="app-features reveal">
+            <li data-bg="Проследявай прогреса си" data-en="Track your progress">Проследявай прогреса си</li>
+            <li data-bg="Записвай тренировки" data-en="Book workouts">Записвай тренировки</li>
+            <li data-bg="Управлявай храненето си" data-en="Manage your nutrition">Управлявай храненето си</li>
+            <li data-bg="Трупай точки и се състезавай" data-en="Earn points &amp; compete">Трупай точки и се състезавай</li>
+            <li data-bg="Всичките ти програми и ресурси" data-en="All your programs &amp; resources">Всичките ти програми и ресурси</li>
+          </ul>
           <a href="./app/index.html" class="btn btn-primary reveal" data-bg="Отвори приложението →" data-en="Open the app →">Отвори приложението →</a>
         </div>
         <div class="iphone-frame reveal">
