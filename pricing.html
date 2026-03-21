@@ -549,7 +549,15 @@
   <div class="tab-panel" id="tab-programs">
   <section class="pricing-section">
     <div class="container">
-      <div class="products-grid" id="programs-grid" style="max-width:100%;">
+      <div class="programs-coming-soon" style="text-align:center;padding:80px 0;">
+        <span class="soon-pill" style="font-size:12px;padding:6px 20px;margin-bottom:24px;" data-bg="Очаквайте скоро" data-en="Coming soon">Очаквайте скоро</span>
+        <p style="font-size:16px;color:var(--muted);max-width:440px;margin:24px auto 0;" data-bg="Онлайн програмите ни скоро ще бъдат достъпни тук." data-en="Our online programs will be available here soon.">Онлайн програмите ни скоро ще бъдат достъпни тук.</p>
+      </div>
+      <div class="programs-cta reveal" style="text-align:center;margin-top:0;padding-bottom:48px;">
+        <span class="overline" style="display:block;" data-bg="Следваща стъпка" data-en="Next step">Следваща стъпка</span>
+        <a href="index.html#cta" class="btn btn-primary" style="margin-top:12px;" data-bg="Запази консултация →" data-en="Book a consultation →">Запази консултация →</a>
+      </div>
+      <div class="products-grid" id="programs-grid" style="max-width:100%;display:none;">
         <!-- Loaded from site_products (non-planner) -->
       </div>
     </div>
@@ -751,7 +759,14 @@
         html += h;
       });
 
-      if (html) grid.innerHTML = html;
+      if (html) {
+        grid.style.display = '';
+        grid.innerHTML = html;
+        var comingSoon = grid.parentElement.querySelector('.programs-coming-soon');
+        if (comingSoon) comingSoon.style.display = 'none';
+        var ctaBlock = grid.parentElement.querySelector('.programs-cta');
+        if (ctaBlock) ctaBlock.style.display = 'none';
+      }
       if (typeof setupAddToCartButtons === 'function') setupAddToCartButtons();
       observeReveals();
     });
