@@ -591,13 +591,25 @@
       content: ''; flex-shrink: 0; width: 16px; height: 16px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.5' stroke='%235a6e5a'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%23c4e9bf' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
     }
+    .iphone-wrapper {
+      flex-shrink: 0;
+      perspective: 900px;
+    }
     .iphone-frame {
-      width: 200px; height: 408px; flex-shrink: 0;
+      width: 200px; height: 408px;
       border-radius: 32px;
       border: 3px solid #3a3a3c;
       background: #000;
       position: relative; overflow: hidden;
-      box-shadow: 0 0 0 1.5px #1a1a1c, 0 24px 48px rgba(0,0,0,0.4), 0 0 80px rgba(196,233,191,0.04);
+      transform: rotateY(-12deg) rotateX(4deg);
+      box-shadow:
+        0 0 0 1.5px #1a1a1c,
+        12px 32px 56px rgba(0,0,0,0.5),
+        -4px -4px 40px rgba(196,233,191,0.03);
+      transition: transform 0.5s var(--ease);
+    }
+    .iphone-wrapper:hover .iphone-frame {
+      transform: rotateY(-4deg) rotateX(2deg);
     }
     .iphone-notch {
       position: absolute; top: 0; left: 50%; transform: translateX(-50%);
@@ -628,7 +640,7 @@
     }
     @media (max-width: 768px) {
       .app-preview-row { flex-direction: column; text-align: center; gap: 32px; }
-      .iphone-frame { width: 180px; height: 368px; border-radius: 28px; }
+      .iphone-frame { width: 180px; height: 368px; border-radius: 28px; transform: rotateY(-6deg) rotateX(2deg); }
       .iphone-notch { width: 76px; height: 18px; }
     }
 
@@ -1072,15 +1084,17 @@
           </ul>
           <a href="./app/index.html" class="btn btn-primary reveal" data-bg="Отвори приложението →" data-en="Open the app →">Отвори приложението →</a>
         </div>
-        <div class="iphone-frame reveal">
-          <div class="iphone-notch"></div>
-          <div class="iphone-screen">
-            <img src="images/app-dashboard.png" alt="SYNRG App Dashboard" loading="lazy" />
-            <img src="images/app-progress.png" alt="SYNRG App Progress" loading="lazy" />
-            <img src="images/app-schedule.png" alt="SYNRG App Schedule" loading="lazy" />
-            <img src="images/app-resources.png" alt="SYNRG App Resources" loading="lazy" />
+        <div class="iphone-wrapper reveal">
+          <div class="iphone-frame">
+            <div class="iphone-notch"></div>
+            <div class="iphone-screen">
+              <img src="images/app-dashboard.png" alt="SYNRG App Dashboard" loading="lazy" />
+              <img src="images/app-progress.png" alt="SYNRG App Progress" loading="lazy" />
+              <img src="images/app-schedule.png" alt="SYNRG App Schedule" loading="lazy" />
+              <img src="images/app-resources.png" alt="SYNRG App Resources" loading="lazy" />
+            </div>
+            <div class="iphone-home-bar"></div>
           </div>
-          <div class="iphone-home-bar"></div>
         </div>
       </div>
     </div>
