@@ -612,13 +612,14 @@
     .iphone-screen img {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       object-fit: cover; object-position: top;
-      opacity: 0; animation: screenCycle 12s ease-in-out infinite;
+      opacity: 0; animation: screenCycle 16s ease-in-out infinite;
     }
     .iphone-screen img:nth-child(1) { animation-delay: 0s; }
     .iphone-screen img:nth-child(2) { animation-delay: 4s; }
     .iphone-screen img:nth-child(3) { animation-delay: 8s; }
+    .iphone-screen img:nth-child(4) { animation-delay: 12s; }
     @keyframes screenCycle {
-      0% { opacity: 0; } 5% { opacity: 1; } 33.33% { opacity: 1; } 38.33% { opacity: 0; } 100% { opacity: 0; }
+      0% { opacity: 0; } 3% { opacity: 1; } 25% { opacity: 1; } 28% { opacity: 0; } 100% { opacity: 0; }
     }
     .iphone-home-bar {
       position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
@@ -1077,6 +1078,7 @@
             <img src="images/app-dashboard.png" alt="SYNRG App Dashboard" loading="lazy" />
             <img src="images/app-progress.png" alt="SYNRG App Progress" loading="lazy" />
             <img src="images/app-schedule.png" alt="SYNRG App Schedule" loading="lazy" />
+            <img src="images/app-resources.png" alt="SYNRG App Resources" loading="lazy" />
           </div>
           <div class="iphone-home-bar"></div>
         </div>
