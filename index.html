@@ -306,7 +306,7 @@
       line-height: 0.92; letter-spacing: -0.04em;
       color: var(--cream); margin-bottom: 28px;
     }
-    .hero-headline em { color: var(--mint); font-style: italic; }
+    .hero-headline em { color: var(--cream); font-style: italic; }
     .hero-sub {
       font-size: clamp(15px, 2vw, 18px); font-weight: 700;
       color: var(--cream); max-width: 480px;
@@ -433,7 +433,7 @@
       justify-content: space-between; margin-bottom: 56px;
     }
     #services h2 { font-size: clamp(32px, 4vw, 48px); }
-    .services-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
     .service-card {
       background: var(--bg); border: 1px solid var(--border);
@@ -447,7 +447,7 @@
       opacity: 0; transition: opacity 0.3s;
       pointer-events: none;
     }
-    .service-card:hover { transform: translateY(-4px); }
+    .service-card:hover { transform: translateY(-6px); }
     .service-card:hover::before { opacity: 1; }
 
     .service-card.featured {
@@ -500,6 +500,7 @@
       border-radius: var(--radius-lg); overflow: hidden; cursor: pointer;
       transition: border-color 0.25s var(--ease), transform 0.25s var(--ease-spring);
       will-change: transform;
+      display: flex; flex-direction: column;
     }
     .team-card:hover { border-color: var(--logan-border); transform: translateY(-6px); }
     .team-photo {
@@ -508,15 +509,15 @@
       transition: transform 0.5s var(--ease);
     }
     .team-card:hover .team-photo { transform: scale(1.03); }
-    .team-info { padding: 20px 22px 24px; }
+    .team-info { padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1; }
     .team-name  { font-size: 18px; font-weight: 700; font-style: italic; color: var(--cream); margin-bottom: 4px; }
-    .team-role  { font-size: 13px; font-weight: 700; color: var(--muted); font-style: italic; }
+    .team-role  { font-size: 13px; font-weight: 700; color: var(--muted); font-style: italic; margin-bottom: 12px; }
     .team-badge {
       display: inline-block;
       background: var(--logan-dim); border: 1px solid var(--logan-border);
       color: var(--logan); font-size: 10px; font-weight: 700;
       font-style: normal; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 3px 10px; border-radius: 100px; margin-top: 10px;
+      padding: 3px 10px; border-radius: 100px; margin-top: auto; align-self: flex-start;
     }
     .team-badge.mint {
       background: var(--mint-dim); border-color: var(--mint-border); color: var(--mint);
@@ -813,11 +814,11 @@
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
     <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"                data-en="Studio">Студио</a>
-    <a href="remote.html" onclick="closeMobileMenu()" data-bg="Програми" data-en="Programs">Програми</a>
+    <a href="remote.html" onclick="closeMobileMenu()" data-bg="Продукти" data-en="Products">Продукти</a>
     <a href="pricing.html" onclick="closeMobileMenu()" data-bg="Цени"                   data-en="Pricing">Цени</a>
     <a href="javascript:void(0)" onclick="closeMobileMenu();toggleCartDrawer()" data-bg="Кошница" data-en="Cart">Кошница</a>
     <a href="./app/index.html" onclick="closeMobileMenu()" data-bg="Влез" data-en="Login">Влез</a>
-    <a href="#cta" onclick="closeMobileMenu()" class="btn btn-primary" style="font-style:normal" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
+    <a href="#cta" onclick="closeMobileMenu()" class="btn btn-primary" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
   </div>
 
   <!-- ── Navbar ───────────────────────────────────── -->
@@ -829,7 +830,7 @@
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
           <li><a href="studio.html"  data-bg="Студио"    data-en="Studio">Студио</a></li>
-          <li><a href="remote.html" data-bg="Програми" data-en="Programs">Програми</a></li>
+          <li><a href="remote.html" data-bg="Продукти" data-en="Products">Продукти</a></li>
           <li><a href="pricing.html" data-bg="Цени"      data-en="Pricing">Цени</a></li>
         </ul>
       </nav>
@@ -858,54 +859,30 @@
     <div class="hero-bg"  aria-hidden="true"></div>
     <div class="hero-grid" aria-hidden="true"></div>
     <!-- Rotating logomark background -->
-    <img src="assets/synrg_Logomark.svg" class="hero-mark" alt="" aria-hidden="true" />
 
-    <!-- Double chevron — top right, mint -->
+    <!-- Checkmark — top right, mint -->
     <div class="deco" aria-hidden="true"
-         style="top:14%;right:5%;opacity:0.35;animation:floatA 7s ease-in-out infinite;">
+         style="top:12%;right:6%;opacity:0.35;animation:floatA 7s ease-in-out infinite;">
       <div class="deco-inner">
-        <svg width="78" height="108" viewBox="0 0 78 108" fill="none">
-          <path d="M10 7 L42 54 L10 101" stroke="#c4e9bf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M36 7 L68 54 L36 101" stroke="#c4e9bf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
+          <path d="M15 58 L40 86 L95 22" stroke="#c4e9bf" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
 
-    <!-- Lightning bolt — right mid, logan -->
+    <!-- Zigzag — mid right, logan -->
     <div class="deco" aria-hidden="true"
-         style="top:44%;right:13%;opacity:0.3;animation:floatB 9s ease-in-out infinite 1.2s;">
+         style="top:48%;right:10%;opacity:0.3;animation:floatB 9s ease-in-out infinite 1.2s;">
       <div class="deco-inner">
-        <svg width="46" height="66" viewBox="0 0 46 66" fill="#AAA9CD">
-          <path d="M28 3 L8 36 L22 36 L18 63 L38 30 L24 30 L28 3Z"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Zigzag — upper mid, logan faint -->
-    <div class="deco" aria-hidden="true"
-         style="top:20%;right:30%;opacity:0.2;animation:floatC 11s ease-in-out infinite 0.6s;">
-      <div class="deco-inner">
-        <svg width="106" height="38" viewBox="0 0 106 38" fill="none">
-          <path d="M4 30 L22 8 L40 30 L58 8 L76 30 L94 8" stroke="#AAA9CD" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Single chevron left — bottom right, logan -->
-    <div class="deco" aria-hidden="true"
-         style="bottom:18%;right:7%;opacity:0.22;animation:floatE 13s ease-in-out infinite 2s;">
-      <div class="deco-inner">
-        <svg width="42" height="68" viewBox="0 0 42 68" fill="none">
-          <path d="M34 4 L8 34 L34 64" stroke="#AAA9CD" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg width="90" height="150" viewBox="0 0 90 150" fill="none">
+          <path d="M65 10 L25 50 L65 90 L25 130" stroke="#AAA9CD" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
 
     <div class="container hero-content">
-      <div class="hero-tag fade-up" data-delay="1" data-cms="index.hero.tag" data-bg="Beyond Fitness · Варна" data-en="Beyond Fitness · Varna">Beyond Fitness · Варна</div>
+      <div class="hero-tag fade-up" data-delay="1" data-cms="index.hero.tag" data-bg="SYNRG · Варна" data-en="SYNRG · Varna">SYNRG · Варна</div>
       <h1 class="hero-headline fade-up" data-delay="2" data-cms="index.hero.title">
-        Beyond<br>
-        Fitness.<br>
         <em data-bg="Не фитнес верига.<br>Нещо различно." data-en="Not a fitness chain.<br>Something different.">Не фитнес верига.<br>Нещо различно.</em>
       </h1>
       <p class="hero-sub fade-up" data-delay="3">
@@ -941,12 +918,12 @@
   <!-- ── About ────────────────────────────────────── -->
   <section id="about" class="section" aria-labelledby="about-heading">
     <!-- Background shape -->
+    <!-- Arc — top right, mint -->
     <div class="deco" aria-hidden="true"
          style="top:6%;right:-4px;opacity:0.28;animation:floatD 9s ease-in-out infinite;">
       <div class="deco-inner">
-        <svg width="64" height="96" viewBox="0 0 64 96" fill="none">
-          <path d="M56 6 L24 48 L56 90" stroke="#AAA9CD" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M30 6 L0 48 L30 90" stroke="#AAA9CD" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg width="120" height="130" viewBox="0 0 120 130" fill="none">
+          <path d="M38 10 C8 10, 8 70, 55 120" stroke="#c4e9bf" stroke-width="20" stroke-linecap="round"/>
         </svg>
       </div>
     </div>
@@ -958,12 +935,6 @@
           <h2 id="about-heading" class="reveal" data-cms="index.about.heading" data-bg="Не сме обикновен фитнес." data-en="We're not your typical gym.">Не сме обикновен фитнес.</h2>
           <p class="reveal" data-cms="index.about.desc1" data-bg="SYNRG е бутиково студио, изградено с убеждението, че истинските резултати идват от индивидуален подход, правилна методология и треньори, на които им пука." data-en="SYNRG is a boutique studio built on the belief that real results come from a personalized approach, proper methodology and coaches who genuinely care.">SYNRG е бутиково студио, изградено с убеждението, че истинските резултати идват от индивидуален подход, правилна методология и треньори, на които им пука.</p>
           <p class="reveal" data-cms="index.about.desc2" data-bg="Работим с малки групи, за да може всеки клиент да получи вниманието, което заслужава. Не продаваме масови планове — изграждаме лична стратегия за всеки." data-en="We work with small groups so each client gets the attention they deserve. We don't sell mass plans — we build personal strategies.">Работим с малки групи, за да може всеки клиент да получи вниманието, което заслужава. Не продаваме масови планове — изграждаме лична стратегия за всеки.</p>
-          <div class="about-tags reveal">
-            <span class="tag" data-bg="Лимитирано студио"    data-en="Limited spots">Лимитирано студио</span>
-            <span class="tag" data-bg="Персонализиран подход" data-en="Personalized approach">Персонализиран подход</span>
-            <span class="tag" data-bg="Рехабилитация"        data-en="Rehabilitation">Рехабилитация</span>
-            <span class="tag mint" data-bg="Онлайн програми" data-en="Online programs">Онлайн програми</span>
-          </div>
         </div>
 
         <!-- Visual panel — no photo -->
@@ -1001,12 +972,12 @@
 
   <!-- ── Services ─────────────────────────────────── -->
   <section id="services" class="section" aria-labelledby="services-heading">
-    <!-- Deco shape services corner -->
+    <!-- Chevron right — top right, mint -->
     <div class="deco" aria-hidden="true"
          style="top:8%;right:3%;opacity:0.28;animation:floatA 8s ease-in-out infinite 0.8s;">
       <div class="deco-inner">
-        <svg width="38" height="56" viewBox="0 0 38 56" fill="#c4e9bf">
-          <path d="M24 2 L6 28 L16 28 L14 54 L32 28 L22 28 L24 2Z"/>
+        <svg width="90" height="110" viewBox="0 0 90 110" fill="none">
+          <path d="M20 15 L68 55 L20 95" stroke="#c4e9bf" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
@@ -1030,17 +1001,11 @@
         </article>
         <article class="service-card upcoming reveal" style="transition-delay:0.1s" tabindex="0">
           <div class="service-num">02</div>
-          <span class="soon-badge" data-bg="Скоро" data-en="Coming soon">Скоро</span>
-          <div class="service-name" data-bg="Онлайн програма" data-en="Online program">Онлайн програма</div>
-          <p class="service-desc" data-bg="Тренировъчна и рехабилитационна програма от Кари и Виви. Работи от всяка точка." data-en="Training and rehabilitation program by Kari and Vivy. Train from anywhere.">Тренировъчна и рехабилитационна програма от Кари и Виви. Работи от всяка точка.</p>
-          <a href="remote.html" class="service-arrow" data-bg="Виж повече →" data-en="Learn more →">Виж повече →</a>
-        </article>
-        <article class="service-card upcoming reveal" style="transition-delay:0.2s" tabindex="0">
-          <div class="service-num">03</div>
-          <span class="soon-badge" data-bg="Скоро" data-en="Coming soon">Скоро</span>
-          <div class="service-name" data-bg="SYNRG Планер" data-en="SYNRG Planner">SYNRG Планер</div>
-          <p class="service-desc" data-bg="Физически планер за структура в тренировките, храненето и ежедневието." data-en="A physical planner for structure in training, nutrition, and daily life.">Физически планер за структура в тренировките, храненето и ежедневието.</p>
-          <a href="pricing.html#planner" class="service-arrow" data-bg="Виж повече →" data-en="Learn more →">Виж повече →</a>
+          <div class="service-name" data-bg="Продуктите на SYNRG" data-en="SYNRG Products">Продуктите на SYNRG</div>
+          <p class="service-desc" data-bg="Онлайн програми и ресурси, които можеш да използваш от всяка точка. Тренировки, рехабилитация, хранене — всичко на едно място." data-en="Online programs and resources you can use from anywhere. Training, rehabilitation, nutrition — all in one place.">Онлайн програми и ресурси, които можеш да използваш от всяка точка. Тренировки, рехабилитация, хранене — всичко на едно място.</p>
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">
+            <a href="remote.html" class="btn btn-ghost" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="Към продуктите →" data-en="To products →">Към продуктите →</a>
+          </div>
         </article>
       </div>
     </div>
@@ -1070,19 +1035,19 @@
           </div>
         </article>
         <article class="team-card reveal" style="transition-delay:0.16s" tabindex="0">
-          <img src="images/vivy.jpg" alt="Виви — Mentor · Физиотерапевт" class="team-photo" loading="lazy" />
-          <div class="team-info">
-            <h3 class="team-name">Виви</h3>
-            <p class="team-role" data-bg="Физиотерапевт" data-en="Physiotherapist">Физиотерапевт</p>
-            <span class="team-badge">Mentor</span>
-          </div>
-        </article>
-        <article class="team-card reveal" style="transition-delay:0.24s" tabindex="0">
           <img src="images/elina.jpg" alt="Д-р Соколова — Coach" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Д-р Соколова</h3>
             <p class="team-role" data-bg="Треньор · Онлайн програми" data-en="Coach · Online programs">Треньор · Онлайн програми</p>
             <span class="team-badge">Coach</span>
+          </div>
+        </article>
+        <article class="team-card reveal" style="transition-delay:0.24s" tabindex="0">
+          <img src="images/vivy.jpg" alt="Виви — Mentor · Физиотерапевт" class="team-photo" loading="lazy" />
+          <div class="team-info">
+            <h3 class="team-name">Виви</h3>
+            <p class="team-role" data-bg="Физиотерапевт" data-en="Physiotherapist">Физиотерапевт</p>
+            <span class="team-badge">Mentor</span>
           </div>
         </article>
         <article class="team-card reveal" style="transition-delay:0.32s" tabindex="0">
@@ -1118,21 +1083,12 @@
   <section id="cta" class="section-sm" aria-labelledby="cta-heading">
     <div class="container">
       <div class="cta-inner">
-        <!-- Deco shapes inside CTA -->
+        <!-- Angular hook — bottom right, logan -->
         <div class="deco" aria-hidden="true"
-             style="top:20px;left:24px;opacity:0.25;animation:floatB 10s ease-in-out infinite;">
+             style="bottom:20px;right:24px;opacity:0.25;animation:floatE 10s ease-in-out infinite;">
           <div class="deco-inner">
-            <svg width="86" height="32" viewBox="0 0 86 32" fill="none">
-              <path d="M4 24 L22 6 L40 24 L58 6 L76 24" stroke="#c4e9bf" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-        <div class="deco" aria-hidden="true"
-             style="bottom:20px;right:24px;opacity:0.22;animation:floatA 8s ease-in-out infinite 1.5s;">
-          <div class="deco-inner">
-            <svg width="56" height="76" viewBox="0 0 56 76" fill="none">
-              <path d="M8 6 L32 38 L8 70" stroke="#AAA9CD" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M28 6 L52 38 L28 70" stroke="#AAA9CD" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="110" height="120" viewBox="0 0 110 120" fill="none">
+              <path d="M20 115 L20 50 L90 50 L90 10" stroke="#AAA9CD" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
         </div>
@@ -1350,7 +1306,8 @@
         idx++;
         var isActive = s.status === 'active';
         var isFeatured = s.is_featured;
-        var cls = 'service-card' + (isFeatured ? ' featured' : '') + (!isActive ? ' upcoming' : '') + ' reveal';
+        // Non-featured active cards get "upcoming" visual (purple)
+        var cls = 'service-card' + (isFeatured ? ' featured' : (isActive ? ' upcoming' : ' upcoming')) + ' reveal';
         var h = '<article class="' + cls + '" style="transition-delay:' + ((idx - 1) * 0.1) + 's" tabindex="0">';
         h += '<div class="service-num">' + String(idx).padStart(2, '0') + '</div>';
         if (!isActive) {
@@ -1361,8 +1318,9 @@
         h += '<p class="service-desc" data-bg="' + s.description_bg + '" data-en="' + s.description_en + '">' + cmsText(s, 'description') + '</p>';
         if (isActive && s.link_url) {
           var linkText = s['link_text_' + lang] || s.link_text_bg || '';
+          var btnClass = isFeatured ? 'btn btn-primary' : 'btn btn-ghost';
           h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
-          h += '<a href="' + s.link_url + '" class="btn btn-primary" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + linkText + '</a>';
+          h += '<a href="' + s.link_url + '" class="' + btnClass + '" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="' + (s.link_text_bg || '') + '" data-en="' + (s.link_text_en || '') + '">' + linkText + '</a>';
           h += '</div>';
         } else {
           var arrowText = s['link_text_' + lang] || s.link_text_bg || (lang === 'en' ? 'Learn more →' : 'Виж повече →');
@@ -1382,7 +1340,7 @@
         h += '<div class="service-name" data-bg="' + (pg.name_bg || '') + '" data-en="' + (pg.name_en || '') + '">' + (lang === 'en' ? (pg.name_en || pg.name_bg) : pg.name_bg) + '</div>';
         h += '<p class="service-desc" data-bg="' + (pg.description_bg || '') + '" data-en="' + (pg.description_en || '') + '">' + (lang === 'en' ? (pg.description_en || pg.description_bg || '') : (pg.description_bg || '')) + '</p>';
         h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
-        h += '<a href="remote.html" class="btn btn-primary" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="Виж програмата →" data-en="See program →">' + (lang === 'en' ? 'See program →' : 'Виж програмата →') + '</a>';
+        h += '<a href="remote.html" class="btn btn-primary" style="font-style:normal;font-size:13px;padding:12px 22px;" data-bg="Към продукта →" data-en="To product →">' + (lang === 'en' ? 'To product →' : 'Към продукта →') + '</a>';
         h += '</div></article>';
         html += h;
       });

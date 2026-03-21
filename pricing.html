@@ -136,7 +136,7 @@
     .cart-item-info { flex: 1; }
     .cart-item-name { font-size: 15px; font-weight: 700; color: var(--cream); font-style: italic; margin-bottom: 4px; }
     .cart-item-price { font-size: 13px; color: var(--muted); font-weight: 700; }
-    .cart-item-remove { background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; font-family: inherit; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 8px; transition: color 0.2s; }
+    .cart-item-remove { background: none; border: none; color: #e05252; font-size: 12px; cursor: pointer; font-family: inherit; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 8px; transition: color 0.2s; }
     .cart-item-remove:hover { color: #e05252; }
     .cart-empty { text-align: center; padding: 48px 24px; color: var(--muted); font-style: italic; font-weight: 700; }
     .cart-footer { padding: 24px; border-top: 1px solid var(--border); }
@@ -187,31 +187,31 @@
       align-items: center;
     }
     .price-card {
-      background: rgba(170,169,205,0.09);
-      border: 1px solid rgba(170,169,205,0.22);
-      border-radius: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
       padding: 48px 36px 44px;
       display: flex; flex-direction: column; align-items: center;
       text-align: center; position: relative;
-      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease), border-color 0.25s, background 0.25s;
+      transition: transform 0.25s var(--ease-spring), box-shadow 0.3s var(--ease), border-color 0.25s, background 0.25s;
     }
     .price-card:hover {
-      background: rgba(170,169,205,0.13);
+      background: rgba(170,169,205,0.08);
       transform: translateY(-6px);
       box-shadow: 0 24px 60px rgba(0,0,0,0.4);
-      border-color: rgba(170,169,205,0.4);
+      border-color: var(--logan-border);
     }
     .price-card.featured {
-      background: rgba(170,169,205,0.18);
-      border-color: rgba(170,169,205,0.45);
+      background: linear-gradient(155deg, rgba(196,233,191,0.08) 0%, var(--surface) 100%);
+      border-color: var(--mint-border);
       box-shadow: 0 4px 60px rgba(170,169,205,0.1);
       padding: 64px 36px 52px;
     }
     .price-card.featured:hover {
-      transform: translateY(-8px);
-      background: rgba(170,169,205,0.24);
+      transform: translateY(-6px);
+      background: linear-gradient(155deg, rgba(196,233,191,0.12) 0%, var(--surface) 100%);
       box-shadow: 0 24px 72px rgba(170,169,205,0.18);
-      border-color: rgba(196,233,191,0.5);
+      border-color: var(--mint);
     }
     .price-badge {
       position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
@@ -236,8 +236,8 @@
       font-size: 12px; font-weight: 700; color: var(--muted);
       font-style: italic; margin-bottom: 28px; letter-spacing: 0.04em;
     }
-    .price-divider { border: none; border-top: 1px solid rgba(170,169,205,0.18); width: 100%; margin-bottom: 24px; }
-    .price-card.featured .price-divider { border-color: rgba(170,169,205,0.35); }
+    .price-divider { border: none; border-top: 1px solid var(--border); width: 100%; margin-bottom: 24px; }
+    .price-card.featured .price-divider { border-color: var(--mint-border); }
     .price-amount { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
     .price-currency { font-size: 18px; font-weight: 700; font-style: italic; color: var(--cream); align-self: flex-start; margin-top: 8px; }
     .price-number { font-size: clamp(44px, 5.5vw, 60px); font-weight: 700; font-style: italic; color: var(--cream); line-height: 1; letter-spacing: -0.03em; }
@@ -384,11 +384,11 @@
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
     <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"    data-en="Studio">Студио</a>
-    <a href="remote.html" onclick="closeMobileMenu()" data-bg="Програми" data-en="Programs">Програми</a>
+    <a href="remote.html" onclick="closeMobileMenu()" data-bg="Продукти" data-en="Products">Продукти</a>
     <a href="pricing.html" onclick="closeMobileMenu()" data-bg="Цени"      data-en="Pricing">Цени</a>
     <a href="javascript:void(0)" onclick="closeMobileMenu();toggleCartDrawer()" data-bg="Кошница" data-en="Cart">Кошница</a>
     <a href="./app/index.html" onclick="closeMobileMenu()" data-bg="Влез" data-en="Login">Влез</a>
-    <a href="index.html#cta" onclick="closeMobileMenu()" class="btn btn-primary" style="font-style:normal" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
+    <a href="index.html#cta" onclick="closeMobileMenu()" class="btn btn-primary" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
   </div>
 
   <!-- ── Navbar ── -->
@@ -400,7 +400,7 @@
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
           <li><a href="studio.html"  data-bg="Студио"    data-en="Studio">Студио</a></li>
-          <li><a href="remote.html" data-bg="Програми" data-en="Programs">Програми</a></li>
+          <li><a href="remote.html" data-bg="Продукти" data-en="Products">Продукти</a></li>
           <li><a href="pricing.html" class="active" data-bg="Цени" data-en="Pricing">Цени</a></li>
         </ul>
       </nav>
@@ -430,11 +430,7 @@
     <div class="container">
       <div class="pricing-tabs">
         <button class="pricing-tab active" onclick="switchTab('studio')" data-tab="studio" data-bg="Студио" data-en="Studio">Студио</button>
-        <button class="pricing-tab" onclick="switchTab('programs')" data-tab="programs" data-bg="Програми" data-en="Programs">Програми</button>
-        <button class="pricing-tab" onclick="switchTab('planner')" data-tab="planner">
-          <span data-bg="Планер" data-en="Planner">Планер</span>
-          <span class="soon-badge" data-bg="СКОРО" data-en="SOON">СКОРО</span>
-        </button>
+        <button class="pricing-tab" onclick="switchTab('programs')" data-tab="programs" data-bg="Продукти" data-en="Products">Продукти</button>
       </div>
       <p class="reveal" style="margin-top:8px;" data-bg="Всичките ни продукти на едно място." data-en="All our products in one place.">Всичките ни продукти на едно място.</p>
     </div>
@@ -522,7 +518,10 @@
         </div>
       </div>
 
-      <p class="price-cta-note reveal" data-bg="Заяви безплатна консултация чрез <a href='index.html#cta'>формата</a> или пиши ни в <a href='https://www.instagram.com/synrg.beyondfitness' target='_blank' rel='noopener'>Instagram</a>." data-en="Book a free consultation via <a href='index.html#cta'>the form</a> or message us on <a href='https://www.instagram.com/synrg.beyondfitness' target='_blank' rel='noopener'>Instagram</a>.">Заяви безплатна консултация чрез <a href="index.html#cta">формата</a> или пиши ни в <a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a>.</p>
+      <div class="reveal" style="text-align:center;margin-top:48px;">
+        <span class="overline" style="display:block;" data-bg="Следваща стъпка" data-en="Next step">Следваща стъпка</span>
+        <a href="index.html#cta" class="btn btn-primary" style="margin-top:12px;" data-bg="Запази консултация →" data-en="Book a consultation →">Запази консултация →</a>
+      </div>
     </div>
   </section>
 
@@ -541,21 +540,6 @@
   </section>
   </div><!-- /tab-programs -->
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- ── Tab 3: Planner (Coming Soon) ── -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <div class="tab-panel" id="tab-planner">
-  <section class="pricing-section" style="min-height:400px;">
-    <div class="container" style="text-align:center;">
-      <div class="pricing-section-header">
-        <span class="soon-pill" style="font-size:12px;padding:6px 20px;margin-bottom:24px;" data-bg="СКОРО" data-en="COMING SOON">СКОРО</span>
-        <h2 data-bg="SYNRG Планер" data-en="SYNRG Planner">SYNRG Планер</h2>
-        <p style="margin-top:16px;" data-bg="Физически планер за структура в тренировките, храненето и ежедневието. Очаквайте скоро." data-en="Physical planner for structure in training, nutrition, and daily life. Coming soon.">Физически планер за структура в тренировките, храненето и ежедневието. Очаквайте скоро.</p>
-      </div>
-      <a href="index.html#cta" class="btn btn-ghost" style="margin-top:32px;" data-bg="Научи първи →" data-en="Be the first to know →">Научи първи →</a>
-    </div>
-  </section>
-  </div><!-- /tab-planner -->
 
   </main>
 
@@ -615,7 +599,7 @@
     // Handle hash on load
     (function() {
       var h = location.hash.replace('#', '');
-      if (h === 'programs' || h === 'planner') switchTab(h);
+      if (h === 'programs') switchTab(h);
     })();
 
     // Scroll reveal
@@ -697,22 +681,21 @@
         h += '<div class="product-num">' + String(idx).padStart(2, '0') + '</div>';
         h += '<div class="product-name" data-bg="' + (pg.name_bg || '') + '" data-en="' + (pg.name_en || '') + '">' + (lang === 'en' ? (pg.name_en || pg.name_bg) : pg.name_bg) + '</div>';
         h += '<p class="product-desc" data-bg="' + (pg.description_bg || '') + '" data-en="' + (pg.description_en || '') + '">' + (lang === 'en' ? (pg.description_en || pg.description_bg || '') : (pg.description_bg || '')) + '</p>';
+        h += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;">';
         if (pg.price_cents > 0) {
           var priceNum = (pg.price_cents / 100).toFixed(2).replace('.00', '');
-          h += '<div class="product-price-tag">' + priceNum + ' ' + (pg.currency || 'BGN') + '</div>';
+          h += '<span class="btn btn-ghost" style="pointer-events:none;">' + priceNum + ' ' + (pg.currency || 'BGN') + '</span>';
         }
-        h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
-        h += '<span class="product-tag" data-bg="Онлайн програма" data-en="Online program">' + (lang === 'en' ? 'Online program' : 'Онлайн програма') + '</span>';
         if (pg.stripe_price_id) {
-          h += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
-             + ' data-bg="Добави →" data-en="Add to cart →">'
-             + (lang === 'en' ? 'Add to cart →' : 'Добави →') + '</button>';
+          h += '<button class="btn btn-primary add-to-cart"'
+             + ' data-bg="+ Добави" data-en="+ Add">'
+             + (lang === 'en' ? '+ Add' : '+ Добави') + '</button>';
         }
         h += '</div></div>';
         html += h;
       });
 
-      // Products from site_products (filter out planners)
+      // Products from site_products (exclude planners)
       var filtered = products.filter(function(p) {
         var name = (p.name_bg || '').toLowerCase();
         return name.indexOf('планер') === -1 && name.indexOf('planner') === -1;
@@ -738,16 +721,15 @@
         h += '<div class="product-num">' + String(idx).padStart(2, '0') + '</div>';
         h += '<div class="product-name" data-bg="' + (p.name_bg || '') + '" data-en="' + (p.name_en || '') + '">' + cmsText(p, 'name') + '</div>';
         h += '<p class="product-desc" data-bg="' + (p.description_bg || '') + '" data-en="' + (p.description_en || '') + '">' + cmsText(p, 'description') + '</p>';
+        h += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;">';
         if (isActive && p.price_cents > 0) {
           var priceNum = (p.price_cents / 100).toFixed(2).replace('.00', '');
-          h += '<div class="product-price-tag">' + priceNum + ' ' + (p.currency || 'BGN') + '</div>';
+          h += '<span class="btn btn-ghost" style="pointer-events:none;">' + priceNum + ' ' + (p.currency || 'BGN') + '</span>';
         }
-        h += '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;">';
-        h += '<span class="product-tag" data-bg="' + (p.tag_bg || '') + '" data-en="' + (p.tag_en || '') + '">' + cmsText(p, 'tag') + '</span>';
         if (isActive && p.stripe_price_id) {
-          h += '<button class="btn btn-primary add-to-cart" style="font-size:13px;padding:10px 20px;"'
-             + ' data-bg="Добави →" data-en="Add to cart →">'
-             + (lang === 'en' ? 'Add to cart →' : 'Добави →') + '</button>';
+          h += '<button class="btn btn-primary add-to-cart"'
+             + ' data-bg="+ Добави" data-en="+ Add">'
+             + (lang === 'en' ? '+ Add' : '+ Добави') + '</button>';
         }
         h += '</div></div>';
         html += h;
