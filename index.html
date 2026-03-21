@@ -594,33 +594,32 @@
     .iphone-wrapper {
       flex-shrink: 0;
       perspective: 900px;
+      position: relative;
+      width: 320px; height: 320px;
     }
-    .iphone-frame {
-      width: 260px; height: 530px;
-      border-radius: 32px;
-      border: 3px solid #3a3a3c;
-      background: #000;
-      position: relative; overflow: hidden;
-      transform: rotateY(-12deg) rotateX(4deg);
-      box-shadow:
-        0 0 0 1.5px #1a1a1c,
-        12px 32px 56px rgba(0,0,0,0.5),
-        -4px -4px 40px rgba(196,233,191,0.03);
+    .iphone-mockup {
+      position: relative;
+      width: 100%; height: 100%;
+      transform: rotateY(-10deg) rotateX(3deg);
       transition: transform 0.5s var(--ease);
     }
-    .iphone-wrapper:hover .iphone-frame {
-      transform: rotateY(-4deg) rotateX(2deg);
+    .iphone-wrapper:hover .iphone-mockup {
+      transform: rotateY(-3deg) rotateX(1deg);
     }
-    .iphone-notch {
-      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 86px; height: 20px;
-      background: #000; border-radius: 0 0 14px 14px; z-index: 10;
+    .iphone-frame-img {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      z-index: 2; pointer-events: none;
+      mix-blend-mode: screen;
     }
-    .iphone-notch::after {
-      content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
-      width: 7px; height: 7px; border-radius: 50%; background: #1a1a2e;
+    .iphone-screen {
+      position: absolute;
+      top: 5.5%; left: 28.5%;
+      width: 43%; height: 88%;
+      border-radius: 14px;
+      overflow: hidden; z-index: 1;
     }
-    .iphone-screen { width: 100%; height: 100%; position: relative; overflow: hidden; }
     .iphone-screen img {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       object-fit: cover; object-position: top;
@@ -633,15 +632,10 @@
     @keyframes screenCycle {
       0% { opacity: 0; } 3% { opacity: 1; } 25% { opacity: 1; } 28% { opacity: 0; } 100% { opacity: 0; }
     }
-    .iphone-home-bar {
-      position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
-      width: 72px; height: 3px; border-radius: 3px;
-      background: rgba(255,255,255,0.25); z-index: 10;
-    }
     @media (max-width: 768px) {
       .app-preview-row { flex-direction: column; text-align: center; gap: 32px; }
-      .iphone-frame { width: 220px; height: 449px; border-radius: 30px; transform: rotateY(-6deg) rotateX(2deg); }
-      .iphone-notch { width: 76px; height: 18px; }
+      .iphone-wrapper { width: 240px; height: 240px; }
+      .iphone-mockup { transform: rotateY(-5deg) rotateX(2deg); }
     }
 
     /* ── Footer ────────────────────────────────────── */
@@ -1085,15 +1079,14 @@
           <a href="./app/index.html" class="btn btn-primary reveal" data-bg="Отвори приложението →" data-en="Open the app →">Отвори приложението →</a>
         </div>
         <div class="iphone-wrapper reveal">
-          <div class="iphone-frame">
-            <div class="iphone-notch"></div>
+          <div class="iphone-mockup">
+            <img class="iphone-frame-img" src="images/iphone-frame.png" alt="" />
             <div class="iphone-screen">
               <img src="images/app-dashboard.png" alt="SYNRG App Dashboard" loading="lazy" />
               <img src="images/app-progress.png" alt="SYNRG App Progress" loading="lazy" />
               <img src="images/app-schedule.png" alt="SYNRG App Schedule" loading="lazy" />
               <img src="images/app-resources.png" alt="SYNRG App Resources" loading="lazy" />
             </div>
-            <div class="iphone-home-bar"></div>
           </div>
         </div>
       </div>
