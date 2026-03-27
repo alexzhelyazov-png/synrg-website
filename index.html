@@ -545,15 +545,16 @@
     .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
 
     /* ── CTA Form ───────────────────────────────────── */
-    .cta-form { width: 100%; max-width: 480px; margin: 0 auto; text-align: left; position: relative; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-    .form-field label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--logan); font-style: normal; }
+    .cta-form { width: 100%; max-width: 520px; margin: 0 auto; text-align: left; position: relative; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0; }
+    .form-row-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .form-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+    .form-field label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--logan); font-style: normal; }
     .form-field input,
     .form-field textarea {
       background: rgba(255,255,255,0.04); border: 1px solid var(--logan-border);
-      border-radius: var(--radius-sm); padding: 14px 16px;
-      font-family: 'MontBlanc', sans-serif; font-size: 14px; font-weight: 700;
+      border-radius: var(--radius-sm); padding: 11px 14px;
+      font-family: 'MontBlanc', sans-serif; font-size: 13px; font-weight: 700;
       color: var(--cream); outline: none; width: 100%;
       transition: border-color 0.2s;
     }
@@ -562,6 +563,9 @@
     .form-field input::placeholder,
     .form-field textarea::placeholder { color: var(--muted); }
     .form-field textarea { resize: vertical; min-height: 96px; }
+    @media (max-width: 480px) {
+      .form-row-4 { grid-template-columns: 1fr 1fr; }
+    }
     .form-submit { width: 100%; margin-top: 8px; justify-content: center; }
     .cta-form-footer { text-align: center; margin-top: 20px; }
     .cta-success { display: none; text-align: center; padding: 40px 0; }
@@ -1208,11 +1212,27 @@
             </div>
           </div>
           <div class="form-field">
-            <label data-bg="Съобщение (по желание)" data-en="Message (optional)">Съобщение (по желание)</label>
-            <textarea name="message"
-                      data-placeholder-bg="Разкажи ни малко за целите си…"
-                      data-placeholder-en="Tell us a bit about your goals…"
-                      placeholder="Разкажи ни малко за целите си…"></textarea>
+            <label data-bg="Заболявания / Травми" data-en="Health issues / Injuries">Заболявания / Травми</label>
+            <input type="text" name="health_issues"
+                   data-placeholder-bg="напр. болки в кръста…"
+                   data-placeholder-en="e.g. lower back pain…"
+                   placeholder="напр. болки в кръста…" />
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label data-bg="Кога да ви се обадим?" data-en="When to call you?">Кога да ви се обадим?</label>
+              <input type="text" name="preferred_time"
+                     data-placeholder-bg="напр. делнични след 18:00"
+                     data-placeholder-en="e.g. weekdays after 6 PM"
+                     placeholder="напр. делнични след 18:00" />
+            </div>
+            <div class="form-field">
+              <label data-bg="Съобщение (по желание)" data-en="Message (optional)">Съобщение (по желание)</label>
+              <input type="text" name="message"
+                     data-placeholder-bg="Целите ти…"
+                     data-placeholder-en="Your goals…"
+                     placeholder="Целите ти…" />
+            </div>
           </div>
           <button type="submit" class="btn btn-primary form-submit"
                   data-cms="index.cta.form_submit" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</button>
@@ -1268,6 +1288,8 @@
             body: JSON.stringify({
               name: ctaForm.querySelector('[name=name]').value.trim(),
               contact: ctaForm.querySelector('[name=contact]').value.trim(),
+              health_issues: ctaForm.querySelector('[name=health_issues]').value.trim() || null,
+              preferred_time: ctaForm.querySelector('[name=preferred_time]').value.trim() || null,
               message: ctaForm.querySelector('[name=message]').value.trim() || null
             })
           })
@@ -1278,6 +1300,8 @@
             // Notify via Brevo Edge Function
             const clientName = ctaForm.querySelector('[name=name]').value.trim()
             const clientContact = ctaForm.querySelector('[name=contact]').value.trim()
+            const clientHealth = ctaForm.querySelector('[name=health_issues]').value.trim()
+            const clientTime = ctaForm.querySelector('[name=preferred_time]').value.trim()
             const clientMsg = ctaForm.querySelector('[name=message]').value.trim()
             fetch(SUPABASE_URL + '/functions/v1/mailerlite-sync', {
               method: 'POST',
@@ -1291,6 +1315,8 @@
                   + '<h2 style="color:#c4e9bf;margin:0 0 16px">Ново запитване</h2>'
                   + '<p><strong>Име:</strong> ' + clientName + '</p>'
                   + '<p><strong>Контакт:</strong> ' + clientContact + '</p>'
+                  + (clientHealth ? '<p><strong>Заболявания/Травми:</strong> ' + clientHealth + '</p>' : '')
+                  + (clientTime ? '<p><strong>Предпочитан час:</strong> ' + clientTime + '</p>' : '')
                   + (clientMsg ? '<p><strong>Съобщение:</strong> ' + clientMsg + '</p>' : '')
                   + '<hr style="border:none;border-top:1px solid #333;margin:20px 0">'
                   + '<p style="font-size:12px;color:#666">От формата на сайта</p></div>'
