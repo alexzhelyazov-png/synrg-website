@@ -479,6 +479,7 @@
           : '';
         var h = '<div class="product-card featured"';
         h += ' data-price-id="' + (pg.stripe_price_id || 'pending') + '"'
+           + ' data-program-id="' + (pg.id || '') + '"'
            + ' data-product-bg="' + (pg.name_bg || '') + '"'
            + ' data-product-en="' + (pg.name_en || '') + '"'
            + ' data-price="' + (pg.price_cents || 0) + '"'
@@ -509,6 +510,7 @@
         var h = '<div class="' + cls + '"';
         if (isActive && p.stripe_price_id) {
           h += ' data-price-id="' + p.stripe_price_id + '"'
+             + ' data-program-id="' + p.id + '"'
              + ' data-product-bg="' + p.name_bg + '"'
              + ' data-product-en="' + p.name_en + '"'
              + ' data-price="' + p.price_cents + '"'

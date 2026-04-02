@@ -18,13 +18,13 @@ function saveCart(cart) {
   renderCartItems();
 }
 
-function addToCart(priceId, nameBg, nameEn, price, currency) {
+function addToCart(priceId, nameBg, nameEn, price, currency, programId) {
   const cart = getCart();
   const existing = cart.find(item => item.priceId === priceId);
   if (existing) {
     existing.quantity += 1;
   } else {
-    cart.push({ priceId, name_bg: nameBg, name_en: nameEn, price: price, currency: currency, quantity: 1 });
+    cart.push({ priceId, name_bg: nameBg, name_en: nameEn, price: price, currency: currency, quantity: 1, program_id: programId || null });
   }
   saveCart(cart);
   openCartDrawer();
@@ -203,8 +203,9 @@ function setupAddToCartButtons() {
       var nameEn = card.getAttribute('data-product-en');
       var price = parseInt(card.getAttribute('data-price'), 10);
       var currency = card.getAttribute('data-currency') || 'BGN';
+      var programId = card.getAttribute('data-program-id') || null;
       if (!priceId || isNaN(price)) return;
-      addToCart(priceId, nameBg, nameEn, price, currency);
+      addToCart(priceId, nameBg, nameEn, price, currency, programId);
 
       // Visual feedback
       var origText = btn.textContent;
@@ -245,6 +246,10 @@ async function handleCheckout() {
     return { price: item.priceId, quantity: item.quantity };
   });
 
+  // Identify the buyer: client_id passed from app via URL (?client_id=xxx)
+  var clientId = sessionStorage.getItem('synrg_client_id') || '';
+  var programId = (cart[0] && cart[0].program_id) ? cart[0].program_id : '';
+
   var origin = window.location.origin;
   var basePath = window.location.pathname.replace(/\/[^/]*$/, '');
 
@@ -257,6 +262,7 @@ async function handleCheckout() {
         locale: lang === 'bg' ? 'bg' : 'en',
         success_url: origin + basePath + '/remote.html?checkout=success',
         cancel_url: origin + basePath + '/remote.html?checkout=cancel',
+        metadata: { client_id: clientId, program_id: programId },
       }),
     });
     var data = await res.json();
@@ -287,10 +293,11 @@ function handleCheckoutReturn() {
 
   if (status === 'success') {
     clearCart();
+    sessionStorage.removeItem('synrg_client_id');
     var lang = localStorage.getItem('synrg-lang') || 'bg';
     var msg = lang === 'en'
-      ? 'Payment successful! You will receive access details by email.'
-      : 'Плащането е успешно! Ще получиш достъп по имейл.';
+      ? 'Payment successful! Open the app to access your program.'
+      : 'Плащането е успешно! Отвори приложението за достъп до програмата.';
     var target = document.getElementById('remote-products') || document.querySelector('main');
     if (target) {
       var banner = document.createElement('div');
@@ -307,6 +314,10 @@ function handleCheckoutReturn() {
 // ── Init ───────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', function () {
+  // Save client_id from URL if coming from app (?client_id=xxx)
+  var urlClientId = new URLSearchParams(window.location.search).get('client_id');
+  if (urlClientId) sessionStorage.setItem('synrg_client_id', urlClientId);
+
   injectCartDrawer();
   updateCartBadge();
   setupAddToCartButtons();
