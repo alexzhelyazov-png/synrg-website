@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Проследи храненето, теглото и стъпките — безплатно. Създай профил в SYNRG Beyond Fitness без ангажимент." />
+  <meta name="theme-color" content="#0d1510" />
+  <meta property="og:title" content="Започни безплатно — SYNRG Beyond Fitness" />
+  <meta property="og:description" content="Хранителен тракер, тегло и стъпки. Безплатно, без ангажимент." />
+  <meta property="og:image" content="assets/synrg_Primary_Logo.svg" />
+  <title>Започни безплатно — SYNRG Beyond Fitness</title>
+
+  <style>
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-Bold.woff2') format('woff2'),
+           url('fonts/MontBlanc-Bold.woff') format('woff');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-BoldItalic.woff2') format('woff2'),
+           url('fonts/MontBlanc-BoldItalic.woff') format('woff');
+      font-weight: 700; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-SemiBold.woff2') format('woff2'),
+           url('fonts/MontBlanc-SemiBold.woff') format('woff');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --mint:         #c4e9bf;
+      --mint-dim:     rgba(196,233,191,0.10);
+      --mint-border:  rgba(196,233,191,0.22);
+      --logan:        #AAA9CD;
+      --logan-dim:    rgba(170,169,205,0.10);
+      --logan-border: rgba(170,169,205,0.24);
+      --cream:        #f0eded;
+      --bg:           #0d1510;
+      --surface:      #111c13;
+      --card:         #131f14;
+      --border:       rgba(255,255,255,0.07);
+      --muted:        #5a6e5a;
+      --text:         #e8e4e4;
+      --nav-h:        80px;
+      --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--cream); font-family: 'MontBlanc', system-ui, sans-serif; font-weight: 600; overflow-x: hidden; line-height: 1.6; }
+
+    h1, h2, h3 { font-style: italic; font-weight: 700; line-height: 1.05; color: var(--cream); letter-spacing: -0.03em; }
+    p { font-weight: 600; color: var(--muted); line-height: 1.65; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    .overline { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mint); font-style: normal; margin-bottom: 14px; display: block; }
+
+    /* ── Nav ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h); z-index: 100;
+      display: flex; align-items: center; padding: 0 24px;
+      background: transparent; transition: background 0.3s var(--ease), border-color 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    #navbar.scrolled { background: rgba(13,21,16,0.92); backdrop-filter: blur(20px); border-bottom-color: var(--border); }
+    .nav-inner { width: 100%; max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo img { height: 72px; width: auto; }
+    .nav-login {
+      font-size: 13px; font-weight: 700; color: var(--muted); font-style: italic;
+      padding: 8px 20px; border-radius: 100px; border: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-login:hover { color: var(--cream); border-color: rgba(255,255,255,0.2); }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: calc(var(--nav-h) + 48px) 0 64px;
+      text-align: center;
+    }
+    #hero h1 {
+      font-size: clamp(40px, 7vw, 80px);
+      max-width: 760px; margin: 0 auto 20px;
+    }
+    #hero h1 em { color: var(--mint); font-style: italic; }
+    #hero .sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--muted); max-width: 480px; margin: 0 auto 40px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--mint-dim); border: 1px solid var(--mint-border);
+      color: var(--mint); font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+      padding: 6px 16px; border-radius: 100px; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); }
+
+    /* ── Features ── */
+    #features { padding: 80px 0; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin-top: 48px;
+    }
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px 24px;
+      transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+    }
+    .feature-card:hover { border-color: var(--mint-border); transform: translateY(-3px); }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--mint-dim); border: 1px solid var(--mint-border);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .feature-icon svg { width: 22px; height: 22px; stroke: var(--mint); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .feature-card h3 { font-size: 18px; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; }
+
+    /* ── Form section ── */
+    #signup {
+      padding: 80px 0 120px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .form-card {
+      width: 100%; max-width: 440px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 40px 36px;
+    }
+    .form-card h2 { font-size: 28px; margin-bottom: 6px; text-align: center; }
+    .form-card .form-sub { text-align: center; font-size: 14px; margin-bottom: 28px; }
+
+    .input-group { margin-bottom: 14px; }
+    .input-group label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .input-group input {
+      width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 12px; padding: 13px 16px; color: var(--cream);
+      font-family: 'MontBlanc', sans-serif; font-size: 15px; font-weight: 600;
+      outline: none; transition: border-color 0.2s;
+    }
+    .input-group input::placeholder { color: var(--muted); }
+    .input-group input:focus { border-color: var(--mint-border); }
+
+    .btn-submit {
+      width: 100%; margin-top: 8px;
+      background: var(--mint); color: #0d1510;
+      border: none; border-radius: 100px; padding: 16px;
+      font-family: 'MontBlanc', sans-serif; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: transform 0.2s var(--ease), opacity 0.2s;
+    }
+    .btn-submit:hover { transform: translateY(-2px); opacity: 0.92; }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .form-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 16px; }
+    .form-note a { color: var(--logan); text-decoration: underline; }
+
+    .form-error {
+      display: none; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3);
+      color: #F87171; font-size: 13px; border-radius: 10px; padding: 10px 14px;
+      margin-bottom: 14px; text-align: center;
+    }
+    .form-error.show { display: block; }
+
+    /* ── Comparison strip ── */
+    #comparison { padding: 60px 0; border-top: 1px solid var(--border); }
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+    .comp-col { border-radius: 20px; padding: 28px 24px; }
+    .comp-col.free { background: var(--mint-dim); border: 1px solid var(--mint-border); }
+    .comp-col.paid { background: var(--logan-dim); border: 1px solid var(--logan-border); }
+    .comp-col h3 { font-size: 16px; margin-bottom: 18px; }
+    .comp-col.free h3 { color: var(--mint); }
+    .comp-col.paid h3 { color: var(--logan); }
+    .comp-item { display: flex; align-items: center; gap: 10px; font-size: 14px; margin-bottom: 10px; color: var(--text); }
+    .comp-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .comp-col.free .comp-item::before { background: var(--mint); }
+    .comp-col.paid .comp-item::before { background: var(--logan); }
+    .comp-col.paid .cta-upgrade {
+      display: block; text-align: center; margin-top: 20px;
+      background: var(--logan-dim); border: 1px solid var(--logan-border);
+      color: var(--logan); border-radius: 100px; padding: 10px 20px; font-size: 13px; font-weight: 700;
+      transition: background 0.2s, color 0.2s;
+    }
+    .comp-col.paid .cta-upgrade:hover { background: rgba(170,169,205,0.2); color: var(--cream); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 28px 20px; }
+      #hero h1 { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <header id="navbar">
+    <div class="nav-inner">
+      <a href="./index.html" aria-label="SYNRG Начало">
+        <img src="assets/synrg_Primary_Logo.svg" alt="SYNRG Beyond Fitness" style="height:72px;width:auto;" />
+      </a>
+      <a href="./app/index.html" class="nav-login">Влез →</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Hero ── -->
+    <section id="hero">
+      <div class="container">
+        <span class="hero-badge">Безплатно завинаги</span>
+        <h1>Познай тялото си.<br><em>Започни днес.</em></h1>
+        <p class="sub">Проследявай храненето, теглото и стъпките си — без план, без ангажимент.</p>
+        <a href="#signup" class="btn-submit" style="display:inline-block;width:auto;padding:16px 40px;border-radius:100px;text-decoration:none;font-family:'MontBlanc',sans-serif;font-weight:700;font-size:15px;background:var(--mint);color:#0d1510;">Създай безплатен акаунт →</a>
+      </div>
+    </section>
+
+    <!-- ── Features ── -->
+    <section id="features">
+      <div class="container">
+        <span class="overline">Какво получаваш</span>
+        <h2 style="font-size:clamp(28px,4vw,44px);max-width:520px;">Три инструмента. Едно приложение.</h2>
+      </div>
+    </section>
+
+    <!-- ── Comparison ── -->
+    <section id="comparison">
+      <div class="container">
+        <span class="overline">Безплатно vs Платен план</span>
+        <h2 style="font-size:clamp(24px,3.5vw,38px);margin-bottom:8px;">Расте с теб</h2>
+        <p style="font-size:15px;max-width:440px;">Безплатното е достатъчно за старт. Когато си готов за повече — плановете са тук.</p>
+        <div class="comparison-grid">
+          <div class="comp-col free">
+            <h3>Безплатен акаунт</h3>
+            <div class="comp-item">Хранителен тракер</div>
+            <div class="comp-item">Проследяване на тегло</div>
+            <div class="comp-item">Брояч на стъпки</div>
+          </div>
+          <div class="comp-col paid">
+            <h3>С платен план</h3>
+            <div class="comp-item">Всичко от безплатното</div>
+            <div class="comp-item">Персонализирани тренировки</div>
+            <div class="comp-item">Класация и значки</div>
+            <div class="comp-item">SYNRG метод програми</div>
+            <div class="comp-item">Директна връзка с треньор</div>
+            <a href="pricing.html" class="cta-upgrade">Виж плановете →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Sign up form ── -->
+    <section id="signup">
+      <div class="container" style="display:flex;flex-direction:column;align-items:center;">
+        <div class="form-card">
+          <h2>Създай акаунт</h2>
+          <p class="form-sub">Безплатно. Без кредитна карта.</p>
+
+          <div class="form-error" id="form-error"></div>
+
+          <form id="reg-form" onsubmit="handleRegister(event)" autocomplete="on">
+            <div class="input-group">
+              <label for="reg-name">Ime и фамилия</label>
+              <input id="reg-name" name="name" type="text" placeholder="Петър Иванов" required autocomplete="name" />
+            </div>
+            <div class="input-group">
+              <label for="reg-email">Имейл</label>
+              <input id="reg-email" name="email" type="email" placeholder="peter@example.com" required autocomplete="email" />
+            </div>
+            <div class="input-group">
+              <label for="reg-pass">Парола</label>
+              <input id="reg-pass" name="password" type="password" placeholder="Минимум 6 символа" required autocomplete="new-password" minlength="6" />
+            </div>
+            <button type="submit" class="btn-submit" id="submit-btn">Създай безплатен акаунт →</button>
+          </form>
+
+          <p class="form-note">
+            Вече имаш акаунт? <a href="./app/index.html">Влез тук</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // ── Nav scroll effect ──
+    const navbar = document.getElementById('navbar')
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40)
+    }, { passive: true })
+
+    // ── Supabase config ──
+    const SB_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co'
+    const SB_KEY = 'sb_publishable_Rs2gzY1pSf67S-uq6VpGGA_fQdSgMah'
+    const FREE_MODULES = ['nutrition_tracking', 'weight_tracking', 'steps_tracking']
+
+    function sbHeaders() {
+      return {
+        'apikey': SB_KEY,
+        'Authorization': 'Bearer ' + SB_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation',
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault()
+      const name     = document.getElementById('reg-name').value.trim()
+      const email    = document.getElementById('reg-email').value.trim().toLowerCase()
+      const password = document.getElementById('reg-pass').value
+      const btn      = document.getElementById('submit-btn')
+      const errEl    = document.getElementById('form-error')
+
+      errEl.classList.remove('show')
+
+      if (password.length < 6) {
+        showError('Паролата трябва да е поне 6 символа.')
+        return
+      }
+
+      btn.disabled = true
+      btn.textContent = 'Създаване...'
+
+      try {
+        // 1. Check if name already exists
+        const checkRes = await fetch(
+          SB_URL + '/rest/v1/clients?name=eq.' + encodeURIComponent(name) + '&select=id&is_coach=eq.false',
+          { headers: sbHeaders() }
+        )
+        const existing = await checkRes.json()
+        if (existing && existing.length > 0) {
+          showError('Вече съществува акаунт с това ime. Избери друго.')
+          btn.disabled = false
+          btn.textContent = 'Създай безплатен акаунт →'
+          return
+        }
+
+        // 2. Create client
+        const createRes = await fetch(SB_URL + '/rest/v1/clients', {
+          method: 'POST',
+          headers: sbHeaders(),
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+            is_coach:        false,
+            calorie_target:  2000,
+            protein_target:  140,
+            modules:         FREE_MODULES,
+          })
+        })
+
+        if (!createRes.ok) {
+          const err = await createRes.json().catch(() => ({}))
+          throw new Error(err.message || 'Грешка при създаване на акаунт.')
+        }
+
+        const [newClient] = await createRes.json()
+
+        if (!newClient || !newClient.id) {
+          throw new Error('Неочаквана грешка. Опитай отново.')
+        }
+
+        // 3. Set auth in localStorage (same format as the app)
+        localStorage.setItem('synrg_auth', JSON.stringify({
+          isLoggedIn: true,
+          role:       'client',
+          name:       newClient.name,
+          id:         newClient.id,
+          modules:    FREE_MODULES,
+        }))
+
+        // 4. Redirect to app
+        window.location.href = './app/index.html'
+
+      } catch (err) {
+        showError(err.message || 'Нещо се обърка. Опитай отново.')
+        btn.disabled = false
+        btn.textContent = 'Създай безплатен акаунт →'
+      }
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('form-error')
+      el.textContent = msg
+      el.classList.add('show')
+    }
+  </script>
+
+</body>
+</html>

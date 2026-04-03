@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYNRG — Рекламен Mockup</title>
+  <style>
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-Bold.woff2') format('woff2');
+      font-weight: 700; font-style: normal;
+    }
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-BoldItalic.woff2') format('woff2');
+      font-weight: 700; font-style: italic;
+    }
+    @font-face {
+      font-family: 'MontBlanc';
+      src: url('fonts/MontBlanc-SemiBold.woff2') format('woff2');
+      font-weight: 600; font-style: normal;
+    }
+
+    :root {
+      --mint:    #c4e9bf;
+      --logan:   #AAA9CD;
+      --cream:   #f0eded;
+      --bg:      #0d1510;
+      --surface: #111c13;
+      --card:    #131f14;
+      --border:  rgba(255,255,255,0.07);
+      --muted:   #5a6e5a;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a1a2e;
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px;
+      gap: 60px;
+    }
+
+    .page-title {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      font-family: system-ui;
+    }
+
+    /* ─── AD VARIANTS GRID ─── */
+    .variants {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .variant-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 360px;
+    }
+    .variant-label {
+      font-family: system-ui;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      padding-left: 4px;
+    }
+
+    /* ─── FACEBOOK AD CARD ─── */
+    .fb-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 360px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* FB Card Header */
+    .fb-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px 8px;
+    }
+    .fb-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .fb-avatar img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+    .fb-meta { flex: 1; }
+    .fb-page-name { font-size: 14px; font-weight: 700; color: #050505; line-height: 1.2; }
+    .fb-sponsored { font-size: 12px; color: #65676b; display: flex; align-items: center; gap: 3px; }
+    .fb-dots { font-size: 22px; color: #65676b; cursor: pointer; line-height: 1; }
+
+    /* Primary text */
+    .fb-body-text {
+      font-size: 14px;
+      color: #050505;
+      line-height: 1.5;
+      padding: 0 14px 12px;
+    }
+    .fb-body-text .hook {
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .fb-body-text .see-more {
+      color: #65676b;
+      cursor: pointer;
+    }
+
+    /* ─── CREATIVE ─── */
+    .ad-creative {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Background noise texture */
+    .ad-creative::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Glow */
+    .ad-creative .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .glow-mint {
+      width: 280px; height: 280px;
+      background: rgba(196,233,191,0.12);
+      top: -60px; right: -60px;
+    }
+    .glow-logan {
+      width: 200px; height: 200px;
+      background: rgba(170,169,205,0.10);
+      bottom: 20px; left: -40px;
+    }
+
+    /* Creative content — Variant A */
+    .creative-a {
+      padding: 36px 28px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      height: 100%;
+      width: 100%;
+    }
+
+    .creative-a .overline {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mint);
+      margin-bottom: 10px;
+    }
+
+    .creative-a h2 {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      max-width: 260px;
+    }
+
+    .creative-a h2 span.accent {
+      color: var(--mint);
+    }
+
+    .creative-a .sub {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(240,237,237,0.5);
+      line-height: 1.5;
+      max-width: 240px;
+      margin-bottom: 24px;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .stat-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(196,233,191,0.08);
+      border: 1px solid rgba(196,233,191,0.18);
+      border-radius: 100px;
+      padding: 5px 12px;
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mint);
+    }
+    .stat-chip .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--mint);
+    }
+
+    /* CTA button in creative */
+    .creative-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--mint);
+      color: var(--bg);
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      font-style: italic;
+      padding: 11px 22px;
+      border-radius: 100px;
+      letter-spacing: 0.01em;
+    }
+    .creative-cta svg { flex-shrink: 0; }
+
+    /* Phone mockup in creative */
+    .phone-wrap {
+      position: absolute;
+      right: -10px;
+      top: 30px;
+      z-index: 2;
+    }
+    .phone-frame {
+      width: 130px;
+      background: #1a241b;
+      border-radius: 20px;
+      border: 2px solid rgba(196,233,191,0.2);
+      padding: 10px 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .phone-status { display: flex; justify-content: center; margin-bottom: 8px; }
+    .phone-notch { width: 40px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+    .phone-row {
+      background: rgba(196,233,191,0.06);
+      border: 1px solid rgba(196,233,191,0.1);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 6px;
+    }
+    .phone-row-label {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(196,233,191,0.5);
+      margin-bottom: 3px;
+    }
+    .phone-row-value {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .phone-row-value span {
+      font-size: 9px;
+      font-style: normal;
+      color: var(--mint);
+      margin-left: 3px;
+    }
+
+    .phone-streak {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(196,233,191,0.08);
+      border-radius: 6px;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+    }
+    .streak-fire { font-size: 14px; }
+    .streak-text {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mint);
+    }
+
+    .phone-coach-msg {
+      background: rgba(170,169,205,0.1);
+      border: 1px solid rgba(170,169,205,0.2);
+      border-radius: 8px;
+      padding: 7px 8px;
+    }
+    .coach-label {
+      font-size: 7px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--logan);
+      margin-bottom: 4px;
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+    }
+    .coach-text {
+      font-size: 8px;
+      font-weight: 600;
+      color: rgba(240,237,237,0.7);
+      line-height: 1.4;
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+    }
+
+    /* Logo in creative */
+    .creative-logo {
+      position: absolute;
+      top: 24px;
+      left: 28px;
+      z-index: 3;
+    }
+    .creative-logo img {
+      height: 28px;
+      width: auto;
+      opacity: 0.9;
+    }
+
+    /* ─── FB Bottom CTA ─── */
+    .fb-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-top: 1px solid #e4e6eb;
+    }
+    .fb-link-info { flex: 1; }
+    .fb-link-domain {
+      font-size: 11px;
+      color: #65676b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .fb-link-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #050505;
+      line-height: 1.2;
+    }
+    .fb-link-desc {
+      font-size: 13px;
+      color: #65676b;
+    }
+    .fb-cta-btn {
+      background: #e4e6eb;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #050505;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-left: 10px;
+    }
+
+    /* FB reactions row */
+    .fb-reactions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      border-top: 1px solid #e4e6eb;
+    }
+    .fb-reaction-count { font-size: 13px; color: #65676b; }
+    .fb-actions {
+      display: flex;
+      gap: 2px;
+    }
+    .fb-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #65676b;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .fb-action-btn:hover { background: #f2f2f2; }
+
+    /* ─── COPY BREAKDOWN ─── */
+    .copy-breakdown {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 20px;
+      width: 360px;
+      font-family: system-ui;
+    }
+    .copy-section { margin-bottom: 16px; }
+    .copy-section:last-child { margin-bottom: 0; }
+    .copy-key {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(196,233,191,0.6);
+      margin-bottom: 6px;
+    }
+    .copy-val {
+      font-size: 13px;
+      color: rgba(240,237,237,0.85);
+      line-height: 1.6;
+    }
+    .copy-val strong { color: #c4e9bf; font-weight: 700; }
+
+    /* ─── VARIANT B — Instagram Story ─── */
+    .story-frame {
+      width: 200px;
+      height: 355px;
+      background: var(--bg);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .story-progress {
+      display: flex;
+      gap: 3px;
+      padding: 10px 10px 0;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+    }
+    .story-bar {
+      height: 2px;
+      flex: 1;
+      background: rgba(255,255,255,0.25);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .story-bar.active {
+      background: rgba(255,255,255,0.9);
+    }
+    .story-bar .fill {
+      height: 100%;
+      background: #fff;
+      width: 65%;
+    }
+
+    .story-header {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 20px 10px 8px;
+      position: absolute;
+      top: 14px; left: 0; right: 0;
+      z-index: 10;
+    }
+    .story-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1.5px solid var(--mint);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .story-avatar img { width: 90%; height: 90%; object-fit: contain; padding: 2px; }
+    .story-page-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      font-family: -apple-system, sans-serif;
+    }
+    .story-sponsored {
+      font-size: 9px;
+      color: rgba(255,255,255,0.5);
+      font-family: -apple-system, sans-serif;
+    }
+
+    /* Story creative content */
+    .story-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px 16px;
+      z-index: 2;
+    }
+
+    .story-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    .story-content .overline {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mint);
+      margin-bottom: 6px;
+      margin-top: 40px;
+    }
+
+    .story-content h2 {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .story-content h2 span.accent { color: var(--mint); }
+
+    .story-content .body {
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(240,237,237,0.55);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .story-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--mint);
+      color: var(--bg);
+      font-family: 'MontBlanc', -apple-system, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      font-style: italic;
+      padding: 8px 16px;
+      border-radius: 100px;
+    }
+
+    /* Swipe up */
+    .story-swipe {
+      position: absolute;
+      bottom: 16px;
+      left: 0; right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      z-index: 10;
+    }
+    .swipe-arrow {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      animation: bounce 1.5s infinite;
+    }
+    .swipe-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      font-family: -apple-system, sans-serif;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    /* ─── SECTION DIVIDER ─── */
+    .section-header {
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-family: system-ui;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      width: 100%;
+    }
+
+    /* ─── VIDEO SCRIPT ─── */
+    .script-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 28px 32px;
+      width: 100%;
+      max-width: 760px;
+      font-family: system-ui;
+    }
+    .script-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(196,233,191,0.7);
+      margin-bottom: 20px;
+    }
+    .script-row {
+      display: flex;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      align-items: flex-start;
+    }
+    .script-row:last-child { border-bottom: none; }
+    .script-time {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mint);
+      opacity: 0.7;
+      min-width: 55px;
+      padding-top: 1px;
+    }
+    .script-visual {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      flex: 1;
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .script-copy {
+      font-size: 14px;
+      color: rgba(240,237,237,0.85);
+      flex: 1.5;
+      line-height: 1.6;
+    }
+    .script-copy strong { color: #c4e9bf; }
+    .col-headers {
+      display: flex;
+      gap: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 4px;
+    }
+    .col-h {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+    .col-h-time { min-width: 55px; }
+    .col-h-vis { flex: 1; }
+    .col-h-copy { flex: 1.5; }
+  </style>
+</head>
+<body>
+
+  <p class="page-title">SYNRG Beyond Fitness — Рекламен Mockup</p>
+
+  <!-- ─── ROW 1: FACEBOOK FEED + STORY ─── -->
+  <div class="section-header">Вариант A — Facebook Feed (1:1)</div>
+
+  <div class="variants">
+
+    <!-- FB AD CARD -->
+    <div class="variant-block">
+      <div class="variant-label">Facebook / Instagram Feed</div>
+      <div class="fb-card">
+        <!-- Header -->
+        <div class="fb-header">
+          <div class="fb-avatar">
+            <img src="assets/synrg_Logomark.svg" alt="SYNRG" />
+          </div>
+          <div class="fb-meta">
+            <div class="fb-page-name">SYNRG Beyond Fitness</div>
+            <div class="fb-sponsored">
+              <span>Sponsored</span>
+              <span>·</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#65676b"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+          </div>
+          <div class="fb-dots">···</div>
+        </div>
+
+        <!-- Primary text -->
+        <div class="fb-body-text">
+          <div class="hook">Опитал ли си план за хранене?<br>Колко дни го следваш сега?</div><br>
+          Повечето хора купуват план и го изоставят след 2 седмици. Не защото нямат воля — а защото никой не ги вижда.<br>
+          <br>
+          В SYNRG треньорът ти вижда данните всеки ден. &nbsp;<span class="see-more">Виж повече</span>
+        </div>
+
+        <!-- Creative -->
+        <div class="ad-creative">
+          <div class="glow glow-mint"></div>
+          <div class="glow glow-logan"></div>
+
+          <!-- Logo -->
+          <div class="creative-logo">
+            <img src="assets/synrg_Primary_Logo.svg" alt="SYNRG" />
+          </div>
+
+          <!-- Phone -->
+          <div class="phone-wrap">
+            <div class="phone-frame">
+              <div class="phone-status"><div class="phone-notch"></div></div>
+
+              <div class="phone-row">
+                <div class="phone-row-label">Калории днес</div>
+                <div class="phone-row-value">1 840 <span>/ 2 100</span></div>
+              </div>
+
+              <div class="phone-streak">
+                <span class="streak-fire">&#128293;</span>
+                <span class="streak-text">14-дневен стрийк</span>
+              </div>
+
+              <div class="phone-row">
+                <div class="phone-row-label">Стъпки</div>
+                <div class="phone-row-value">8 432 <span>/ 10к</span></div>
+              </div>
+
+              <div class="phone-coach-msg">
+                <div class="coach-label">Треньор</div>
+                <div class="coach-text">"Свалихте 0.4кг тази седмица. Вървим точно по план."</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Left content -->
+          <div class="creative-a">
+            <div class="overline">SYNRG Beyond Fitness</div>
+            <h2>Не план.<br><span class="accent">Система</span><br>с треньор.</h2>
+            <p class="sub">Трекер за хранене, тегло и стъпки. Треньор, който вижда данните ти.</p>
+
+            <div class="stats-row">
+              <div class="stat-chip">
+                <div class="dot"></div>
+                <span>Безплатно</span>
+              </div>
+              <div class="stat-chip">
+                <div class="dot"></div>
+                <span>Без карта</span>
+              </div>
+            </div>
+
+            <div class="creative-cta">
+              Започни сега
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0d1510"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- FB Bottom CTA -->
+        <div class="fb-bottom">
+          <div class="fb-link-info">
+            <div class="fb-link-domain">synrg-beyondfitness.com</div>
+            <div class="fb-link-title">Започни безплатно</div>
+            <div class="fb-link-desc">Хранителен трекер + треньор. Без ангажимент.</div>
+          </div>
+          <button class="fb-cta-btn">Научи повече</button>
+        </div>
+
+        <!-- Reactions -->
+        <div class="fb-reactions">
+          <span class="fb-reaction-count">&#128077;&#10084;&#128293; 847</span>
+          <div class="fb-actions">
+            <div class="fb-action-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#65676b"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+              Харесай
+            </div>
+            <div class="fb-action-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#65676b"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/></svg>
+              Коментирай
+            </div>
+            <div class="fb-action-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#65676b"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+              Сподели
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COPY BREAKDOWN -->
+    <div class="variant-block">
+      <div class="variant-label">Copy разбивка</div>
+      <div class="copy-breakdown">
+        <div class="copy-section">
+          <div class="copy-key">Hook (1-2 секунди)</div>
+          <div class="copy-val"><strong>"Опитал ли си план за хранене? Колко дни го следваш сега?"</strong><br><br>Директен въпрос. Хора, купували планове преди (= точно аудиторията) се спират.</div>
+        </div>
+        <div class="copy-section">
+          <div class="copy-key">Болка</div>
+          <div class="copy-val">"Не защото нямат воля — а защото <strong>никой не ги вижда.</strong>"<br><br>Снема вината от човека. Redirects към решение.</div>
+        </div>
+        <div class="copy-section">
+          <div class="copy-key">Решение</div>
+          <div class="copy-val">"Треньорът ти вижда данните всеки ден."<br><br>Конкретно и различно от конкурентите.</div>
+        </div>
+        <div class="copy-section">
+          <div class="copy-key">Headline в creative</div>
+          <div class="copy-val"><strong>"Не план. Система с треньор."</strong><br><br>3 думи срещу позицията на Мутов ("яж всичко и бъди във форма").</div>
+        </div>
+        <div class="copy-section">
+          <div class="copy-key">CTA</div>
+          <div class="copy-val">"Започни сега" — безплатно, без карта. Friction = нула.</div>
+        </div>
+        <div class="copy-section">
+          <div class="copy-key">Targeting</div>
+          <div class="copy-val">Интереси: здравословно хранене, отслабване, фитнес приложения, Христо Мутов, калории. Ремаркетинг: посетили hristomutov.com.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div class="variant-block">
+      <div class="variant-label">Instagram Story (9:16)</div>
+      <div style="display:flex; gap:12px; align-items:flex-start;">
+        <div class="story-frame">
+          <!-- Progress bars -->
+          <div class="story-progress">
+            <div class="story-bar"><div class="fill"></div></div>
+            <div class="story-bar active"></div>
+            <div class="story-bar"></div>
+          </div>
+
+          <!-- Header -->
+          <div class="story-header">
+            <div class="story-avatar">
+              <img src="assets/synrg_Logomark.svg" alt="SYNRG" />
+            </div>
+            <div>
+              <div class="story-page-name">synrgbeyondfitness</div>
+              <div class="story-sponsored">Sponsored</div>
+            </div>
+          </div>
+
+          <!-- Background glows -->
+          <div class="story-glow" style="width:180px;height:180px;background:rgba(196,233,191,0.1);top:-30px;right:-40px;"></div>
+          <div class="story-glow" style="width:140px;height:140px;background:rgba(170,169,205,0.08);bottom:60px;left:-30px;"></div>
+
+          <!-- Content -->
+          <div class="story-content">
+            <div class="overline">Beyond Fitness</div>
+            <h2>Имаш план<br>за хранене?<br><span class="accent">Следваш</span><br>ли го?</h2>
+            <p class="body">Треньор, който вижда<br>данните ти всеки ден.</p>
+            <div class="story-cta-btn">
+              Безплатно
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="#0d1510"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+            </div>
+          </div>
+
+          <!-- Swipe up -->
+          <div class="story-swipe">
+            <div class="swipe-arrow">&#8679;</div>
+            <div class="swipe-label">Виж повече</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── VIDEO SCRIPT ─── -->
+  <div class="section-header">Вариант B — Видео реклама (15 сек Reel)</div>
+
+  <div class="script-card">
+    <div class="script-title">Видео скрипт — 15 секунди</div>
+    <div class="col-headers">
+      <div class="col-h col-h-time">Секунди</div>
+      <div class="col-h col-h-vis">Визия</div>
+      <div class="col-h col-h-copy">Глас / текст на екрана</div>
+    </div>
+    <div class="script-row">
+      <div class="script-time">0–3s</div>
+      <div class="script-visual">Телефон пада върху маса. На него — PDF с "Хранителен план". Прах. Забравен.</div>
+      <div class="script-copy"><strong>"Имаш план за хранене. Кога последно го погледна?"</strong></div>
+    </div>
+    <div class="script-row">
+      <div class="script-time">3–7s</div>
+      <div class="script-visual">Бърз cut към SYNRG приложение — трекер, стрийк, съобщение от треньор.</div>
+      <div class="script-copy"><strong>"В SYNRG треньорът ти вижда данните всеки ден."</strong><br>Subtext на екрана: "Не план. Система."</div>
+    </div>
+    <div class="script-row">
+      <div class="script-time">7–12s</div>
+      <div class="script-visual">Реален клиент (testimonial style) — говори директно в камерата, casual.</div>
+      <div class="script-copy"><strong>"Свалих 8 кг за 3 месеца. За първи път не се отказах."</strong></div>
+    </div>
+    <div class="script-row">
+      <div class="script-time">12–15s</div>
+      <div class="script-visual">Лого на SYNRG. Тъмен фон, mint акцент. CTA текст центриран.</div>
+      <div class="script-copy"><strong>"Започни безплатно."</strong><br>synrg-beyondfitness.com</div>
+    </div>
+  </div>
+
+  <!-- A/B Variants -->
+  <div class="section-header">A/B Тест — Алтернативни Headlines</div>
+  <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; max-width:800px;">
+    <div class="copy-breakdown" style="width:230px; padding:16px;">
+      <div class="copy-key">Вариант 1 (Pain)</div>
+      <div class="copy-val">"Имаш 3 плана за хранене в имейла. Следваш ли някой?"</div>
+    </div>
+    <div class="copy-breakdown" style="width:230px; padding:16px;">
+      <div class="copy-key">Вариант 2 (Benefit)</div>
+      <div class="copy-val">"Треньор, който вижда данните ти всеки ден. Безплатно."</div>
+    </div>
+    <div class="copy-breakdown" style="width:230px; padding:16px;">
+      <div class="copy-key">Вариант 3 (Social proof)</div>
+      <div class="copy-val">"847 души проследяват храненето си тази седмица в SYNRG."</div>
+    </div>
+  </div>
+
+</body>
+</html>
