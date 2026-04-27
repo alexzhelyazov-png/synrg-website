@@ -357,6 +357,10 @@
             calorie_target:  2000,
             protein_target:  140,
             modules:         FREE_MODULES,
+            // Mark freemium signups explicitly. The app combines this with
+            // program_purchases / client_plans membership to decide which
+            // home screen (LeadHome / OnlineHome / Dashboard) to show.
+            account_type:    'lead',
           })
         })
 
