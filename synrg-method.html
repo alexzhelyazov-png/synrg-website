@@ -646,13 +646,6 @@
           <input type="text" name="name" class="review-form-input" required minlength="2" maxlength="50" />
         </div>
         <div class="review-form-row">
-          <label class="review-form-label" data-bg="Откъде ни познаваш" data-en="How do you know us">Откъде ни познаваш</label>
-          <div class="review-cat-row">
-            <label class="review-cat"><input type="radio" name="category" value="studio" checked /><span data-bg="Студиото във Варна" data-en="Studio in Varna">Студиото във Варна</span></label>
-            <label class="review-cat"><input type="radio" name="category" value="online" /><span data-bg="SYNRG Метод (онлайн)" data-en="SYNRG Method (online)">SYNRG Метод (онлайн)</span></label>
-          </div>
-        </div>
-        <div class="review-form-row">
           <label class="review-form-label" data-bg="Оценка" data-en="Rating">Оценка</label>
           <div class="review-stars" id="reviewStars" role="radiogroup" aria-label="Rating">
             <button type="button" class="review-star" data-value="1" aria-label="1 star">★</button>
@@ -904,7 +897,6 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             name: data.get('name'),
-            category: data.get('category'),
             rating: Number(data.get('rating')) || 5,
             text: data.get('text'),
             turnstile_token: turnstileToken,
