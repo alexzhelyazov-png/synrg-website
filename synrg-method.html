@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SYNRG Метод — 8-седмична онлайн програма с ментор за устойчиви здравни навици. Структуриран хранителен режим, тренировъчни планове, 2 check-in сесии месечно." />
+  <meta name="theme-color" content="#0d1510" />
+  <meta property="og:title" content="SYNRG Метод — 8 седмици да променим тялото и режима" />
+  <meta property="og:description" content="Единствената платформа в България с ментор, структурирана програма, трекери, рецепти и общност." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="bg_BG" />
+  <meta property="og:site_name" content="SYNRG Beyond Fitness" />
+  <meta property="og:image" content="https://www.synrg-beyondfitness.com/assets/synrg_Primary_Logo.svg" />
+  <title>SYNRG Метод — 8-седмична програма с ментор</title>
+
+  <style>
+    @font-face { font-family: 'MontBlanc'; src: url('fonts/MontBlanc-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'MontBlanc'; src: url('fonts/MontBlanc-BoldItalic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'MontBlanc'; src: url('fonts/MontBlanc-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --mint:         #c4e9bf;
+      --mint-dim:     rgba(196,233,191,0.12);
+      --mint-border:  rgba(196,233,191,0.24);
+      --logan:        #AAA9CD;
+      --logan-dim:    rgba(170,169,205,0.12);
+      --logan-border: rgba(170,169,205,0.26);
+      --cream:        #f0eded;
+      --bg:           #0d1510;
+      --surface:      #111c13;
+      --border:       rgba(255,255,255,0.07);
+      --muted:        #8a9a8a;
+      --nav-h:        96px;
+      --radius-sm:    12px;
+      --radius-lg:    20px;
+      --ease:         cubic-bezier(0.32, 0.72, 0, 1);
+      --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'MontBlanc', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    /* Navbar */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h); display: flex; align-items: center;
+      transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+      background: transparent; border-bottom: 1px solid transparent;
+    }
+    #navbar.scrolled { background: rgba(13,21,16,0.92); backdrop-filter: blur(20px); border-bottom-color: var(--border); }
+    .nav-inner { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; font-style: italic; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--cream); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .lang-toggle { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 700; }
+    .lang-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-weight: 700; padding: 4px 8px; transition: color 0.2s; }
+    .lang-btn.active { color: var(--cream); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 100px; font-size: 14px; font-weight: 700; font-style: italic; text-decoration: none; cursor: pointer; transition: all 0.2s var(--ease); border: 1px solid transparent; line-height: 1; }
+    .btn-primary { background: var(--mint); color: var(--bg); border-color: var(--mint); }
+    .btn-primary:hover { background: #aedba9; transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--cream); border-color: var(--logan-border); }
+    .btn-ghost:hover { border-color: var(--logan); }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 4px; }
+    .nav-toggle span { width: 22px; height: 2px; background: var(--cream); }
+
+    @media (max-width: 900px) {
+      .nav-links, .nav-right .btn-ghost, .nav-right .btn-primary { display: none; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* Hero */
+    #hero {
+      position: relative; padding: calc(var(--nav-h) + 60px) 0 100px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(196,233,191,0.08) 0%, transparent 60%), var(--bg);
+      overflow: hidden;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
+    .hero-overline { display: inline-block; padding: 6px 14px; background: var(--mint-dim); border: 1px solid var(--mint-border); color: var(--mint); border-radius: 100px; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-title { font-size: clamp(34px, 5vw, 56px); font-style: italic; font-weight: 700; line-height: 1.05; color: var(--cream); margin-bottom: 20px; }
+    .hero-title .accent { color: var(--mint); }
+    .hero-sub { font-size: clamp(16px, 1.8vw, 19px); color: var(--muted); line-height: 1.6; margin-bottom: 32px; max-width: 540px; }
+    .hero-cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .hero-price-line { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+    .hero-price-line .price-now { color: var(--mint); font-size: 20px; font-weight: 800; font-style: normal; }
+    .hero-price-line .price-was { text-decoration: line-through; opacity: 0.5; }
+    .hero-trust { margin-top: 40px; display: flex; gap: 32px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+    .hero-trust strong { color: var(--cream); display: block; font-size: 22px; font-style: italic; margin-bottom: 4px; }
+
+    .hero-visual {
+      position: relative; aspect-ratio: 4/5; border-radius: var(--radius-lg); overflow: hidden;
+      background: linear-gradient(135deg, var(--mint-dim) 0%, var(--logan-dim) 100%);
+      border: 1px solid var(--logan-border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-visual::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(196,233,191,0.2) 0%, transparent 60%); }
+    .hero-visual-text { position: relative; z-index: 1; text-align: center; padding: 40px; }
+    .hero-visual-text .big { font-size: 96px; font-weight: 700; font-style: italic; color: var(--mint); line-height: 1; margin-bottom: 12px; }
+    .hero-visual-text .lbl { font-size: 14px; color: var(--cream); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { aspect-ratio: 1/1; max-width: 380px; margin: 0 auto; }
+    }
+
+    /* Section base */
+    section.block { padding: 80px 0; border-top: 1px solid var(--border); }
+    .section-overline { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mint); margin-bottom: 16px; }
+    .section-title { font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; font-style: italic; color: var(--cream); line-height: 1.1; margin-bottom: 16px; max-width: 700px; }
+    .section-sub { font-size: 16px; color: var(--muted); max-width: 640px; margin-bottom: 48px; line-height: 1.6; }
+
+    /* For whom */
+    .personas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .persona { padding: 28px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+    .persona-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--mint-dim); border: 1px solid var(--mint-border); color: var(--mint); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+    .persona h3 { font-size: 18px; font-style: italic; color: var(--cream); margin-bottom: 10px; }
+    .persona p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* What you get */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .feature {
+      padding: 24px; background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+    }
+    .feature:hover { border-color: var(--mint-border); transform: translateY(-2px); }
+    .feature-num { font-size: 11px; font-weight: 800; color: var(--mint); letter-spacing: 0.15em; margin-bottom: 12px; }
+    .feature h4 { font-size: 17px; font-style: italic; color: var(--cream); margin-bottom: 8px; }
+    .feature p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+    /* How it works */
+    .timeline { display: grid; gap: 20px; max-width: 880px; }
+    .step { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-num { font-size: 48px; font-weight: 700; font-style: italic; color: var(--mint); line-height: 1; }
+    .step h4 { font-size: 19px; font-style: italic; color: var(--cream); margin-bottom: 6px; }
+    .step p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .step-week { font-size: 11px; color: var(--mint); letter-spacing: 0.15em; text-transform: uppercase; font-weight: 800; margin-bottom: 6px; }
+
+    /* What's included list */
+    .included { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .incl-item { display: flex; gap: 12px; align-items: flex-start; padding: 14px 18px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .incl-check { color: var(--mint); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .incl-text { font-size: 14px; color: var(--cream); line-height: 1.5; }
+
+    /* Pricing block */
+    .pricing-card {
+      max-width: 520px; margin: 0 auto;
+      padding: 40px 32px; background: linear-gradient(180deg, var(--mint-dim) 0%, transparent 100%);
+      border: 1px solid var(--mint-border); border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    .pricing-pill { display: inline-block; padding: 6px 14px; background: var(--mint); color: var(--bg); border-radius: 100px; font-size: 11px; font-weight: 800; letter-spacing: 0.15em; margin-bottom: 20px; }
+    .pricing-amount { font-size: 64px; font-weight: 700; font-style: italic; color: var(--cream); line-height: 1; margin-bottom: 8px; }
+    .pricing-amount .currency { font-size: 36px; opacity: 0.7; }
+    .pricing-old { font-size: 16px; color: var(--muted); text-decoration: line-through; margin-bottom: 8px; }
+    .pricing-desc { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+    .pricing-cta { display: inline-block; }
+    .pricing-fine { font-size: 11px; color: var(--muted); margin-top: 16px; line-height: 1.5; }
+
+    /* Reviews */
+    .reviews-summary { display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 16px; color: var(--muted); margin-bottom: 40px; }
+    .reviews-summary .stars { color: #FFC107; font-size: 22px; letter-spacing: 2px; }
+    .reviews-summary .avg { font-size: 22px; font-weight: 800; color: var(--cream); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .review-card { background: rgba(255,255,255,0.03); border: 1px solid var(--logan-border); border-radius: var(--radius-lg); padding: 22px 20px; }
+    .review-stars { color: #FFC107; font-size: 14px; letter-spacing: 1px; margin-bottom: 10px; }
+    .review-text { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 14px; min-height: 60px; }
+    .review-author { font-size: 12px; color: var(--muted); font-weight: 700; }
+    .review-author::before { content: '— '; }
+    .reviews-empty {
+      text-align: center; padding: 48px 24px;
+      background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: var(--radius-lg);
+      color: var(--muted); font-size: 14px;
+    }
+    .reviews-empty strong { display: block; color: var(--cream); font-size: 16px; margin-bottom: 8px; font-style: italic; }
+
+    /* FAQ */
+    .faq { max-width: 800px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q { width: 100%; text-align: left; padding: 22px 0; background: none; border: none; color: var(--cream); font-size: 17px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: inherit; }
+    .faq-q:hover { color: var(--mint); }
+    .faq-q .arrow { transition: transform 0.25s var(--ease); flex-shrink: 0; opacity: 0.5; }
+    .faq-item.open .faq-q .arrow { transform: rotate(180deg); opacity: 1; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s var(--ease), padding 0.3s var(--ease); color: var(--muted); font-size: 14.5px; line-height: 1.7; padding: 0 0; }
+    .faq-item.open .faq-a { max-height: 320px; padding: 0 0 22px; }
+
+    /* Final CTA */
+    #final-cta { padding: 100px 0; background: radial-gradient(ellipse at center, rgba(196,233,191,0.05) 0%, transparent 70%); text-align: center; }
+    #final-cta h2 { font-size: clamp(28px, 4vw, 44px); font-style: italic; color: var(--cream); margin-bottom: 16px; line-height: 1.15; }
+    #final-cta p { font-size: 17px; color: var(--muted); max-width: 540px; margin: 0 auto 32px; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 40px 0 32px; }
+    .footer-main { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .footer-tagline { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .footer-links-inline { list-style: none; display: flex; gap: 24px; }
+    .footer-links-inline a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+    .footer-links-inline a:hover { color: var(--cream); }
+    .footer-copy { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; opacity: 0.6; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header id="navbar" role="banner">
+  <div class="nav-inner">
+    <a href="./index.html" class="nav-logo" aria-label="SYNRG Начало">
+      <img src="assets/synrg_Primary_Logo.svg" alt="SYNRG Beyond Fitness" />
+    </a>
+    <nav aria-label="Основна навигация">
+      <ul class="nav-links">
+        <li><a href="studio.html"  data-bg="Студио"    data-en="Studio">Студио</a></li>
+        <li><a href="remote.html"  data-bg="Програми"  data-en="Programs">Програми</a></li>
+        <li><a href="pricing.html" data-bg="Цени"      data-en="Pricing">Цени</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button onclick="setLang('bg')" class="lang-btn active" id="btn-bg">BG</button>
+        <span>|</span>
+        <button onclick="setLang('en')" class="lang-btn" id="btn-en">EN</button>
+      </div>
+      <a href="./app/index.html" class="btn btn-ghost" data-bg="Влез" data-en="Login">Влез</a>
+      <a href="#pricing" class="btn btn-primary" data-bg="Купи сега →" data-en="Buy now →">Купи сега →</a>
+      <button class="nav-toggle" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-overline" data-bg="SYNRG МЕТОД" data-en="SYNRG METHOD">SYNRG МЕТОД</span>
+        <h1 class="hero-title">
+          <span data-bg="8 седмици да променим" data-en="8 weeks to change">8 седмици да променим</span><br>
+          <span class="accent" data-bg="тялото и режима ти" data-en="your body and routine">тялото и режима ти</span>
+        </h1>
+        <p class="hero-sub" data-bg="Не е „поредната програма“. Имаш реален ментор до теб, структуриран хранителен режим, тренировъчни планове и приложение което проследява всичко. Без догадки, без тълпи от информация — само резултат." data-en="Not just another program. You get a real mentor, a structured nutrition plan, training plans and an app that tracks everything. No guesswork, no information overload — just results.">
+          Не е „поредната програма“. Имаш реален ментор до теб, структуриран хранителен режим, тренировъчни планове и приложение което проследява всичко. Без догадки, без тълпи от информация — само резултат.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#pricing" class="btn btn-primary" data-bg="Започни сега →" data-en="Start now →">Започни сега →</a>
+          <a href="#how" class="btn btn-ghost" data-bg="Как работи" data-en="How it works">Как работи</a>
+        </div>
+        <div class="hero-price-line">
+          <span class="price-now">€127</span>
+          <span class="price-was">€197</span>
+          <span data-bg="за 8 седмици · еднократно" data-en="for 8 weeks · one-time">за 8 седмици · еднократно</span>
+        </div>
+        <div class="hero-trust">
+          <div><strong>8</strong><span data-bg="седмици" data-en="weeks">седмици</span></div>
+          <div><strong>2</strong><span data-bg="check-in сесии/месец" data-en="check-ins/month">check-in сесии/месец</span></div>
+          <div><strong>1:1</strong><span data-bg="ментор" data-en="mentor">ментор</span></div>
+          <div><strong>14</strong><span data-bg="дни право на отказ*" data-en="day refund window*">дни право на отказ*</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-visual-text">
+          <div class="big">8</div>
+          <div class="lbl" data-bg="седмици" data-en="weeks">седмици</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- За кого е -->
+<section class="block">
+  <div class="container">
+    <span class="section-overline" data-bg="ЗА КОГО Е" data-en="WHO IT'S FOR">ЗА КОГО Е</span>
+    <h2 class="section-title" data-bg="Ако се разпознаваш в някое от тези — SYNRG Метод е за теб." data-en="If you see yourself in any of these — SYNRG Method is for you.">
+      Ако се разпознаваш в някое от тези — SYNRG Метод е за теб.
+    </h2>
+    <div class="personas">
+      <div class="persona">
+        <div class="persona-icon">🎯</div>
+        <h3 data-bg="Опитал си всичко" data-en="You've tried everything">Опитал си всичко</h3>
+        <p data-bg="Започвал си 10 пъти диета, 5 пъти фитнес. Винаги губиш мотивация след 2 седмици. Този път искаш план + човек до теб, който да те държи отговорен." data-en="You've started 10 diets and 5 gym memberships. Always lose motivation after 2 weeks. This time you want a plan and a person who holds you accountable.">
+          Започвал си 10 пъти диета, 5 пъти фитнес. Винаги губиш мотивация след 2 седмици. Този път искаш план + човек до теб, който да те държи отговорен.
+        </p>
+      </div>
+      <div class="persona">
+        <div class="persona-icon">⏰</div>
+        <h3 data-bg="Нямаш време" data-en="No time">Нямаш време</h3>
+        <p data-bg="Работа, семейство, всичко друго. Не можеш да ходиш в студио всеки ден. Нужен ти е режим който да работи с твоя график — у дома, на пътя, навсякъде." data-en="Work, family, everything else. You can't go to a studio every day. You need a program that works with your schedule — home, travel, anywhere.">
+          Работа, семейство, всичко друго. Не можеш да ходиш в студио всеки ден. Нужен ти е режим който да работи с твоя график — у дома, на пътя, навсякъде.
+        </p>
+      </div>
+      <div class="persona">
+        <div class="persona-icon">🧠</div>
+        <h3 data-bg="Искаш устойчивост" data-en="You want sustainability">Искаш устойчивост</h3>
+        <p data-bg="Не „минус 8 кг за месец“. Искаш да изградиш навици които ще останат — без екстремни диети, без бързо отслабване, без да се обвиняваш всеки път когато ядеш десерт." data-en="Not 'lose 8kg in a month'. You want to build habits that last — no extreme diets, no quick fixes, no guilt every time you eat dessert.">
+          Не „минус 8 кг за месец“. Искаш да изградиш навици които ще останат — без екстремни диети, без бързо отслабване, без да се обвиняваш всеки път когато ядеш десерт.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Какво ще получиш -->
+<section class="block" style="background: var(--surface);">
+  <div class="container">
+    <span class="section-overline" data-bg="КАКВО ВКЛЮЧВА" data-en="WHAT'S INSIDE">КАКВО ВКЛЮЧВА</span>
+    <h2 class="section-title" data-bg="6 неща, които правят SYNRG Метод различен" data-en="6 things that make SYNRG Method different">
+      6 неща, които правят SYNRG Метод различен
+    </h2>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-num">01</div>
+        <h4 data-bg="Личен ментор" data-en="Personal mentor">Личен ментор</h4>
+        <p data-bg="2 check-in сесии всеки месец с твоя ментор. Корекции на режима, въпроси, мотивация. Не сам — реален човек до теб през цялото пътуване." data-en="2 check-in sessions every month with your mentor. Adjustments, questions, motivation. Not alone — a real person beside you throughout.">
+          2 check-in сесии всеки месец с твоя ментор. Корекции на режима, въпроси, мотивация. Не сам — реален човек до теб през цялото пътуване.
+        </p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">02</div>
+        <h4 data-bg="Хранителен режим" data-en="Nutrition plan">Хранителен режим</h4>
+        <p data-bg="Базиран на твоите цели, тегло, активност. Не задушаващ — гъвкав. С рецепти, списъци за пазаруване и алтернативи за всяко ястие." data-en="Based on your goals, weight, activity. Not restrictive — flexible. With recipes, shopping lists and alternatives for every meal.">
+          Базиран на твоите цели, тегло, активност. Не задушаващ — гъвкав. С рецепти, списъци за пазаруване и алтернативи за всяко ястие.
+        </p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">03</div>
+        <h4 data-bg="Тренировъчен план" data-en="Training plan">Тренировъчен план</h4>
+        <p data-bg="Видео тренировки за вкъщи или фитнеса. 3-5 пъти седмично, 30-50 минути. Adaptive — нивото се напасва според твоя прогрес." data-en="Video workouts for home or gym. 3-5 times a week, 30-50 min. Adaptive — level adjusts to your progress.">
+          Видео тренировки за вкъщи или фитнеса. 3-5 пъти седмично, 30-50 минути. Adaptive — нивото се напасва според твоя прогрес.
+        </p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">04</div>
+        <h4 data-bg="Трекер приложение" data-en="Tracker app">Трекер приложение</h4>
+        <p data-bg="Записвай хранене, тегло, стъпки, тренировки в едно. Виждай прогреса си седмично. Менторът ти има достъп — вижда какво работи и какво не." data-en="Track meals, weight, steps, workouts in one place. See weekly progress. Your mentor has access — sees what works and what doesn't.">
+          Записвай хранене, тегло, стъпки, тренировки в едно. Виждай прогреса си седмично. Менторът ти има достъп — вижда какво работи и какво не.
+        </p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">05</div>
+        <h4 data-bg="Общност" data-en="Community">Общност</h4>
+        <p data-bg="Затворена група с другите участници. Споделяй прогрес, задавай въпроси, виж как другите се справят. Никой не върви сам." data-en="Closed group with other participants. Share progress, ask questions, see how others are doing. No one walks alone.">
+          Затворена група с другите участници. Споделяй прогрес, задавай въпроси, виж как другите се справят. Никой не върви сам.
+        </p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">06</div>
+        <h4 data-bg="След програмата" data-en="After the program">След програмата</h4>
+        <p data-bg="Запазваш безплатно достъп до трекерите (хранене, тегло, стъпки) завинаги. Можеш да продължиш сам или да се запишеш за нова програма." data-en="You keep free access to the trackers (meals, weight, steps) forever. Continue solo or sign up for a new program.">
+          Запазваш безплатно достъп до трекерите (хранене, тегло, стъпки) завинаги. Можеш да продължиш сам или да се запишеш за нова програма.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Как работи -->
+<section class="block" id="how">
+  <div class="container">
+    <span class="section-overline" data-bg="КАК РАБОТИ" data-en="HOW IT WORKS">КАК РАБОТИ</span>
+    <h2 class="section-title" data-bg="Стъпка по стъпка през 8 седмици" data-en="Step by step over 8 weeks">
+      Стъпка по стъпка през 8 седмици
+    </h2>
+    <div class="timeline">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-week" data-bg="Ден 1" data-en="Day 1">Ден 1</div>
+          <h4 data-bg="Старт + първи check-in" data-en="Start + first check-in">Старт + първи check-in</h4>
+          <p data-bg="Получаваш достъп до приложението, твоя индивидуален хранителен режим и първите тренировки. Менторът ти изпраща welcome съобщение и се запознавате." data-en="You get app access, personalized nutrition plan and first workouts. Your mentor sends a welcome message and you meet.">
+            Получаваш достъп до приложението, твоя индивидуален хранителен режим и първите тренировки. Менторът ти изпраща welcome съобщение и се запознавате.
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-week" data-bg="Седмица 1-2" data-en="Week 1-2">Седмица 1-2</div>
+          <h4 data-bg="Адаптация" data-en="Adaptation">Адаптация</h4>
+          <p data-bg="Влизаш в режима. Логваш храна и тренировки в app-а. Менторът проследява и помага със ситуации — командировка, ресторант, празник. Първи progress photos." data-en="You ease into the routine. Log meals and workouts in the app. Mentor monitors and helps with situations — trips, restaurants, holidays. First progress photos.">
+            Влизаш в режима. Логваш храна и тренировки в app-а. Менторът проследява и помага със ситуации — командировка, ресторант, празник. Първи progress photos.
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-week" data-bg="Седмица 3-5" data-en="Week 3-5">Седмица 3-5</div>
+          <h4 data-bg="Виждат се резултатите" data-en="Results show">Виждат се резултатите</h4>
+          <p data-bg="Тяло и навици се променят. Менторът коригира хранителния режим и тренировките спрямо прогреса. Първи реални промени — не само в килограмите, но и в енергията, съня." data-en="Body and habits change. Mentor adjusts nutrition and training based on progress. First real changes — not just kilos, but energy and sleep.">
+            Тяло и навици се променят. Менторът коригира хранителния режим и тренировките спрямо прогреса. Първи реални промени — не само в килограмите, но и в енергията, съня.
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <div class="step-week" data-bg="Седмица 6-8" data-en="Week 6-8">Седмица 6-8</div>
+          <h4 data-bg="Затвърждаване" data-en="Consolidation">Затвърждаване</h4>
+          <p data-bg="Финални progress photos. Сравнение преди-след. Менторът ти дава план как да продължиш сам — какво да запазиш, какво да адаптираш. Готов си за следващия етап." data-en="Final progress photos. Before/after comparison. Mentor gives you a plan to continue solo — what to keep, what to adapt. Ready for the next stage.">
+            Финални progress photos. Сравнение преди-след. Менторът ти дава план как да продължиш сам — какво да запазиш, какво да адаптираш. Готов си за следващия етап.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Какво включва -->
+<section class="block" style="background: var(--surface);">
+  <div class="container">
+    <span class="section-overline" data-bg="КАКВО ПОЛУЧАВАШ" data-en="WHAT YOU GET">КАКВО ПОЛУЧАВАШ</span>
+    <h2 class="section-title" data-bg="Всичко, което ти трябва — на едно място" data-en="Everything you need — in one place">
+      Всичко, което ти трябва — на едно място
+    </h2>
+    <div class="included">
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Личен ментор за 8 седмици" data-en="Personal mentor for 8 weeks">Личен ментор за 8 седмици</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="2 check-in сесии всеки месец" data-en="2 check-in sessions per month">2 check-in сесии всеки месец</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Индивидуален хранителен режим" data-en="Personalized nutrition plan">Индивидуален хранителен режим</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Видео тренировки + планове" data-en="Video workouts + plans">Видео тренировки + планове</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Над 50 рецепти и шаблони" data-en="Over 50 recipes and templates">Над 50 рецепти и шаблони</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Достъп до общност" data-en="Community access">Достъп до общност</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Трекери: тегло, храна, стъпки, тренировки" data-en="Trackers: weight, food, steps, workouts">Трекери: тегло, храна, стъпки, тренировки</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="AI разпознаване на храна по снимка" data-en="AI food recognition from photo">AI разпознаване на храна по снимка</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Прогрес снимки + графики" data-en="Progress photos + charts">Прогрес снимки + графики</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="След програмата: безплатен freemium завинаги" data-en="After the program: free freemium forever">След програмата: безплатен freemium завинаги</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="block" id="pricing">
+  <div class="container" style="text-align:center;">
+    <span class="section-overline" data-bg="ЦЕНА" data-en="PRICING">ЦЕНА</span>
+    <h2 class="section-title" style="margin-left:auto;margin-right:auto;" data-bg="Early Bird — само за първите 100" data-en="Early Bird — only first 100">
+      Early Bird — само за първите 100
+    </h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;" data-bg="След 100-я клиент цената се връща на €197. Гарантирай си твоето място сега." data-en="After the 100th customer the price returns to €197. Lock in your spot now.">
+      След 100-я клиент цената се връща на €197. Гарантирай си твоето място сега.
+    </p>
+    <div class="pricing-card">
+      <div class="pricing-pill" data-bg="EARLY BIRD" data-en="EARLY BIRD">EARLY BIRD</div>
+      <div class="pricing-amount"><span class="currency">€</span>127</div>
+      <div class="pricing-old" data-bg="€197 редовна цена" data-en="€197 regular price">€197 редовна цена</div>
+      <p class="pricing-desc" data-bg="Еднократно плащане · 8 седмици пълен достъп · след това безплатен freemium завинаги" data-en="One-time payment · 8 weeks full access · then free freemium forever">
+        Еднократно плащане · 8 седмици пълен достъп · след това безплатен freemium завинаги
+      </p>
+      <button class="btn btn-primary buy-btn" id="main-buy-btn" data-bg="Купи сега → Stripe Checkout" data-en="Buy now → Stripe Checkout">Купи сега → Stripe Checkout</button>
+      <p class="pricing-fine" data-bg="*Сигурно плащане през Stripe. По чл. 57 т. 12 ЗЗП — при изрично съгласие за незабавно изпълнение губиш правото си на 14-дневен отказ. Виж пълните условия преди покупка." data-en="*Secure Stripe payment. Under Art. 57.12 of the Bulgarian Consumer Protection Act — by consenting to immediate delivery you waive the 14-day withdrawal right. See full terms before purchase.">
+        *Сигурно плащане през Stripe. По чл. 57 т. 12 ЗЗП — при изрично съгласие за незабавно изпълнение губиш правото си на 14-дневен отказ. Виж пълните условия преди покупка.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="block" id="reviews-section">
+  <div class="container">
+    <div style="text-align:center;">
+      <span class="section-overline" data-bg="ОТЗИВИ" data-en="REVIEWS">ОТЗИВИ</span>
+      <h2 class="section-title" style="margin-left:auto;margin-right:auto;" data-bg="Какво казват клиентите" data-en="What clients say">
+        Какво казват клиентите
+      </h2>
+      <div id="reviews-summary" class="reviews-summary"></div>
+    </div>
+    <div id="reviews-grid" class="reviews-grid"></div>
+    <div id="reviews-empty" class="reviews-empty" style="display:none;">
+      <strong data-bg="Все още нямаме одобрени отзиви" data-en="No approved reviews yet">Все още нямаме одобрени отзиви</strong>
+      <span data-bg="Бъди един от първите клиенти и сподели опита си — всеки купувач може да остави отзив след старта на програмата." data-en="Be one of the first customers and share your experience — every buyer can leave a review after starting the program.">
+        Бъди един от първите клиенти и сподели опита си — всеки купувач може да остави отзив след старта на програмата.
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block" style="background: var(--surface);">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 48px;">
+      <span class="section-overline" data-bg="ЧЕСТО ЗАДАВАНИ ВЪПРОСИ" data-en="FAQ">ЧЕСТО ЗАДАВАНИ ВЪПРОСИ</span>
+      <h2 class="section-title" style="margin-left:auto;margin-right:auto;" data-bg="Имаш въпрос? Тук са отговорите." data-en="Have a question? Here are the answers.">
+        Имаш въпрос? Тук са отговорите.
+      </h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span data-bg="Какво ако не съм тренирал отдавна?" data-en="What if I haven't trained in a long time?">Какво ако не съм тренирал отдавна?</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a" data-bg="Програмата е adaptive — менторът напасва нивото според твоето текущо състояние. Ако никога не си тренирал — започваме от bodyweight упражнения. Ако си напреднал — давам по-сложни планове. Никой не остава без помощ." data-en="The program is adaptive — your mentor matches the level to your current state. Never trained? We start with bodyweight. Advanced? More complex plans. No one is left without guidance.">
+          Програмата е adaptive — менторът напасва нивото според твоето текущо състояние. Ако никога не си тренирал — започваме от bodyweight упражнения. Ако си напреднал — давам по-сложни планове. Никой не остава без помощ.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span data-bg="Имам алергия / специфична диета. Ще работи ли?" data-en="I have an allergy / specific diet. Will it work?">Имам алергия / специфична диета. Ще работи ли?</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a" data-bg="Да. Хранителният режим се прави персонално с твоя ментор. Вегетарианец, веган, без глутен/лактоза, диабет, IBS — всичко се адаптира. На първия check-in казваш ограниченията си и режимът се прави около тях." data-en="Yes. The nutrition plan is built personally with your mentor. Vegetarian, vegan, gluten/dairy-free, diabetes, IBS — all adapted. On the first check-in you tell your limitations and the plan is built around them.">
+          Да. Хранителният режим се прави персонално с твоя ментор. Вегетарианец, веган, без глутен/лактоза, диабет, IBS — всичко се адаптира. На първия check-in казваш ограниченията си и режимът се прави около тях.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span data-bg="Колко време на ден ми трябва?" data-en="How much time per day?">Колко време на ден ми трябва?</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a" data-bg="Тренировки: 30-50 минути, 3-5 пъти седмично. Логване в приложението: 5 минути на ден. Готвене: спрямо твоя стил — има бързи варианти за тези с малко време. Общо: 4-5 часа седмично активно ангажиране." data-en="Workouts: 30-50 min, 3-5 times a week. App logging: 5 min/day. Cooking: depends on your style — quick options available. Total: 4-5 hours active engagement per week.">
+          Тренировки: 30-50 минути, 3-5 пъти седмично. Логване в приложението: 5 минути на ден. Готвене: спрямо твоя стил — има бързи варианти за тези с малко време. Общо: 4-5 часа седмично активно ангажиране.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span data-bg="Какво става след 8-те седмици?" data-en="What happens after 8 weeks?">Какво става след 8-те седмици?</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a" data-bg="Запазваш безплатен достъп до трекерите (хранене, тегло, стъпки) завинаги. Финалната check-in сесия дава план как да продължиш сам. Можеш да се запишеш за нова програма ако искаш да продължиш с ментор." data-en="You keep free access to trackers (food, weight, steps) forever. Final check-in gives you a plan to continue solo. You can sign up for a new program if you want to continue with a mentor.">
+          Запазваш безплатен достъп до трекерите (хранене, тегло, стъпки) завинаги. Финалната check-in сесия дава план как да продължиш сам. Можеш да се запишеш за нова програма ако искаш да продължиш с ментор.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span data-bg="Има ли гаранция?" data-en="Is there a guarantee?">Има ли гаранция?</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a" data-bg="Не гарантираме конкретни килограми, защото това би било нечестно — резултатите зависят от твоето ангажиране. Гарантираме: личен ментор, структуриран план, app достъп, общност. Ако следваш програмата — резултатите идват." data-en="We don't guarantee specific kilos, that would be dishonest — results depend on your commitment. We guarantee: personal mentor, structured plan, app access, community. Follow the program — results follow.">
+          Не гарантираме конкретни килограми, защото това би било нечестно — резултатите зависят от твоето ангажиране. Гарантираме: личен ментор, структуриран план, app достъп, общност. Ако следваш програмата — резултатите идват.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span data-bg="Как се плаща?" data-en="How do I pay?">Как се плаща?</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="faq-a" data-bg="Еднократно плащане €127 през Stripe (карта, Apple Pay, Google Pay). Получаваш фактура автоматично на email. Достъпът се активира веднага след плащането — менторът ти изпраща welcome съобщение в рамките на 24 часа." data-en="One-time €127 payment via Stripe (card, Apple Pay, Google Pay). Auto invoice by email. Access activates immediately after payment — mentor messages you within 24 hours.">
+          Еднократно плащане €127 през Stripe (карта, Apple Pay, Google Pay). Получаваш фактура автоматично на email. Достъпът се активира веднага след плащането — менторът ти изпраща welcome съобщение в рамките на 24 часа.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section id="final-cta">
+  <div class="container">
+    <h2 data-bg="Готов ли си да започнеш?" data-en="Ready to start?">Готов ли си да започнеш?</h2>
+    <p data-bg="Първите 100 клиента — €127 вместо €197. Места са ограничени." data-en="First 100 customers — €127 instead of €197. Spots are limited.">
+      Първите 100 клиента — €127 вместо €197. Места са ограничени.
+    </p>
+    <button class="btn btn-primary buy-btn" id="footer-buy-btn" style="font-size:15px;padding:14px 28px;" data-bg="Започни SYNRG Метод →" data-en="Start SYNRG Method →">Започни SYNRG Метод →</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <img src="assets/synrg_Logomark.svg" alt="SYNRG Beyond Fitness" style="height:36px;width:auto;" />
+        <p class="footer-tagline" data-bg="Бутиково фитнес студио · Варна" data-en="Boutique fitness studio · Varna">Бутиково фитнес студио · Варна</p>
+        <p class="footer-tagline" style="font-size:11px;opacity:0.6;" data-bg="Синерджи 93 ООД · ЕИК 207343690 · info@synrg-beyondfitness.com" data-en="Sinerji 93 Ltd · UIC 207343690 · info@synrg-beyondfitness.com">Синерджи 93 ООД · ЕИК 207343690 · info@synrg-beyondfitness.com</p>
+      </div>
+      <ul class="footer-links-inline">
+        <li><a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="remote.html" data-bg="Програми" data-en="Programs">Програми</a></li>
+        <li><a href="studio.html" data-bg="Студио" data-en="Studio">Студио</a></li>
+      </ul>
+    </div>
+    <p class="footer-copy" data-bg="© 2026 SYNRG Beyond Fitness. Всички права запазени." data-en="© 2026 SYNRG Beyond Fitness. All rights reserved.">© 2026 SYNRG Beyond Fitness. Всички права запазени.</p>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('[data-bg]').forEach(el => {
+      const val = el.getAttribute('data-' + lang)
+      if (val !== null) el.innerHTML = val
+    })
+    document.getElementById('btn-bg').classList.toggle('active', lang === 'bg')
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en')
+    document.documentElement.lang = lang === 'bg' ? 'bg' : 'en'
+    localStorage.setItem('synrg-lang', lang)
+  }
+  setLang(localStorage.getItem('synrg-lang') || 'bg')
+
+  const navbar = document.getElementById('navbar')
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40)
+  }, { passive: true })
+
+  // Buy buttons → add to cart + go to cart
+  function buyNow() {
+    const programId = 'b83982f2-7d7c-4ede-b721-4d0e3642c8ed'
+    const priceId = 'price_1TR4JyKVGaXBBpHh3XNFFuW8'
+    if (typeof addToCart === 'function') {
+      addToCart({
+        programId,
+        priceId,
+        nameBg: 'SYNRG Метод',
+        nameEn: 'SYNRG Method',
+        priceCents: 12700,
+        currency: 'EUR',
+      })
+      if (typeof openCartDrawer === 'function') openCartDrawer()
+    } else {
+      // Fallback — go to cart
+      window.location.href = 'pricing.html#programs'
+    }
+  }
+  document.getElementById('main-buy-btn').addEventListener('click', buyNow)
+  document.getElementById('footer-buy-btn').addEventListener('click', buyNow)
+</script>
+<script src="cms.js"></script>
+<script src="cart.js"></script>
+<script>
+  // Load approved reviews
+  cmsGet('program_reviews', '?select=rating,text,client_name,created_at&status=eq.approved&order=created_at.desc&limit=12').then(function(reviews) {
+    const grid = document.getElementById('reviews-grid')
+    const summary = document.getElementById('reviews-summary')
+    const empty = document.getElementById('reviews-empty')
+    if (!grid) return
+    reviews = reviews || []
+    const withText = reviews.filter(r => r.text && r.text.length > 5)
+    if (withText.length === 0) {
+      empty.style.display = 'block'
+      summary.style.display = 'none'
+      return
+    }
+    const avg = (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
+    const fullStars = Math.round(avg)
+    summary.innerHTML = '<span class="stars">' + '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars) + '</span>'
+      + '<span class="avg">' + avg + '</span>'
+      + '<span>(' + reviews.length + ' ' + (reviews.length === 1 ? 'отзив' : 'отзива') + ')</span>'
+    grid.innerHTML = withText.slice(0, 6).map(r =>
+      '<div class="review-card">'
+      + '<div class="review-stars">' + '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating) + '</div>'
+      + '<div class="review-text">' + (r.text || '').replace(/</g, '&lt;') + '</div>'
+      + '<div class="review-author">' + (r.client_name || 'Клиент').replace(/</g, '&lt;') + '</div>'
+      + '</div>'
+    ).join('')
+  }).catch(e => console.warn('Reviews load failed:', e))
+</script>
+</body>
+</html>
