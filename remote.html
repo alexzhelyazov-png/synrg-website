@@ -505,13 +505,16 @@
       var idx = 0;
       var html = '';
 
-      // Programs from admin (featured cards with cart support)
+      // Programs from admin (featured cards — entire card click → LP page)
       programs.forEach(function(pg) {
         idx++;
+        // Determine LP slug from program name
+        var slug = (pg.name_en || pg.name_bg || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        var lpUrl = slug === 'synrg-method' || slug === 'synrg-метод' ? 'synrg-method.html' : 'synrg-method.html';
         var img = pg.cover_url
           ? '<img src="' + pg.cover_url + '" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:20px;">'
           : '';
-        var h = '<div class="product-card featured"';
+        var h = '<div class="product-card featured" style="cursor:pointer;" onclick="if(!event.target.closest(\'.add-to-cart\')&&!event.target.closest(\'a\'))window.location.href=\'' + lpUrl + '\'"';
         h += ' data-price-id="' + (pg.stripe_price_id || 'pending') + '"'
            + ' data-program-id="' + (pg.id || '') + '"'
            + ' data-product-bg="' + (pg.name_bg || '') + '"'
@@ -524,13 +527,13 @@
         h += '<div class="product-name" data-bg="' + (pg.name_bg || '') + '" data-en="' + (pg.name_en || '') + '">' + (lang === 'en' ? (pg.name_en || pg.name_bg) : pg.name_bg) + '</div>';
         h += '<p class="product-desc" data-bg="' + (pg.description_bg || '') + '" data-en="' + (pg.description_en || '') + '">' + (lang === 'en' ? (pg.description_en || pg.description_bg || '') : (pg.description_bg || '')) + '</p>';
         h += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;">';
+        h += '<a href="' + lpUrl + '" class="btn btn-primary" data-bg="Виж програмата →" data-en="See program →">'
+           + (lang === 'en' ? 'See program →' : 'Виж програмата →') + '</a>';
         if (pg.stripe_price_id) {
-          h += '<button class="btn btn-primary add-to-cart"'
+          h += '<button class="btn btn-ghost add-to-cart"'
              + ' data-bg="+ Добави" data-en="+ Add">'
              + (lang === 'en' ? '+ Add' : '+ Добави') + '</button>';
         }
-        h += '<a href="pricing.html#programs" class="btn btn-ghost" data-bg="Цени" data-en="Pricing">'
-           + (lang === 'en' ? 'Pricing' : 'Цени') + '</a>';
         h += '</div></div>';
         html += h;
       });
