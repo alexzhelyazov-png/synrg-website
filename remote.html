@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SYNRG онлайн програми — видео тренировки, хранителен план, проследяване на прогреса. Достъпни от всяка точка на света." />
-  <meta name="keywords" content="онлайн тренировки, видео фитнес програми, онлайн треньор, SYNRG програми, фитнес от вкъщи" />
+  <meta name="description" content="SYNRG онлайн — видео тренировки, хранителен план, проследяване на прогреса. Достъпни от всяка точка на света." />
+  <meta name="keywords" content="онлайн тренировки, видео фитнес, онлайн ментор, SYNRG онлайн, фитнес от вкъщи" />
   <meta name="theme-color" content="#0d1510" />
   <link rel="canonical" href="https://alexzhelyazov-png.github.io/synrg-website/remote.html" />
   <link rel="alternate" hreflang="bg" href="https://alexzhelyazov-png.github.io/synrg-website/remote.html" />
   <link rel="alternate" hreflang="en" href="https://alexzhelyazov-png.github.io/synrg-website/remote.html" />
-  <meta property="og:title" content="Онлайн програми — SYNRG Beyond Fitness" />
+  <meta property="og:title" content="SYNRG Онлайн — Beyond Fitness" />
   <meta property="og:description" content="Видео тренировки, хранителен план и проследяване. Достъпни от всяка точка." />
   <meta property="og:url" content="https://alexzhelyazov-png.github.io/synrg-website/remote.html" />
   <meta property="og:type" content="website" />
@@ -17,9 +17,9 @@
   <meta property="og:site_name" content="SYNRG Beyond Fitness" />
   <meta property="og:image" content="https://alexzhelyazov-png.github.io/synrg-website/assets/synrg_Primary_Logo.svg" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Онлайн програми — SYNRG Beyond Fitness" />
+  <meta name="twitter:title" content="SYNRG Онлайн — Beyond Fitness" />
   <meta name="twitter:description" content="Видео тренировки и хранителен план от SYNRG." />
-  <title>Онлайн програми — SYNRG Beyond Fitness</title>
+  <title>SYNRG Онлайн — Beyond Fitness</title>
 
   <style>
     @font-face {
@@ -254,8 +254,24 @@
       transition: border-color 0.25s var(--ease), transform 0.25s var(--ease-spring);
     }
     .product-card:hover { border-color: var(--logan); transform: translateY(-4px); }
-    .product-card.featured { background: var(--mint-dim); border-color: var(--mint-border); }
+    .product-card.featured { background: var(--mint-dim); border-color: var(--mint-border); position: relative; overflow: hidden; }
+    .product-card.featured::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--logan) 0%, var(--mint) 100%);
+    }
     .product-card.featured:hover { border-color: var(--mint); }
+    .medical-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--logan-dim); border: 1px solid var(--logan-border);
+      color: var(--logan); font-size: 10px; font-weight: 700;
+      font-style: normal; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; align-self: flex-start;
+      margin-bottom: 20px;
+    }
+    .medical-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 100px;
+      background: var(--logan); box-shadow: 0 0 8px var(--logan);
+    }
     .product-num { font-size: 11px; font-weight: 700; font-style: normal; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 32px; }
     .product-name { font-size: clamp(20px, 2.5vw, 26px); font-weight: 700; font-style: italic; color: var(--cream); margin-bottom: 12px; line-height: 1.1; }
     .product-desc { font-size: 14px; color: var(--muted); flex: 1; line-height: 1.65; margin-bottom: 28px; }
@@ -334,7 +350,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
     <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"                data-en="Studio">Студио</a>
-    <a href="remote.html" onclick="closeMobileMenu()" data-bg="Продукти" data-en="Products">Продукти</a>
+    <a href="remote.html" onclick="closeMobileMenu()" data-bg="Онлайн" data-en="Online">Онлайн</a>
     <a href="pricing.html"   onclick="closeMobileMenu()" data-bg="Цени"                 data-en="Pricing">Цени</a>
     <a href="javascript:void(0)" onclick="closeMobileMenu();toggleCartDrawer()" data-bg="Кошница" data-en="Cart">Кошница</a>
     <a href="./app/index.html" onclick="closeMobileMenu()" data-bg="Влез" data-en="Login">Влез</a>
@@ -350,7 +366,7 @@
       <nav aria-label="Основна навигация">
         <ul class="nav-links">
           <li><a href="studio.html"  data-bg="Студио"    data-en="Studio">Студио</a></li>
-          <li><a href="remote.html" class="active" data-bg="Продукти" data-en="Products">Продукти</a></li>
+          <li><a href="remote.html" class="active" data-bg="Онлайн" data-en="Online">Онлайн</a></li>
           <li><a href="pricing.html" data-bg="Цени" data-en="Pricing">Цени</a></li>
         </ul>
       </nav>
@@ -394,7 +410,7 @@
 
     <div class="container remote-hero-content">
       <span class="overline" data-cms="remote.hero.overline" data-bg="SYNRG · Онлайн" data-en="SYNRG · Online">SYNRG · Онлайн</span>
-      <h1 data-bg="Програмите и продуктите на SYNRG," data-en="SYNRG programs and products,">Програмите и продуктите на SYNRG,</h1>
+      <h1 data-bg="SYNRG онлайн," data-en="SYNRG online,">SYNRG онлайн,</h1>
       <p data-bg="достъпни от всяка точка. Без да живееш във Варна." data-en="available from anywhere. No need to live in Varna.">достъпни от всяка точка. Без да живееш във Варна.</p>
     </div>
   </section>
@@ -406,17 +422,17 @@
 
       <div class="products-grid">
 
-        <!-- SYNRG Програма — purchasable digital product -->
-        <!-- TODO: Replace price_PLACEHOLDER with real Stripe Price ID from Dashboard -->
+        <!-- SYNRG Метод — purchasable digital product -->
         <div class="product-card featured"
              data-price-id="price_PLACEHOLDER"
-             data-product-bg="SYNRG Програма"
-             data-product-en="SYNRG Program"
+             data-product-bg="SYNRG Метод"
+             data-product-en="SYNRG Method"
              data-price="9900"
              data-currency="BGN">
+          <span class="medical-tag" data-bg="Медицински подкрепен" data-en="Medically supported">Медицински подкрепен</span>
           <div class="product-num">01</div>
-          <div class="product-name" data-bg="SYNRG Програма" data-en="SYNRG Program">SYNRG Програма</div>
-          <p class="product-desc" data-bg="Онлайн програми от екипа на SYNRG — за рехабилитация, физиотерапия и медицински протоколи. Достъпни от всяка точка." data-en="Online programs by the SYNRG team — for rehabilitation, physiotherapy and medical protocols. Available from anywhere.">Онлайн програми от екипа на SYNRG — за рехабилитация, физиотерапия и медицински протоколи. Достъпни от всяка точка.</p>
+          <div class="product-name" data-bg="SYNRG Метод" data-en="SYNRG Method">SYNRG Метод</div>
+          <p class="product-desc" data-bg="Менторство, движение, хранене и общност — събрани под медицински контрол. За промяна, която усещаш и остава с теб." data-en="Mentorship, movement, nutrition and community — under medical guidance. For real change that stays with you.">Менторство, движение, хранене и общност — събрани под медицински контрол. За промяна, която усещаш и остава с теб.</p>
           <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;">
             <button class="btn btn-primary add-to-cart"
                     data-bg="+ Добави" data-en="+ Add">+ Добави</button>
@@ -523,12 +539,16 @@
            + ' data-currency="' + (pg.currency || 'BGN') + '"';
         h += '>';
         h += img;
+        h += '<span class="medical-tag" data-bg="Медицински подкрепен" data-en="Medically supported">'
+           + (lang === 'en' ? 'Medically supported' : 'Медицински подкрепен') + '</span>';
         h += '<div class="product-num">' + String(idx).padStart(2, '0') + '</div>';
         h += '<div class="product-name" data-bg="' + (pg.name_bg || '') + '" data-en="' + (pg.name_en || '') + '">' + (lang === 'en' ? (pg.name_en || pg.name_bg) : pg.name_bg) + '</div>';
-        h += '<p class="product-desc" data-bg="' + (pg.description_bg || '') + '" data-en="' + (pg.description_en || '') + '">' + (lang === 'en' ? (pg.description_en || pg.description_bg || '') : (pg.description_bg || '')) + '</p>';
+        var descBg = 'Менторство, движение, хранене и общност — събрани под медицински контрол. За промяна, която усещаш и остава с теб.';
+        var descEn = 'Mentorship, movement, nutrition and community — under medical guidance. For real change that stays with you.';
+        h += '<p class="product-desc" data-bg="' + descBg + '" data-en="' + descEn + '">' + (lang === 'en' ? descEn : descBg) + '</p>';
         h += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;">';
-        h += '<a href="' + lpUrl + '" class="btn btn-primary" data-bg="Виж програмата →" data-en="See program →">'
-           + (lang === 'en' ? 'See program →' : 'Виж програмата →') + '</a>';
+        h += '<a href="' + lpUrl + '" class="btn btn-primary" data-bg="Научи повече →" data-en="Learn more →">'
+           + (lang === 'en' ? 'Learn more →' : 'Научи повече →') + '</a>';
         if (pg.stripe_price_id) {
           h += '<button class="btn btn-ghost add-to-cart"'
              + ' data-bg="+ Добави" data-en="+ Add">'
