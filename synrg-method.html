@@ -100,19 +100,53 @@
     .hero-trust strong { color: var(--cream); display: block; font-size: 22px; font-style: italic; margin-bottom: 4px; }
 
     .hero-visual {
-      position: relative; aspect-ratio: 4/5; border-radius: var(--radius-lg); overflow: hidden;
-      background: linear-gradient(135deg, var(--mint-dim) 0%, var(--logan-dim) 100%);
-      border: 1px solid var(--logan-border);
-      display: flex; align-items: center; justify-content: center;
+      position: relative; display: flex; align-items: center; justify-content: center;
+      perspective: 900px;
     }
-    .hero-visual::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(196,233,191,0.2) 0%, transparent 60%); }
-    .hero-visual-text { position: relative; z-index: 1; text-align: center; padding: 40px; }
-    .hero-visual-text .big { font-size: 96px; font-weight: 700; font-style: italic; color: var(--mint); line-height: 1; margin-bottom: 12px; }
-    .hero-visual-text .lbl { font-size: 14px; color: var(--cream); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+    .iphone-frame {
+      width: 280px; height: 570px;
+      border-radius: 36px; border: 3px solid #3a3a3c;
+      background: #000; position: relative; overflow: hidden;
+      transform: rotateY(-12deg) rotateX(4deg);
+      box-shadow:
+        0 0 0 1.5px #1a1a1c,
+        12px 32px 56px rgba(0,0,0,0.5),
+        -4px -4px 40px rgba(196,233,191,0.05);
+      transition: transform 0.5s var(--ease);
+    }
+    .hero-visual:hover .iphone-frame { transform: rotateY(-4deg) rotateX(2deg); }
+    .iphone-notch {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 92px; height: 22px;
+      background: #000; border-radius: 0 0 16px 16px; z-index: 10;
+    }
+    .iphone-notch::after {
+      content: ''; position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+      width: 8px; height: 8px; border-radius: 50%; background: #1a1a2e;
+    }
+    .iphone-screen { width: 100%; height: 100%; position: relative; overflow: hidden; }
+    .iphone-screen img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      opacity: 0; animation: heroScreenCycle 12s ease-in-out infinite;
+    }
+    .iphone-screen img:nth-child(1) { animation-delay: 0s; }
+    .iphone-screen img:nth-child(2) { animation-delay: 4s; }
+    .iphone-screen img:nth-child(3) { animation-delay: 8s; }
+    @keyframes heroScreenCycle {
+      0% { opacity: 0; } 4% { opacity: 1; } 30% { opacity: 1; } 34% { opacity: 0; } 100% { opacity: 0; }
+    }
+    .iphone-home-bar {
+      position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+      width: 80px; height: 3px; border-radius: 3px;
+      background: rgba(255,255,255,0.25); z-index: 10;
+    }
 
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero-visual { aspect-ratio: 1/1; max-width: 380px; margin: 0 auto; }
+      .hero-visual { margin: 0 auto; }
+      .iphone-frame { width: 240px; height: 488px; border-radius: 30px; transform: rotateY(-6deg) rotateX(2deg); }
+      .iphone-notch { width: 80px; height: 19px; }
     }
 
     /* Section base */
@@ -371,9 +405,14 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="hero-visual-text">
-          <div class="big">8</div>
-          <div class="lbl" data-bg="седмици" data-en="weeks">седмици</div>
+        <div class="iphone-frame" aria-hidden="true">
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="images/app-dashboard.png" alt="SYNRG App Dashboard" loading="lazy" />
+            <img src="images/app-progress.png" alt="SYNRG App Progress" loading="lazy" />
+            <img src="images/app-resources.png" alt="SYNRG App Resources" loading="lazy" />
+          </div>
+          <div class="iphone-home-bar"></div>
         </div>
       </div>
     </div>
