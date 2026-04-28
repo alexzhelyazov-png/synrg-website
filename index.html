@@ -884,6 +884,50 @@
     @media (max-width: 480px) {
       .team-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Public reviews section (auto-syncs from program_reviews) ── */
+    #home-reviews { padding: 80px 0; background: rgba(255,255,255,0.02); }
+    #home-reviews .reviews-header { text-align: center; margin-bottom: 40px; }
+    #home-reviews .reviews-summary { display: inline-flex; gap: 10px; align-items: baseline; margin-top: 12px; color: var(--muted); font-size: 14px; font-weight: 700; }
+    #home-reviews .reviews-summary .stars { color: var(--mint); font-size: 18px; letter-spacing: 2px; }
+    #home-reviews .reviews-summary .avg { color: var(--cream); font-size: 18px; font-style: italic; }
+    #home-reviews .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; max-width: 1080px; margin: 0 auto; }
+    #home-reviews .review-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(170,169,205,0.26); border-radius: 18px; padding: 22px 20px; }
+    #home-reviews .review-card .review-stars-display { color: var(--mint); font-size: 16px; letter-spacing: 2px; margin-bottom: 10px; }
+    #home-reviews .review-card .review-text { color: var(--cream); font-size: 14px; line-height: 1.6; font-weight: 600; margin-bottom: 12px; }
+    #home-reviews .review-card .review-author { color: var(--muted); font-size: 12px; font-style: italic; font-weight: 700; letter-spacing: 0.04em; }
+    #home-reviews .reviews-empty { text-align: center; max-width: 460px; margin: 0 auto; color: var(--muted); }
+    #home-reviews .reviews-empty strong { display: block; color: var(--cream); font-style: italic; margin-bottom: 8px; }
+
+    /* Public review form */
+    #home-reviews .review-form-wrap { max-width: 640px; margin: 48px auto 0; text-align: center; }
+    #home-reviews .review-form-toggle {
+      background: transparent; color: var(--mint);
+      border: 1px solid rgba(196,233,191,0.24); padding: 12px 24px; border-radius: 100px;
+      font-family: 'MontBlanc', sans-serif; font-weight: 700; font-size: 14px;
+      cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    #home-reviews .review-form-toggle:hover { background: rgba(196,233,191,0.12); transform: translateY(-2px); }
+    #home-reviews .review-form { margin-top: 24px; text-align: left; background: rgba(255,255,255,0.03); border: 1px solid rgba(170,169,205,0.26); border-radius: 24px; padding: 28px; }
+    #home-reviews .review-form-row { margin-bottom: 18px; }
+    #home-reviews .review-form-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    #home-reviews .review-form-input, #home-reviews .review-form-textarea {
+      width: 100%; box-sizing: border-box;
+      background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.07);
+      color: var(--cream); border-radius: 12px;
+      font-family: 'MontBlanc', sans-serif; font-weight: 600; padding: 12px 14px; font-size: 14px;
+    }
+    #home-reviews .review-form-input:focus, #home-reviews .review-form-textarea:focus { border-color: var(--mint); outline: none; }
+    #home-reviews .review-form-textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+    #home-reviews .review-stars { display: inline-flex; gap: 6px; }
+    #home-reviews .review-star { background: none; border: none; color: var(--muted); font-size: 28px; cursor: pointer; padding: 0; line-height: 1; transition: color 0.15s, transform 0.15s; }
+    #home-reviews .review-star:hover { transform: scale(1.15); }
+    #home-reviews .review-star.active { color: var(--mint); }
+    #home-reviews .review-form-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    #home-reviews .review-form-msg { font-size: 13px; font-weight: 600; }
+    #home-reviews .review-form-msg.success { color: var(--mint); }
+    #home-reviews .review-form-msg.error { color: #e05252; }
+    #home-reviews .review-form-fine { font-size: 12px; color: var(--muted); margin-top: 8px; font-style: italic; }
   </style>
 </head>
 <body>
@@ -1174,6 +1218,60 @@
     </div>
   </section>
 
+  <!-- ── Reviews (auto-syncs with program_reviews table) ── -->
+  <section id="home-reviews" aria-labelledby="home-reviews-heading">
+    <div class="container">
+      <div class="reviews-header">
+        <span class="overline" data-bg="ОТЗИВИ" data-en="REVIEWS">ОТЗИВИ</span>
+        <h2 id="home-reviews-heading" data-bg="Какво казват клиентите ни" data-en="What our clients say">Какво казват клиентите ни</h2>
+        <div id="home-reviews-summary" class="reviews-summary" style="display:none;"></div>
+      </div>
+      <div id="home-reviews-grid" class="reviews-grid"></div>
+      <div id="home-reviews-empty" class="reviews-empty" style="display:none;">
+        <strong data-bg="Все още нямаме одобрени отзиви" data-en="No approved reviews yet">Все още нямаме одобрени отзиви</strong>
+        <span data-bg="Бъди един от първите, които ще споделят опита си." data-en="Be one of the first to share your experience.">Бъди един от първите, които ще споделят опита си.</span>
+      </div>
+
+      <div class="review-form-wrap">
+        <button type="button" class="review-form-toggle" id="homeReviewToggle"
+          data-bg="Сподели своя отзив →" data-en="Share your review →">Сподели своя отзив →</button>
+        <form class="review-form" id="homeReviewForm" style="display:none;">
+          <div class="review-form-row">
+            <label class="review-form-label" data-bg="Твоето име" data-en="Your name">Твоето име</label>
+            <input type="text" name="name" class="review-form-input" required minlength="2" maxlength="50" />
+          </div>
+          <div class="review-form-row">
+            <label class="review-form-label" data-bg="Оценка" data-en="Rating">Оценка</label>
+            <div class="review-stars" id="homeReviewStars" role="radiogroup" aria-label="Rating">
+              <button type="button" class="review-star" data-value="1" aria-label="1 star">★</button>
+              <button type="button" class="review-star" data-value="2" aria-label="2 stars">★</button>
+              <button type="button" class="review-star" data-value="3" aria-label="3 stars">★</button>
+              <button type="button" class="review-star" data-value="4" aria-label="4 stars">★</button>
+              <button type="button" class="review-star" data-value="5" aria-label="5 stars">★</button>
+              <input type="hidden" name="rating" id="homeReviewRating" value="5" />
+            </div>
+          </div>
+          <div class="review-form-row">
+            <label class="review-form-label" data-bg="Твоят опит" data-en="Your experience">Твоят опит</label>
+            <textarea name="text" class="review-form-textarea" required minlength="10" maxlength="1000" rows="4"
+              placeholder="Какво ти направи впечатление? Какво те накара да се върнеш?"></textarea>
+          </div>
+          <div class="review-form-row">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADEztvIQI3wSK9Pl" data-theme="dark"></div>
+          </div>
+          <div class="review-form-row review-form-actions">
+            <button type="submit" class="btn btn-primary" id="homeReviewSubmit"
+              data-bg="Изпрати отзив" data-en="Submit review">Изпрати отзив</button>
+            <span class="review-form-msg" id="homeReviewMsg"></span>
+          </div>
+          <p class="review-form-fine" data-bg="Отзивът ще се покаже публично след преглед от админ." data-en="Your review will appear publicly after admin review.">
+            Отзивът ще се покаже публично след преглед от админ.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- ── CTA ──────────────────────────────────────── -->
   <section id="cta" class="section-sm" aria-labelledby="cta-heading">
     <div class="container">
@@ -1458,6 +1556,123 @@
 
     // ── Load content blocks from CMS ─────────────────────
     cmsLoadContentBlocks('index');
+
+    // ── Load + render approved public reviews (auto-syncs from program_reviews) ──
+    ;(function () {
+      const grid    = document.getElementById('home-reviews-grid')
+      const summary = document.getElementById('home-reviews-summary')
+      const empty   = document.getElementById('home-reviews-empty')
+      if (!grid) return
+      cmsGet('program_reviews', '?select=rating,text,client_name,created_at&status=eq.approved&order=created_at.desc&limit=12').then(function (reviews) {
+        reviews = reviews || []
+        const withText = reviews.filter(r => r.text && r.text.length > 5)
+        if (withText.length === 0) {
+          empty.style.display = 'block'
+          summary.style.display = 'none'
+          return
+        }
+        const avg = (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
+        const fullStars = Math.round(avg)
+        summary.style.display = 'inline-flex'
+        summary.innerHTML =
+          '<span class="stars">' + '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars) + '</span>' +
+          '<span class="avg">' + avg + '</span>' +
+          '<span>(' + reviews.length + ' ' + (reviews.length === 1 ? 'отзив' : 'отзива') + ')</span>'
+        // Strip [STUDIO]/[ONLINE] prefix that public submissions add to client_name
+        const cleanName = (n) => (n || 'Клиент').replace(/^\[(STUDIO|ONLINE)\]\s*/, '')
+        grid.innerHTML = withText.slice(0, 6).map(r =>
+          '<div class="review-card">' +
+            '<div class="review-stars-display">' + '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating) + '</div>' +
+            '<div class="review-text">' + (r.text || '').replace(/</g, '&lt;') + '</div>' +
+            '<div class="review-author">' + cleanName(r.client_name).replace(/</g, '&lt;') + '</div>' +
+          '</div>'
+        ).join('')
+      }).catch(e => console.warn('Reviews load failed:', e))
+    })()
+
+    // ── Public review submission ─────────────────────────────────────
+    ;(function () {
+      const SUBMIT_URL  = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/submit-review'
+      const toggle      = document.getElementById('homeReviewToggle')
+      const form        = document.getElementById('homeReviewForm')
+      const msg         = document.getElementById('homeReviewMsg')
+      const stars       = document.getElementById('homeReviewStars')
+      const ratingInput = document.getElementById('homeReviewRating')
+      const submitBtn   = document.getElementById('homeReviewSubmit')
+      if (!toggle || !form) return
+
+      toggle.addEventListener('click', function () {
+        const showing = form.style.display !== 'none'
+        form.style.display = showing ? 'none' : 'block'
+        toggle.style.display = showing ? '' : 'none'
+        if (!showing) form.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+
+      function paintStars(value) {
+        stars.querySelectorAll('.review-star').forEach(b => {
+          b.classList.toggle('active', Number(b.dataset.value) <= value)
+        })
+      }
+      paintStars(5)
+      stars.addEventListener('click', function (e) {
+        const btn = e.target.closest('.review-star')
+        if (!btn) return
+        ratingInput.value = btn.dataset.value
+        paintStars(Number(btn.dataset.value))
+      })
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault()
+        msg.textContent = ''
+        msg.className = 'review-form-msg'
+        const data = new FormData(form)
+        const turnstileToken = (data.get('cf-turnstile-response') || '').toString()
+        if (!turnstileToken) {
+          msg.textContent = 'Моля, премини Turnstile верификацията.'
+          msg.classList.add('error')
+          return
+        }
+        submitBtn.disabled = true
+        submitBtn.textContent = '…'
+        try {
+          const res = await fetch(SUBMIT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: data.get('name'),
+              rating: Number(data.get('rating')) || 5,
+              text: data.get('text'),
+              turnstile_token: turnstileToken,
+            }),
+          })
+          const result = await res.json()
+          if (res.ok && result.ok) {
+            msg.textContent = result.message || 'Благодарим ти!'
+            msg.classList.add('success')
+            form.reset()
+            paintStars(5)
+            if (window.turnstile && form.querySelector('.cf-turnstile')) {
+              try { window.turnstile.reset(form.querySelector('.cf-turnstile')) } catch (_) {}
+            }
+            submitBtn.disabled = false
+            submitBtn.textContent = 'Изпрати отзив'
+            setTimeout(() => { form.style.display = 'none'; toggle.style.display = '' }, 4000)
+          } else {
+            msg.textContent = (result && result.error) || 'Нещо се обърка. Опитай отново.'
+            msg.classList.add('error')
+            submitBtn.disabled = false
+            submitBtn.textContent = 'Изпрати отзив'
+          }
+        } catch (err) {
+          console.error('Review submit error:', err)
+          msg.textContent = 'Мрежова грешка. Опитай отново.'
+          msg.classList.add('error')
+          submitBtn.disabled = false
+          submitBtn.textContent = 'Изпрати отзив'
+        }
+      })
+    })()
   </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>
