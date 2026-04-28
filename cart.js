@@ -8,8 +8,22 @@ const CHECKOUT_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/crea
 // ── Cart state helpers ─────────────────────────────────────
 
 function getCart() {
-  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-  catch { return []; }
+  let cart;
+  try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch { cart = []; }
+  // Filter out corrupted entries (e.g. from older buggy addToCart calls
+  // that passed object instead of positional args). A valid item must have
+  // a string priceId, a numeric price, and at least one name field.
+  const valid = cart.filter(item =>
+    item &&
+    typeof item.priceId === 'string' &&
+    typeof item.price === 'number' && !isNaN(item.price) &&
+    (typeof item.name_bg === 'string' || typeof item.name_en === 'string')
+  );
+  if (valid.length !== cart.length) {
+    localStorage.setItem(CART_KEY, JSON.stringify(valid));
+  }
+  return valid;
 }
 
 function saveCart(cart) {
