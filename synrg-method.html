@@ -257,6 +257,52 @@
     .cart-checkout-btn:hover { background: #d4f0cf; transform: translateY(-2px); }
     .cart-checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
+    /* ── Public review form ───────────────────────────── */
+    .review-form-wrap { max-width: 640px; margin: 48px auto 0; text-align: center; }
+    .review-form-toggle {
+      background: transparent; color: var(--mint);
+      border: 1px solid var(--mint-border); padding: 12px 24px; border-radius: 100px;
+      font-family: 'MontBlanc', sans-serif; font-weight: 700; font-size: 14px;
+      cursor: pointer; transition: background 0.2s, transform 0.2s var(--ease);
+    }
+    .review-form-toggle:hover { background: var(--mint-dim); transform: translateY(-2px); }
+    .review-form {
+      margin-top: 24px; text-align: left;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--logan-border);
+      border-radius: var(--radius-lg); padding: 28px;
+    }
+    .review-form-row { margin-bottom: 18px; }
+    .review-form-label {
+      display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+    }
+    .review-form-input, .review-form-textarea {
+      width: 100%; box-sizing: border-box;
+      background: rgba(0,0,0,0.25); border: 1px solid var(--border);
+      color: var(--cream); border-radius: var(--radius-sm);
+      font-family: 'MontBlanc', sans-serif; font-weight: 600;
+      padding: 12px 14px; font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .review-form-input:focus, .review-form-textarea:focus { border-color: var(--mint); outline: none; }
+    .review-form-textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+    .review-cat-row { display: flex; flex-wrap: wrap; gap: 14px; }
+    .review-cat { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: var(--cream); }
+    .review-cat input { accent-color: var(--mint); }
+    .review-stars { display: inline-flex; gap: 6px; }
+    .review-star {
+      background: none; border: none; color: var(--muted);
+      font-size: 28px; cursor: pointer; padding: 0; line-height: 1;
+      transition: color 0.15s, transform 0.15s var(--ease);
+    }
+    .review-star:hover { transform: scale(1.15); }
+    .review-star.active { color: var(--mint); }
+    .review-form-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .review-form-msg { font-size: 13px; font-weight: 600; }
+    .review-form-msg.success { color: var(--mint); }
+    .review-form-msg.error { color: #e05252; }
+    .review-form-fine { font-size: 12px; color: var(--muted); margin-top: 8px; font-style: italic; }
+
     /* Footer */
     footer { border-top: 1px solid var(--border); padding: 40px 0 32px; }
     .footer-main { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
@@ -585,9 +631,57 @@
     <div id="reviews-grid" class="reviews-grid"></div>
     <div id="reviews-empty" class="reviews-empty" style="display:none;">
       <strong data-bg="Все още нямаме одобрени отзиви" data-en="No approved reviews yet">Все още нямаме одобрени отзиви</strong>
-      <span data-bg="Бъди един от първите клиенти и сподели опита си — всеки купувач може да остави отзив след старта." data-en="Be one of the first clients and share your experience — every buyer can leave a review after the start.">
-        Бъди един от първите клиенти и сподели опита си — всеки купувач може да остави отзив след старта.
+      <span data-bg="Бъди един от първите, които ще споделят опита си." data-en="Be one of the first to share your experience.">
+        Бъди един от първите, които ще споделят опита си.
       </span>
+    </div>
+
+    <!-- Public review form: anyone can submit -->
+    <div class="review-form-wrap">
+      <button type="button" class="review-form-toggle" id="reviewFormToggle"
+        data-bg="Сподели своя отзив →" data-en="Share your review →">Сподели своя отзив →</button>
+      <form class="review-form" id="reviewForm" style="display:none;">
+        <div class="review-form-row">
+          <label class="review-form-label" data-bg="Твоето име" data-en="Your name">Твоето име</label>
+          <input type="text" name="name" class="review-form-input" required minlength="2" maxlength="50" />
+        </div>
+        <div class="review-form-row">
+          <label class="review-form-label" data-bg="Откъде ни познаваш" data-en="How do you know us">Откъде ни познаваш</label>
+          <div class="review-cat-row">
+            <label class="review-cat"><input type="radio" name="category" value="studio" checked /><span data-bg="Студиото във Варна" data-en="Studio in Varna">Студиото във Варна</span></label>
+            <label class="review-cat"><input type="radio" name="category" value="online" /><span data-bg="SYNRG Метод (онлайн)" data-en="SYNRG Method (online)">SYNRG Метод (онлайн)</span></label>
+          </div>
+        </div>
+        <div class="review-form-row">
+          <label class="review-form-label" data-bg="Оценка" data-en="Rating">Оценка</label>
+          <div class="review-stars" id="reviewStars" role="radiogroup" aria-label="Rating">
+            <button type="button" class="review-star" data-value="1" aria-label="1 star">★</button>
+            <button type="button" class="review-star" data-value="2" aria-label="2 stars">★</button>
+            <button type="button" class="review-star" data-value="3" aria-label="3 stars">★</button>
+            <button type="button" class="review-star" data-value="4" aria-label="4 stars">★</button>
+            <button type="button" class="review-star" data-value="5" aria-label="5 stars">★</button>
+            <input type="hidden" name="rating" id="reviewRating" value="5" />
+          </div>
+        </div>
+        <div class="review-form-row">
+          <label class="review-form-label" data-bg="Твоят опит" data-en="Your experience">Твоят опит</label>
+          <textarea name="text" class="review-form-textarea" required minlength="10" maxlength="1000" rows="4"
+            data-bg-placeholder="Какво ти направи впечатление? Какво те накара да се върнеш?"
+            data-en-placeholder="What made an impression? What made you come back?"
+            placeholder="Какво ти направи впечатление? Какво те накара да се върнеш?"></textarea>
+        </div>
+        <div class="review-form-row">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADEztvIQI3wSK9Pl" data-theme="dark"></div>
+        </div>
+        <div class="review-form-row review-form-actions">
+          <button type="submit" class="btn btn-primary" id="reviewSubmitBtn"
+            data-bg="Изпрати отзив" data-en="Submit review">Изпрати отзив</button>
+          <span class="review-form-msg" id="reviewFormMsg"></span>
+        </div>
+        <p class="review-form-fine" data-bg="Отзивът ще се покаже публично след преглед от админ." data-en="Your review will appear publicly after admin review.">
+          Отзивът ще се покаже публично след преглед от админ.
+        </p>
+      </form>
     </div>
   </div>
 </section>
@@ -682,7 +776,7 @@
       </div>
       <ul class="footer-links-inline">
         <li><a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="remote.html" data-bg="Програми" data-en="Programs">Програми</a></li>
+        <li><a href="remote.html" data-bg="Онлайн" data-en="Online">Онлайн</a></li>
         <li><a href="studio.html" data-bg="Студио" data-en="Studio">Студио</a></li>
       </ul>
     </div>
@@ -753,6 +847,101 @@
       + '</div>'
     ).join('')
   }).catch(e => console.warn('Reviews load failed:', e))
+
+  // ── Public review submission form ─────────────────────────────────
+  ;(function () {
+    const SUBMIT_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/submit-review'
+    const toggle = document.getElementById('reviewFormToggle')
+    const form   = document.getElementById('reviewForm')
+    const msg    = document.getElementById('reviewFormMsg')
+    const stars  = document.getElementById('reviewStars')
+    const ratingInput = document.getElementById('reviewRating')
+    const submitBtn   = document.getElementById('reviewSubmitBtn')
+    if (!toggle || !form) return
+
+    // Toggle form visibility
+    toggle.addEventListener('click', function () {
+      const showing = form.style.display !== 'none'
+      form.style.display = showing ? 'none' : 'block'
+      toggle.style.display = showing ? '' : 'none'
+      if (!showing) form.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+
+    // Star selector
+    function paintStars(value) {
+      stars.querySelectorAll('.review-star').forEach(b => {
+        b.classList.toggle('active', Number(b.dataset.value) <= value)
+      })
+    }
+    paintStars(5)
+    stars.addEventListener('click', function (e) {
+      const btn = e.target.closest('.review-star')
+      if (!btn) return
+      const v = Number(btn.dataset.value)
+      ratingInput.value = String(v)
+      paintStars(v)
+    })
+
+    // Submit
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault()
+      msg.textContent = ''
+      msg.className = 'review-form-msg'
+
+      const data = new FormData(form)
+      const turnstileToken = (data.get('cf-turnstile-response') || '').toString()
+      if (!turnstileToken) {
+        msg.textContent = 'Моля, премини Turnstile верификацията.'
+        msg.classList.add('error')
+        return
+      }
+
+      submitBtn.disabled = true
+      submitBtn.textContent = '…'
+      try {
+        const res = await fetch(SUBMIT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: data.get('name'),
+            category: data.get('category'),
+            rating: Number(data.get('rating')) || 5,
+            text: data.get('text'),
+            turnstile_token: turnstileToken,
+          }),
+        })
+        const result = await res.json()
+        if (res.ok && result.ok) {
+          msg.textContent = result.message || 'Благодарим ти!'
+          msg.classList.add('success')
+          form.reset()
+          paintStars(5)
+          if (window.turnstile && form.querySelector('.cf-turnstile')) {
+            try { window.turnstile.reset(form.querySelector('.cf-turnstile')) } catch (_) {}
+          }
+          submitBtn.disabled = false
+          submitBtn.textContent = 'Изпрати отзив'
+          // Auto-collapse after a few seconds
+          setTimeout(() => {
+            form.style.display = 'none'
+            toggle.style.display = ''
+          }, 4000)
+        } else {
+          msg.textContent = (result && result.error) || 'Нещо се обърка. Опитай отново.'
+          msg.classList.add('error')
+          submitBtn.disabled = false
+          submitBtn.textContent = 'Изпрати отзив'
+        }
+      } catch (err) {
+        console.error('Review submit error:', err)
+        msg.textContent = 'Мрежова грешка. Опитай отново.'
+        msg.classList.add('error')
+        submitBtn.disabled = false
+        submitBtn.textContent = 'Изпрати отзив'
+      }
+    })
+  })()
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>
