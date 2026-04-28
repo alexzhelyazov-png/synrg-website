@@ -279,6 +279,29 @@
       margin-bottom: 16px;
     }
 
+    /* ── Reviews block ── */
+    #reviews-section { padding: 80px 0; background: var(--bg); }
+    .reviews-header { text-align: center; margin-bottom: 48px; }
+    .reviews-header h2 { font-size: clamp(28px, 4vw, 38px); font-weight: 700; font-style: italic; color: var(--cream); margin-bottom: 12px; }
+    .reviews-summary { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 16px; color: var(--muted); }
+    .reviews-summary .stars { color: #FFC107; font-size: 22px; letter-spacing: 2px; }
+    .reviews-summary .avg { font-size: 22px; font-weight: 800; color: var(--cream); }
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; max-width: 1100px; margin: 0 auto;
+    }
+    .review-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--logan-border);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px;
+    }
+    .review-stars { color: #FFC107; font-size: 14px; letter-spacing: 1px; margin-bottom: 10px; }
+    .review-text { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 16px; min-height: 60px; }
+    .review-author { font-size: 12px; color: var(--muted); font-weight: 700; }
+    .review-author::before { content: '— '; }
+    .reviews-empty { text-align: center; color: var(--muted); font-size: 13px; padding: 32px; }
+
     /* ── Footer ── */
     footer { border-top: 1px solid var(--border); padding: 40px 0 32px; }
     .footer-main { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
@@ -416,6 +439,17 @@
     </div>
   </section>
 
+  <!-- ── Reviews from real clients ── -->
+  <section id="reviews-section">
+    <div class="container">
+      <div class="reviews-header">
+        <h2 data-bg="Какво казват клиентите" data-en="What clients say">Какво казват клиентите</h2>
+        <div id="reviews-summary" class="reviews-summary"></div>
+      </div>
+      <div id="reviews-grid" class="reviews-grid"></div>
+    </div>
+  </section>
+
   <!-- ── Footer ── -->
   <footer role="contentinfo">
     <div class="container">
@@ -539,6 +573,36 @@
       if (html) grid.innerHTML = html;
       if (typeof setupAddToCartButtons === 'function') setupAddToCartButtons();
     });
+
+    // ── Load approved program reviews ─────────────────
+    cmsGet('program_reviews', '?select=rating,text,client_name,created_at&status=eq.approved&order=created_at.desc&limit=12').then(function(reviews) {
+      var section = document.getElementById('reviews-section');
+      var grid = document.getElementById('reviews-grid');
+      var summary = document.getElementById('reviews-summary');
+      if (!grid || !summary) return;
+      reviews = reviews || [];
+      // Filter out reviews without text (rating-only)
+      var withText = reviews.filter(function(r) { return r.text && r.text.length > 5; });
+      if (withText.length === 0) {
+        // Hide reviews section entirely if no approved reviews yet
+        if (section) section.style.display = 'none';
+        return;
+      }
+      // Average rating across all approved reviews (including rating-only)
+      var avg = (reviews.reduce(function(s, r) { return s + r.rating; }, 0) / reviews.length).toFixed(1);
+      var fullStars = Math.round(avg);
+      summary.innerHTML = '<span class="stars">' + '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars) + '</span>'
+        + '<span class="avg">' + avg + '</span>'
+        + '<span>(' + reviews.length + ' ' + (reviews.length === 1 ? 'ревю' : 'ревюта') + ')</span>';
+      // Render top 6 with text
+      grid.innerHTML = withText.slice(0, 6).map(function(r) {
+        return '<div class="review-card">'
+          + '<div class="review-stars">' + '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating) + '</div>'
+          + '<div class="review-text">' + (r.text || '').replace(/</g, '&lt;') + '</div>'
+          + '<div class="review-author">' + (r.client_name || 'Клиент').replace(/</g, '&lt;') + '</div>'
+          + '</div>';
+      }).join('');
+    }).catch(function(e) { console.warn('Reviews load failed:', e); });
   </script>
   <script>cmsLoadContentBlocks('remote');</script>
 </body>
