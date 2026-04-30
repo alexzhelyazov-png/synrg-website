@@ -536,6 +536,32 @@
       </div>
     </div>
   </section>
+
+  <!-- ── Reviews from real clients ── -->
+  <section class="pricing-section" id="pricing-reviews">
+    <div class="container">
+      <div class="pricing-section-header">
+        <span class="overline" data-bg="ОТЗИВИ" data-en="REVIEWS">ОТЗИВИ</span>
+        <h2 data-bg="Какво казват клиентите ни" data-en="What our clients say">Какво казват клиентите ни</h2>
+        <div id="pricing-reviews-summary" class="reviews-summary" style="display:none;margin-top:12px;"></div>
+      </div>
+      <div id="pricing-reviews-grid" class="reviews-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1080px;margin:0 auto;"></div>
+      <div id="pricing-reviews-empty" style="text-align:center;color:var(--muted);font-size:14px;padding:40px 16px;display:none;">
+        <strong style="display:block;margin-bottom:6px;color:var(--cream);" data-bg="Все още нямаме одобрени отзиви" data-en="No approved reviews yet">Все още нямаме одобрени отзиви</strong>
+        <span data-bg="Бъди един от първите, които ще споделят опита си." data-en="Be one of the first to share your experience.">Бъди един от първите, които ще споделят опита си.</span>
+      </div>
+    </div>
+    <style>
+      #pricing-reviews .review-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(170,169,205,0.26); border-radius: 18px; padding: 22px 20px; }
+      #pricing-reviews .review-card .review-stars-display { color: var(--mint); font-size: 16px; letter-spacing: 2px; margin-bottom: 10px; }
+      #pricing-reviews .review-card .review-text { color: var(--cream); font-size: 14px; line-height: 1.6; font-weight: 600; margin-bottom: 12px; }
+      #pricing-reviews .review-card .review-author { color: var(--muted); font-size: 12px; font-style: italic; font-weight: 700; letter-spacing: 0.04em; }
+      #pricing-reviews .reviews-summary { display: inline-flex; gap: 10px; align-items: baseline; color: var(--muted); font-size: 14px; font-weight: 700; }
+      #pricing-reviews .reviews-summary .stars { color: var(--mint); font-size: 18px; letter-spacing: 2px; }
+      #pricing-reviews .reviews-summary .avg { color: var(--cream); font-size: 18px; font-style: italic; }
+    </style>
+  </section>
+
   </div><!-- /tab-programs -->
 
 
@@ -747,6 +773,42 @@
 
     // ── Load CMS content blocks ──
     cmsLoadContentBlocks('pricing');
+
+    // ── Load approved program reviews into the bottom-of-page section ──
+    cmsGet('program_reviews', '?select=rating,text,client_name,created_at&status=eq.approved&order=created_at.desc&limit=12').then(function(reviews) {
+      reviews = reviews || [];
+      var grid    = document.getElementById('pricing-reviews-grid');
+      var summary = document.getElementById('pricing-reviews-summary');
+      var empty   = document.getElementById('pricing-reviews-empty');
+      if (!grid || !summary || !empty) return;
+
+      if (!reviews.length) { empty.style.display = 'block'; return; }
+
+      // Average rating + total count summary
+      var total = reviews.reduce(function(s, r) { return s + Number(r.rating || 0); }, 0);
+      var avg = (total / reviews.length).toFixed(1);
+      var fullStars = Math.round(avg);
+      summary.style.display = 'inline-flex';
+      summary.innerHTML =
+        '<span class="stars">' + '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars) + '</span>' +
+        '<span class="avg">' + avg + '</span>' +
+        '<span>(' + reviews.length + ')</span>';
+
+      // Strip [STUDIO] / [ONLINE] prefix that submissions add to client_name
+      var cleanName = function(n) { return (n || 'Клиент').replace(/^\[(STUDIO|ONLINE)\]\s*/, ''); };
+
+      grid.innerHTML = reviews.map(function(r) {
+        var fs = Math.max(0, Math.min(5, Number(r.rating || 0)));
+        return '<article class="review-card">' +
+          '<div class="review-stars-display">' + '★'.repeat(fs) + '☆'.repeat(5 - fs) + '</div>' +
+          '<p class="review-text">' + (r.text || '').replace(/[<>]/g, '') + '</p>' +
+          '<p class="review-author">— ' + cleanName(r.client_name) + '</p>' +
+        '</article>';
+      }).join('');
+    }).catch(function() {
+      var empty = document.getElementById('pricing-reviews-empty');
+      if (empty) empty.style.display = 'block';
+    });
   </script>
 </body>
 </html>
