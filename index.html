@@ -1608,6 +1608,23 @@
         if (!showing) form.scrollIntoView({ behavior: 'smooth', block: 'start' })
       })
 
+      // Deep-link: opening the site with #review or ?review=1 in the URL
+      // automatically expands the review form and scrolls to it, so we
+      // can share a single "Leave a review" link with clients.
+      function maybeOpenFromUrl() {
+        const url = new URL(window.location.href)
+        const hash = (url.hash || '').toLowerCase()
+        const wants = hash === '#review' || hash === '#reviews'
+                   || url.searchParams.has('review')
+        if (!wants) return
+        if (form.style.display === 'none') toggle.click()
+        else form.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+      // Run once on initial load (after the page paints) and again on
+      // hashchange so a back/forward to #review still works.
+      setTimeout(maybeOpenFromUrl, 200)
+      window.addEventListener('hashchange', maybeOpenFromUrl)
+
       function paintStars(value) {
         stars.querySelectorAll('.review-star').forEach(b => {
           b.classList.toggle('active', Number(b.dataset.value) <= value)
