@@ -1242,8 +1242,8 @@
 
       <div class="review-form-wrap">
         <button type="button" class="review-form-toggle" id="homeReviewToggle"
-          data-bg="Сподели своя отзив →" data-en="Share your review →">Сподели своя отзив →</button>
-        <form class="review-form" id="homeReviewForm" style="display:none;">
+          data-bg="Сподели своя отзив →" data-en="Share your review →" style="display:none;">Сподели своя отзив →</button>
+        <form class="review-form" id="homeReviewForm" style="display:block;">
           <div class="review-form-row">
             <label class="review-form-label" data-bg="Твоето име" data-en="Your name">Твоето име</label>
             <input type="text" name="name" class="review-form-input" required minlength="2" maxlength="50" />
@@ -1700,7 +1700,8 @@
             paintStars(5)
             submitBtn.disabled = false
             submitBtn.textContent = 'Изпрати отзив'
-            setTimeout(() => { form.style.display = 'none'; toggle.style.display = '' }, 4000)
+            // Form stays visible — clear msg after 4s so the user can submit again if needed.
+            setTimeout(() => { msg.textContent = ''; msg.className = 'review-form-msg' }, 4000)
           } else {
             msg.textContent = (result && result.error) || 'Нещо се обърка. Опитай отново.'
             msg.classList.add('error')
