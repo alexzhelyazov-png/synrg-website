@@ -928,6 +928,12 @@
     #home-reviews .review-form-msg.success { color: var(--mint); }
     #home-reviews .review-form-msg.error { color: #e05252; }
     #home-reviews .review-form-fine { font-size: 12px; color: var(--muted); margin-top: 8px; font-style: italic; }
+    #home-reviews .review-form-prompt { background: rgba(255,255,255,0.03); border: 1px solid rgba(170,169,205,0.20); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+    #home-reviews .review-form-prompt strong { display: block; font-size: 12px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+    #home-reviews .review-form-prompt ul { margin: 0; padding-left: 18px; }
+    #home-reviews .review-form-prompt li { font-size: 13px; color: var(--cream); line-height: 1.55; margin: 2px 0; font-weight: 600; }
+    #home-reviews .review-form-counter { font-size: 11px; color: var(--muted); margin-top: 6px; text-align: right; }
+    #home-reviews .review-form-counter.ok { color: var(--mint); }
   </style>
 </head>
 <body>
@@ -1253,8 +1259,16 @@
           </div>
           <div class="review-form-row">
             <label class="review-form-label" data-bg="Твоят опит" data-en="Your experience">Твоят опит</label>
-            <textarea name="text" class="review-form-textarea" required minlength="10" maxlength="1000" rows="4"
-              placeholder="Какво ти направи впечатление? Какво те накара да се върнеш?"></textarea>
+            <div class="review-form-prompt">
+              <strong data-bg="Помисли за тези моменти:" data-en="Think about these moments:">Помисли за тези моменти:</strong>
+              <ul>
+                <li data-bg="Каква е най-голямата ползa, която получи?" data-en="What is the biggest benefit you got?">Каква е най-голямата ползa, която получи?</li>
+                <li data-bg="Кое в подхода на SYNRG те изненада най-много?" data-en="What in SYNRG's approach surprised you the most?">Кое в подхода на SYNRG те изненада най-много?</li>
+                <li data-bg="Кое спря да е усилие и стана част от ежедневието ти?" data-en="What stopped being an effort and became part of your daily life?">Кое спря да е усилие и стана част от ежедневието ти?</li>
+              </ul>
+            </div>
+            <textarea name="text" class="review-form-textarea" id="homeReviewText" required minlength="80" maxlength="1000" rows="5"></textarea>
+            <div class="review-form-counter"><span id="homeReviewCount">0</span>&nbsp;/&nbsp;80&nbsp;<span data-bg="минимум" data-en="minimum">минимум</span></div>
           </div>
           <div class="review-form-row">
             <div class="cf-turnstile" data-sitekey="0x4AAAAAADEztvIQI3wSK9Pl" data-theme="dark" id="homeTurnstile"></div>
@@ -1607,6 +1621,19 @@
         toggle.style.display = showing ? '' : 'none'
         if (!showing) form.scrollIntoView({ behavior: 'smooth', block: 'start' })
       })
+
+      // Live character counter for the review textarea — flips green
+      // when the writer has hit the 80-char minimum.
+      const reviewText  = document.getElementById('homeReviewText')
+      const reviewCount = document.getElementById('homeReviewCount')
+      const reviewCounterWrap = reviewCount?.parentElement
+      if (reviewText && reviewCount) {
+        reviewText.addEventListener('input', function () {
+          const len = reviewText.value.length
+          reviewCount.textContent = String(len)
+          if (reviewCounterWrap) reviewCounterWrap.classList.toggle('ok', len >= 80)
+        })
+      }
 
       // Deep-link: opening the site with #review or ?review=1 in the URL
       // automatically expands the review form and scrolls to it, so we
