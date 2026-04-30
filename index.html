@@ -1257,7 +1257,7 @@
               placeholder="Какво ти направи впечатление? Какво те накара да се върнеш?"></textarea>
           </div>
           <div class="review-form-row">
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAADEztvIQI3wSK9Pl" data-theme="dark"></div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADEztvIQI3wSK9Pl" data-theme="dark" id="homeTurnstile"></div>
           </div>
           <div class="review-form-row review-form-actions">
             <button type="submit" class="btn btn-primary" id="homeReviewSubmit"
@@ -1687,6 +1687,20 @@
           submitBtn.disabled = false
           submitBtn.textContent = 'Изпрати отзив'
         }
+      })
+    })()
+  </script>
+  <script>
+    // Localhost / dev mode: the production Turnstile site key is locked
+    // to synrg-beyondfitness.com.  Swap it for Cloudflare's "always
+    // passes" test key so dev preview shows a working widget instead of
+    // the "Unable to connect" Cloudflare error.
+    ;(function () {
+      const host = window.location.hostname
+      const isDev = host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local')
+      if (!isDev) return
+      document.querySelectorAll('.cf-turnstile').forEach(el => {
+        el.setAttribute('data-sitekey', '1x00000000000000000000AA')
       })
     })()
   </script>
