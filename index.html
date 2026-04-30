@@ -1269,8 +1269,7 @@
                 <li data-bg="Кое спря да е усилие и стана част от ежедневието ти?" data-en="What stopped being an effort and became part of your daily life?">Кое спря да е усилие и стана част от ежедневието ти?</li>
               </ul>
             </div>
-            <textarea name="text" class="review-form-textarea" id="homeReviewText" required minlength="80" maxlength="1000" rows="5"></textarea>
-            <div class="review-form-counter"><span id="homeReviewCount">0</span>&nbsp;/&nbsp;80&nbsp;<span data-bg="минимум" data-en="minimum">минимум</span></div>
+            <textarea name="text" class="review-form-textarea" id="homeReviewText" required maxlength="1000" rows="5"></textarea>
           </div>
           <!-- Honeypot: hidden field that real users never fill, but
                most spam bots will autofill.  Combined with admin
@@ -1628,18 +1627,7 @@
         if (!showing) form.scrollIntoView({ behavior: 'smooth', block: 'start' })
       })
 
-      // Live character counter for the review textarea — flips green
-      // when the writer has hit the 80-char minimum.
-      const reviewText  = document.getElementById('homeReviewText')
-      const reviewCount = document.getElementById('homeReviewCount')
-      const reviewCounterWrap = reviewCount?.parentElement
-      if (reviewText && reviewCount) {
-        reviewText.addEventListener('input', function () {
-          const len = reviewText.value.length
-          reviewCount.textContent = String(len)
-          if (reviewCounterWrap) reviewCounterWrap.classList.toggle('ok', len >= 80)
-        })
-      }
+      // (Live counter removed — no minimum length required.)
 
       // Deep-link: opening the site with #review or ?review=1 in the URL
       // automatically expands the review form and scrolls to it, so we
