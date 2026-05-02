@@ -656,7 +656,12 @@
       var prev = document.getElementById('reviewsPrev');
       var next = document.getElementById('reviewsNext');
       if (prev && next) {
-        var step = function() { var c = grid.querySelector('.review-card'); return c ? c.getBoundingClientRect().width + 20 : 320; };
+        var step = function() {
+          var c = grid.querySelector('.review-card'); if (!c) return 320;
+          var w = c.getBoundingClientRect().width + 20;
+          // Page by 2 cards on desktop (where 2 are visible), 1 on mobile.
+          return window.innerWidth > 720 ? w * 2 : w;
+        };
         var update = function() {
           prev.disabled = grid.scrollLeft <= 4;
           next.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 4;
