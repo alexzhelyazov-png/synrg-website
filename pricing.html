@@ -547,20 +547,52 @@
         <h2 data-bg="Какво казват клиентите ни" data-en="What our clients say">Какво казват клиентите ни</h2>
         <div id="pricing-reviews-summary" class="reviews-summary" style="display:none;margin-top:12px;"></div>
       </div>
-      <div id="pricing-reviews-grid" class="reviews-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1080px;margin:0 auto;"></div>
+      <div class="reviews-carousel" style="position:relative;max-width:1080px;margin:0 auto;">
+        <button type="button" class="reviews-arrow prev" id="pricing-reviewsPrev" aria-label="Предишен отзив">‹</button>
+        <div id="pricing-reviews-grid" class="reviews-grid"></div>
+        <button type="button" class="reviews-arrow next" id="pricing-reviewsNext" aria-label="Следващ отзив">›</button>
+      </div>
       <div id="pricing-reviews-empty" style="text-align:center;color:var(--muted);font-size:14px;padding:40px 16px;display:none;">
         <strong style="display:block;margin-bottom:6px;color:var(--cream);" data-bg="Все още нямаме одобрени отзиви" data-en="No approved reviews yet">Все още нямаме одобрени отзиви</strong>
         <span data-bg="Бъди един от първите, които ще споделят опита си." data-en="Be one of the first to share your experience.">Бъди един от първите, които ще споделят опита си.</span>
       </div>
     </div>
     <style>
-      #pricing-reviews .review-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(170,169,205,0.26); border-radius: 18px; padding: 22px 20px; }
+      #pricing-reviews .reviews-grid {
+        display: flex; gap: 18px;
+        overflow-x: auto; overflow-y: hidden;
+        scroll-snap-type: x mandatory; scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+      }
+      #pricing-reviews .reviews-grid::-webkit-scrollbar { display: none; }
+      #pricing-reviews .review-card {
+        flex: 0 0 calc(50% - 9px); scroll-snap-align: start;
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(170,169,205,0.26);
+        border-radius: 18px; padding: 22px 20px;
+        display: flex; flex-direction: column;
+      }
+      @media (max-width: 720px) { #pricing-reviews .review-card { flex: 0 0 100%; } }
       #pricing-reviews .review-card .review-stars-display { color: var(--mint); font-size: 16px; letter-spacing: 2px; margin-bottom: 10px; }
-      #pricing-reviews .review-card .review-text { color: var(--cream); font-size: 14px; line-height: 1.6; font-weight: 600; margin-bottom: 12px; }
+      #pricing-reviews .review-card .review-text { color: var(--cream); font-size: 14px; line-height: 1.6; font-weight: 600; margin-bottom: 12px; flex: 1; }
       #pricing-reviews .review-card .review-author { color: var(--muted); font-size: 12px; font-style: italic; font-weight: 700; letter-spacing: 0.04em; }
       #pricing-reviews .reviews-summary { display: inline-flex; gap: 10px; align-items: baseline; color: var(--muted); font-size: 14px; font-weight: 700; }
       #pricing-reviews .reviews-summary .stars { color: var(--mint); font-size: 18px; letter-spacing: 2px; }
       #pricing-reviews .reviews-summary .avg { color: var(--cream); font-size: 18px; font-style: italic; }
+      #pricing-reviews .reviews-arrow {
+        position: absolute; top: 50%; transform: translateY(-50%);
+        width: 44px; height: 44px; border-radius: 50%;
+        background: rgba(255,255,255,0.05); border: 1px solid rgba(170,169,205,0.26);
+        color: var(--cream); font-size: 18px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s ease; z-index: 2;
+      }
+      #pricing-reviews .reviews-arrow:hover:not(:disabled) { background: rgba(196,233,191,0.12); border-color: var(--mint); color: var(--mint); }
+      #pricing-reviews .reviews-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+      #pricing-reviews .reviews-arrow.prev { left: -22px; }
+      #pricing-reviews .reviews-arrow.next { right: -22px; }
+      @media (max-width: 900px) { #pricing-reviews .reviews-arrow.prev { left: 4px; } #pricing-reviews .reviews-arrow.next { right: 4px; } }
     </style>
   </section>
 
@@ -805,6 +837,22 @@
           '<p class="review-author">— ' + cleanName(r.client_name) + '</p>' +
         '</article>';
       }).join('');
+      // Carousel arrows
+      var prev = document.getElementById('pricing-reviewsPrev');
+      var next = document.getElementById('pricing-reviewsNext');
+      if (prev && next) {
+        var step = function() { var c = grid.querySelector('.review-card'); return c ? c.getBoundingClientRect().width + 18 : 320; };
+        var update = function() {
+          prev.disabled = grid.scrollLeft <= 4;
+          next.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 4;
+        };
+        prev.addEventListener('click', function() { grid.scrollBy({ left: -step(), behavior: 'smooth' }); });
+        next.addEventListener('click', function() { grid.scrollBy({ left: step(),  behavior: 'smooth' }); });
+        grid.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        requestAnimationFrame(update);
+        if (grid.scrollWidth <= grid.clientWidth + 4) { prev.style.display = 'none'; next.style.display = 'none'; }
+      }
     }).catch(function() {
       var empty = document.getElementById('pricing-reviews-empty');
       if (empty) empty.style.display = 'block';

@@ -891,8 +891,37 @@
     #home-reviews .reviews-summary { display: inline-flex; gap: 10px; align-items: baseline; margin-top: 12px; color: var(--muted); font-size: 14px; font-weight: 700; }
     #home-reviews .reviews-summary .stars { color: var(--mint); font-size: 18px; letter-spacing: 2px; }
     #home-reviews .reviews-summary .avg { color: var(--cream); font-size: 18px; font-style: italic; }
-    #home-reviews .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; max-width: 1080px; margin: 0 auto; }
-    #home-reviews .review-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(170,169,205,0.26); border-radius: 18px; padding: 22px 20px; }
+    /* Reviews — 2-up carousel with swipe + arrows */
+    #home-reviews .reviews-carousel { position: relative; max-width: 1080px; margin: 0 auto; }
+    #home-reviews .reviews-grid {
+      display: flex; gap: 18px;
+      overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    #home-reviews .reviews-grid::-webkit-scrollbar { display: none; }
+    #home-reviews .review-card {
+      flex: 0 0 calc(50% - 9px); scroll-snap-align: start;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(170,169,205,0.26);
+      border-radius: 18px; padding: 22px 20px;
+      display: flex; flex-direction: column;
+    }
+    @media (max-width: 720px) { #home-reviews .review-card { flex: 0 0 100%; } }
+    #home-reviews .reviews-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(170,169,205,0.26);
+      color: var(--cream); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease; z-index: 2;
+    }
+    #home-reviews .reviews-arrow:hover:not(:disabled) { background: rgba(196,233,191,0.12); border-color: var(--mint); color: var(--mint); }
+    #home-reviews .reviews-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+    #home-reviews .reviews-arrow.prev { left: -22px; }
+    #home-reviews .reviews-arrow.next { right: -22px; }
+    @media (max-width: 900px) { #home-reviews .reviews-arrow.prev { left: 4px; } #home-reviews .reviews-arrow.next { right: 4px; } }
     #home-reviews .review-card .review-stars-display { color: var(--mint); font-size: 16px; letter-spacing: 2px; margin-bottom: 10px; }
     #home-reviews .review-card .review-text { color: var(--cream); font-size: 14px; line-height: 1.6; font-weight: 600; margin-bottom: 12px; }
     #home-reviews .review-card .review-author { color: var(--muted); font-size: 12px; font-style: italic; font-weight: 700; letter-spacing: 0.04em; }
@@ -1166,7 +1195,7 @@
           </div>
         </article>
         <article class="team-card reveal" style="transition-delay:0.08s" tabindex="0">
-          <img src="images/kari.jpg" alt="Д-р Желязова — Mentor · Гастроентерология" class="team-photo" loading="lazy" />
+          <img src="images/elina.jpg" alt="Д-р Желязова — Mentor · Гастроентерология" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Д-р Желязова</h3>
             <p class="team-role" data-bg="Специализант · Гастроентерология" data-en="Specialist · Gastroenterology">Специализант · Гастроентерология</p>
@@ -1174,7 +1203,7 @@
           </div>
         </article>
         <article class="team-card reveal" style="transition-delay:0.16s" tabindex="0">
-          <img src="images/elina.jpg" alt="Д-р Соколова — Coach" class="team-photo" loading="lazy" />
+          <img src="images/kari.jpg" alt="Д-р Соколова — Coach" class="team-photo" loading="lazy" />
           <div class="team-info">
             <h3 class="team-name">Д-р Соколова</h3>
             <p class="team-role" data-bg="Треньор · Онлайн" data-en="Coach · Online">Треньор · Онлайн</p>
@@ -1234,7 +1263,11 @@
         <h2 id="home-reviews-heading" data-bg="Какво казват клиентите ни" data-en="What our clients say">Какво казват клиентите ни</h2>
         <div id="home-reviews-summary" class="reviews-summary" style="display:none;"></div>
       </div>
-      <div id="home-reviews-grid" class="reviews-grid"></div>
+      <div class="reviews-carousel">
+        <button type="button" class="reviews-arrow prev" id="home-reviewsPrev" aria-label="Предишен отзив">‹</button>
+        <div id="home-reviews-grid" class="reviews-grid"></div>
+        <button type="button" class="reviews-arrow next" id="home-reviewsNext" aria-label="Следващ отзив">›</button>
+      </div>
       <div id="home-reviews-empty" class="reviews-empty" style="display:none;">
         <strong data-bg="Все още нямаме одобрени отзиви" data-en="No approved reviews yet">Все още нямаме одобрени отзиви</strong>
         <span data-bg="Бъди един от първите, които ще споделят опита си." data-en="Be one of the first to share your experience.">Бъди един от първите, които ще споделят опита си.</span>
@@ -1599,13 +1632,34 @@
           '<span>(' + reviews.length + ' ' + (reviews.length === 1 ? 'отзив' : 'отзива') + ')</span>'
         // Strip [STUDIO]/[ONLINE] prefix that public submissions add to client_name
         const cleanName = (n) => (n || 'Клиент').replace(/^\[(STUDIO|ONLINE)\]\s*/, '')
-        grid.innerHTML = withText.slice(0, 6).map(r =>
+        grid.innerHTML = withText.slice(0, 12).map(r =>
           '<div class="review-card">' +
             '<div class="review-stars-display">' + '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating) + '</div>' +
             '<div class="review-text">' + (r.text || '').replace(/</g, '&lt;') + '</div>' +
             '<div class="review-author">' + cleanName(r.client_name).replace(/</g, '&lt;') + '</div>' +
           '</div>'
         ).join('')
+        // Carousel arrows
+        const prev = document.getElementById('home-reviewsPrev')
+        const next = document.getElementById('home-reviewsNext')
+        if (prev && next) {
+          const step = () => {
+            const c = grid.querySelector('.review-card'); if (!c) return 320
+            const w = c.getBoundingClientRect().width + 18
+            // Page by 2 cards on desktop (where 2 are visible), 1 on mobile.
+            return window.innerWidth > 720 ? w * 2 : w
+          }
+          const update = () => {
+            prev.disabled = grid.scrollLeft <= 4
+            next.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 4
+          }
+          prev.addEventListener('click', () => grid.scrollBy({ left: -step(), behavior: 'smooth' }))
+          next.addEventListener('click', () => grid.scrollBy({ left: step(),  behavior: 'smooth' }))
+          grid.addEventListener('scroll', update, { passive: true })
+          window.addEventListener('resize', update)
+          requestAnimationFrame(update)
+          if (grid.scrollWidth <= grid.clientWidth + 4) { prev.style.display = 'none'; next.style.display = 'none' }
+        }
       }).catch(e => console.warn('Reviews load failed:', e))
     })()
 
