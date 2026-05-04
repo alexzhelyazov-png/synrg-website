@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="8-седмична онлайн програма. Метод от двама лекари. 40 тренировки заснети в студиото във Варна. €127. Първите 100 клиента." />
+  <meta name="description" content="8-седмична онлайн програма. Метод от двама лекари. 15 прости навика. €98. Първите 100 клиента." />
   <meta name="theme-color" content="#0d1510" />
   <meta property="og:title" content="SYNRG Метод — 8 седмици. Без диета. Без глад. Без срам." />
-  <meta property="og:description" content="8-седмична онлайн програма. Метод от двама лекари. 40 тренировки заснети в студиото във Варна. €127. Първите 100 клиента." />
+  <meta property="og:description" content="8-седмична онлайн програма. Метод от двама лекари. 15 прости навика. €98. Първите 100 клиента." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="bg_BG" />
   <meta property="og:site_name" content="SYNRG Beyond Fitness" />
@@ -93,9 +93,26 @@
     .hero-title .accent { color: var(--mint); }
     .hero-sub { font-size: clamp(16px, 1.8vw, 19px); color: var(--muted); line-height: 1.6; margin-bottom: 32px; max-width: 540px; }
     .hero-cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 24px; }
-    .hero-price-line { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
-    .hero-price-line .price-now { color: var(--mint); font-size: 20px; font-weight: 800; font-style: normal; }
-    .hero-price-line .price-was { text-decoration: line-through; opacity: 0.5; }
+    /* Price hierarchy: mint = the offer (matches CTA), cream = supporting calc, muted = meta */
+    .hero-price-line { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; margin-top: 8px; }
+    .hero-price-line .price-now { color: var(--mint); font-size: 44px; font-weight: 800; font-style: italic; letter-spacing: -0.02em; line-height: 1; }
+    .hero-price-line .price-was { color: var(--muted); font-size: 18px; font-weight: 700; text-decoration: line-through; opacity: 0.6; }
+    .hero-price-line .price-sep { color: var(--muted); font-size: 22px; font-weight: 700; opacity: 0.4; }
+    .hero-price-line .price-day { font-size: 20px; font-weight: 700; color: var(--cream); }
+    .hero-price-line .price-meta { display: block; flex-basis: 100%; font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+    /* Guarantee — uses logan (trust/secondary) so it complements mint CTAs/prices, doesn't compete. */
+    .hero-guarantee { display: flex; align-items: center; gap: 14px; margin-top: 22px; padding: 14px 18px; background: var(--logan-dim); border: 1px solid var(--logan); border-radius: 14px; box-shadow: 0 0 0 4px rgba(170,169,205,0.10); max-width: 540px; }
+    .hero-guarantee .check { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--logan); color: var(--bg); font-size: 16px; font-weight: 800; flex-shrink: 0; }
+    .hero-guarantee .text { display: flex; flex-direction: column; gap: 2px; }
+    .hero-guarantee .text strong { font-size: 12px; font-weight: 800; color: var(--logan); letter-spacing: 0.1em; text-transform: uppercase; }
+    .hero-guarantee .text span { font-size: 13.5px; font-weight: 600; color: var(--cream); line-height: 1.4; }
+    /* Bonus — intentionally low-key footnote: "these are throw-ins, not the main thing". */
+    .hero-bonus { display: block; margin-top: 14px; max-width: 540px; }
+    .hero-bonus .text { font-size: 13px; font-weight: 500; color: var(--muted); font-style: italic; line-height: 1.5; }
+    .hero-bonus .text b { color: var(--cream); font-weight: 700; font-style: normal; }
+    .hero-sub .hero-sub-key { display: block; color: var(--cream); font-size: 18px; font-weight: 700; line-height: 1.45; letter-spacing: -0.005em; }
+    .hero-sub .hero-sub-key b { color: var(--mint); font-weight: 800; font-style: italic; }
+    .hero-sub .hero-sub-accent { display: block; margin-top: 10px; color: var(--muted); font-style: italic; font-weight: 600; font-size: 14px; }
     .hero-trust {
       margin-top: 40px;
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
@@ -447,18 +464,27 @@
       <div>
         <span class="hero-overline" data-bg="SYNRG МЕТОД · 8 СЕДМИЦИ · ОНЛАЙН ПРОГРАМА" data-en="SYNRG METHOD · 8 WEEKS · ONLINE PROGRAM">SYNRG МЕТОД · 8 СЕДМИЦИ · ОНЛАЙН ПРОГРАМА</span>
         <h1 class="hero-title">
-          <span data-bg="8 седмици." data-en="8 weeks.">8 седмици.</span><br>
-          <span class="accent" data-bg="Без диета. Без глад. Без срам." data-en="No diet. No hunger. No shame.">Без диета. Без глад. Без срам.</span>
+          <span data-bg="Последния опит да се харесаш," data-en="The last attempt to like yourself">Последния опит да се харесаш,</span><br>
+          <span class="accent" data-bg="който ще направиш." data-en="you'll ever make.">който ще направиш.</span>
         </h1>
-        <p class="hero-sub" data-bg="Двама лекари, треньори и реално студио с над 5 години опит. Метод на медицинска основа, заснет в студиото във Варна. Ментор насреща в чата, когато трябва." data-en="Two doctors, coaches and a real studio with 5+ years of experience. A method built on medical ground, filmed in our studio in Varna. A mentor available in chat when needed.">
-          Двама лекари, треньори и реално студио с над 5 години опит. Метод на медицинска основа, заснет в студиото във Варна. Ментор насреща в чата, когато трябва.
+        <p class="hero-sub">
+          <span class="hero-sub-key" data-bg="<b>56 дни, 5 минути на ден.</b> Двама лекари, треньори. Метод, който работи." data-en="<b>56 days, 5 minutes a day.</b> Two doctors, coaches. A method that works."><b>56 дни, 5 минути на ден.</b> Двама лекари, треньори. Метод, който работи.</span>
         </p>
         <div class="hero-cta-row">
-          <a href="#pricing" class="btn btn-primary" data-bg="Започни сега →" data-en="Start now →">Започни сега →</a>
-          <a href="#how" class="btn btn-ghost" data-bg="Виж как работи ↓" data-en="See how it works ↓">Виж как работи ↓</a>
+          <a href="#pricing" class="btn btn-primary" data-bg="Започни →" data-en="Start →">Започни →</a>
         </div>
         <div class="hero-price-line">
-          <span data-bg="€127 за 8 седмици · €1.13 на ден · Първите 100 клиента" data-en="€127 for 8 weeks · €1.13 per day · First 100 customers">€127 за 8 седмици · €1.13 на ден · Първите 100 клиента</span>
+          <span class="price-now">€98</span>
+          <span class="price-was">€207</span>
+          <span class="price-sep">—</span>
+          <span class="price-day" data-bg="€1.75 на ден" data-en="€1.75 per day">€1.75 на ден</span>
+        </div>
+        <div class="hero-guarantee" role="note">
+          <span class="check" aria-hidden="true">✓</span>
+          <span class="text">
+            <strong data-bg="100% гаранция" data-en="100% guarantee">100% гаранция</strong>
+            <span data-bg="Следваш. Не си доволен — връщаме всичко." data-en="You follow. Not satisfied — we refund everything.">Следваш. Не си доволен — връщаме всичко.</span>
+          </span>
         </div>
         <div class="hero-trust">
           <div>
@@ -466,7 +492,7 @@
             <span data-bg="от реални отзиви" data-en="from real reviews">от реални отзиви</span>
           </div>
           <div>
-            <strong data-bg="Метод от двама лекари" data-en="Method by two doctors">Метод от двама лекари</strong>
+            <strong data-bg="Метод от лекари-треньори" data-en="Method by doctor-coaches">Метод от лекари-треньори</strong>
             <span data-bg="архитектиран медицински" data-en="medically architected">архитектиран медицински</span>
           </div>
           <div>
@@ -494,8 +520,8 @@
 <section class="block" id="why-not-worked">
   <div class="container">
     <span class="section-overline" data-bg="ЗАЩО ПОВЕЧЕТО ПРОГРАМИ НЕ РАБОТЯТ" data-en="WHY MOST PROGRAMS DON'T WORK">ЗАЩО ПОВЕЧЕТО ПРОГРАМИ НЕ РАБОТЯТ</span>
-    <h2 class="section-title" data-bg="Не са хората проблемът. Програмите са грешни." data-en="People aren't the problem. The programs are.">
-      Не са хората проблемът. Програмите са грешни.
+    <h2 class="section-title" data-bg="Какво най-вероятно си пробвал дотук…" data-en="What you've most likely tried so far…">
+      Какво най-вероятно си пробвал дотук…
     </h2>
     <div class="personas">
       <div class="persona">
@@ -506,20 +532,20 @@
       </div>
       <div class="persona">
         <h3 data-bg="Картичките с рецепти са красиви." data-en="Recipe cards look pretty.">Картичките с рецепти са красиви.</h3>
-        <p data-bg="Но никой не ти отговаря, когато блокираш на 4-та седмица. Никой не е насреща в 22:00, когато не знаеш какво да сготвиш утре. Сам с PDF — това не е подкрепа." data-en="But no one answers when you stall on week 4. No one is there at 10pm when you don't know what to cook tomorrow. Alone with a PDF — that's not support.">
-          Но никой не ти отговаря, когато блокираш на 4-та седмица. Никой не е насреща в 22:00, когато не знаеш какво да сготвиш утре. Сам с PDF — това не е подкрепа.
+        <p data-bg="Биха работили единствено ако ядеш САМО това, което са ти дали — завинаги." data-en="They'd only work if you ate ONLY what they gave you — forever.">
+          Биха работили единствено ако ядеш САМО това, което са ти дали — завинаги.
         </p>
       </div>
       <div class="persona">
-        <h3 data-bg="Влогърите без екип продават това, което е работило на тях." data-en="Vloggers without a team sell what worked for them.">Влогърите без екип продават това, което е работило на тях.</h3>
-        <p data-bg="25-годишно момче без деца не разбира защо в 17:00 ти се яде сладко. Метод изграден от гастроентеролог — да." data-en="A 25-year-old guy with no kids doesn't get why you crave sweets at 5pm. A method built by a gastroenterologist — does.">
-          25-годишно момче без деца не разбира защо в 17:00 ти се яде сладко. Метод изграден от гастроентеролог — да.
+        <h3 data-bg="Добавки, чайове, детокси." data-en="Supplements, teas, detoxes.">Добавки, чайове, детокси.</h3>
+        <p data-bg="Освен да изхвърлиш за няколко дни задържаната вода — нищо устойчиво няма да се случи." data-en="Beyond flushing out retained water for a few days — nothing sustainable will happen.">
+          Освен да изхвърлиш за няколко дни задържаната вода — нищо устойчиво няма да се случи.
         </p>
       </div>
       <div class="persona persona-answer">
         <h3 data-bg="SYNRG Метод е друго." data-en="SYNRG Method is different.">SYNRG Метод е друго.</h3>
-        <p data-bg="Метод изграден от двама лекари. Структура от 7 навика, не диета. И реален човек насреща в чата, когато имаш въпрос." data-en="A method built by two doctors. A structure of 7 habits, not a diet. And a real person available in chat when you have a question.">
-          Метод изграден от двама лекари. Структура от 7 навика, не диета. И реален човек насреща в чата, когато имаш въпрос.
+        <p data-bg="Метод изграден от двама лекари. Структура от 15 прости навика, не диета. И реален човек насреща в чата, когато имаш въпрос." data-en="A method built by two doctors. A structure of 15 simple habits, not a diet. And a real person available in chat when you have a question.">
+          Метод изграден от двама лекари. Структура от 15 прости навика, не диета. И реален човек насреща в чата, когато имаш въпрос.
         </p>
       </div>
     </div>
@@ -563,47 +589,40 @@
 <section class="block" style="background: var(--surface);">
   <div class="container">
     <span class="section-overline" data-bg="КАКВО ВКЛЮЧВА" data-en="WHAT'S INSIDE">КАКВО ВКЛЮЧВА</span>
-    <h2 class="section-title" data-bg="6 неща, които правят SYNRG Метод различен" data-en="6 things that make SYNRG Method different">
-      6 неща, които правят SYNRG Метод различен
+    <h2 class="section-title" data-bg="5 неща, които правят SYNRG Метод различен" data-en="5 things that make SYNRG Method different">
+      5 неща, които правят SYNRG Метод различен
     </h2>
     <div class="features">
       <div class="feature">
         <div class="feature-num">01</div>
-        <h4 data-bg="40 тренировки заснети в студиото" data-en="40 workouts filmed in the studio">40 тренировки заснети в студиото</h4>
-        <p data-bg="Не stock видеа. Не YouTube компилации. 40 различни 15-минутни тренировки, заснети с Ицко в реалното ни студио във Варна. Таймер вграден. 3 рунда × 6 упражнения. Без оборудване." data-en="Not stock videos. Not YouTube compilations. 40 different 15-minute workouts, filmed with Itzko in our actual studio in Varna. Timer built in. 3 rounds × 6 exercises. No equipment.">
-          Не stock видеа. Не YouTube компилации. 40 различни 15-минутни тренировки, заснети с Ицко в реалното ни студио във Варна. Таймер вграден. 3 рунда × 6 упражнения. Без оборудване.
+        <h4 data-bg="Метод изграден от лекари" data-en="A method built by doctors">Метод изграден от лекари</h4>
+        <p data-bg="Не меню за 8 седмици. А система от прости навици, които всеки може да изпълни — дизайнирани от д-р Желязова, специализант гастроентеролог. Работят на семейна вечеря, в ресторант и на ваканция. След 8-те седмици остават с теб." data-en="Not an 8-week menu. A system of simple habits anyone can follow — designed by Dr. Zhelyazova, a gastroenterology resident. Works at a family dinner, at a restaurant, on vacation. After the 8 weeks, the habits stay with you.">
+          Не меню за 8 седмици. А система от прости навици, които всеки може да изпълни — дизайнирани от д-р Желязова, специализант гастроентеролог. Работят на семейна вечеря, в ресторант и на ваканция. След 8-те седмици остават с теб.
         </p>
       </div>
       <div class="feature">
         <div class="feature-num">02</div>
-        <h4 data-bg="Метод изграден от лекари" data-en="A method built by doctors">Метод изграден от лекари</h4>
-        <p data-bg="Не меню за 8 седмици. А система от 7 навика, дизайнирани от д-р Желязова — гастроентеролог. Работят на семейна вечеря, в ресторант и на ваканция. След 8-те седмици остават с теб." data-en="Not an 8-week menu. A system of 7 habits, designed by Dr. Zhelyazova — a gastroenterologist. Works at a family dinner, at a restaurant, on vacation. After the 8 weeks, the habits stay with you.">
-          Не меню за 8 седмици. А система от 7 навика, дизайнирани от д-р Желязова — гастроентеролог. Работят на семейна вечеря, в ресторант и на ваканция. След 8-те седмици остават с теб.
-        </p>
-      </div>
-      <div class="feature">
-        <div class="feature-num">03</div>
         <h4 data-bg="Ментор в чата" data-en="Mentor in chat">Ментор в чата</h4>
         <p data-bg="Когато имаш въпрос — има човек насреща. Не chatbot, не AI. Реален човек от екипа отговаря, когато не знаеш какво да направиш или просто имаш нужда от подкрепа." data-en="When you have a question — there's a person available. Not a chatbot, not AI. A real person from the team answers when you don't know what to do or just need support.">
           Когато имаш въпрос — има човек насреща. Не chatbot, не AI. Реален човек от екипа отговаря, когато не знаеш какво да направиш или просто имаш нужда от подкрепа.
         </p>
       </div>
       <div class="feature">
-        <div class="feature-num">04</div>
+        <div class="feature-num">03</div>
         <h4 data-bg="Приложение което учи, не съди" data-en="An app that teaches, doesn't judge">Приложение което учи, не съди</h4>
         <p data-bg="Записвай хранене, тегло, стъпки, тренировки на едно място. AI калориен брояч със снимка — снимаш чинията, броячът работи. Лични дневни цели според въпросник в началото." data-en="Track meals, weight, steps, workouts in one place. AI calorie counter from a photo — snap the plate, the counter works. Personal daily goals based on a questionnaire at the start.">
           Записвай хранене, тегло, стъпки, тренировки на едно място. AI калориен брояч със снимка — снимаш чинията, броячът работи. Лични дневни цели според въпросник в началото.
         </p>
       </div>
       <div class="feature">
-        <div class="feature-num">05</div>
+        <div class="feature-num">04</div>
         <h4 data-bg="Хора които те разбират" data-en="People who get you">Хора които те разбират</h4>
         <p data-bg="Затворена общност с другите участници. Без преценка, без сравнения. Споделяне на прогрес, въпроси, видимост как другите се справят. Никой не върви сам." data-en="A closed community with the other participants. No judgement, no comparisons. Sharing progress, questions, visibility into how others are doing. No one walks alone.">
           Затворена общност с другите участници. Без преценка, без сравнения. Споделяне на прогрес, въпроси, видимост как другите се справят. Никой не върви сам.
         </p>
       </div>
       <div class="feature">
-        <div class="feature-num">06</div>
+        <div class="feature-num">05</div>
         <h4 data-bg="Това, което остава" data-en="What stays">Това, което остава</h4>
         <p data-bg="Запазваш безплатен достъп до трекерите (хранене, тегло, стъпки) завинаги. Можеш да продължиш сам или да се запишеш за нов цикъл. Никога не се връщаш на 0." data-en="You keep free access to the trackers (food, weight, steps) forever. Continue on your own or sign up for a new cycle. You never start from zero again.">
           Запазваш безплатен достъп до трекерите (хранене, тегло, стъпки) завинаги. Можеш да продължиш сам или да се запишеш за нов цикъл. Никога не се връщаш на 0.
@@ -673,15 +692,14 @@
       Всичко, което ти трябва — на едно място
     </h2>
     <div class="included">
-      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="40 тренировки заснети в студиото" data-en="40 workouts filmed in the studio">40 тренировки заснети в студиото</div></div>
-      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Метод от 7 навика, изграден от лекари" data-en="A method of 7 habits, built by doctors">Метод от 7 навика, изграден от лекари</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Кратки тренировки вкъщи" data-en="Short workouts at home">Кратки тренировки вкъщи</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Метод от 15 навика, изграден от лекари" data-en="A method of 15 habits, built by doctors">Метод от 15 навика, изграден от лекари</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Ментор насреща в чата" data-en="Mentor available in chat">Ментор насреща в чата</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Над 50 български рецепти и шаблони" data-en="Over 50 Bulgarian recipes and templates">Над 50 български рецепти и шаблони</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Достъп до общност" data-en="Community access">Достъп до общност</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Трекери: тегло, храна, стъпки, тренировки" data-en="Trackers: weight, food, steps, workouts">Трекери: тегло, храна, стъпки, тренировки</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="AI калориен брояч със снимка" data-en="AI calorie counter from a photo">AI калориен брояч със снимка</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Лични дневни цели" data-en="Personal daily goals">Лични дневни цели</div></div>
-      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Прогрес снимки + графики" data-en="Progress photos + charts">Прогрес снимки + графики</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="След 8-те седмици: безплатен freemium завинаги" data-en="After the 8 weeks: free freemium forever">След 8-те седмици: безплатен freemium завинаги</div></div>
     </div>
   </div>
@@ -703,8 +721,8 @@
         <img src="images/elina.jpg" alt="Д-р Желязова" class="team-method-photo" loading="lazy" />
         <h3 class="team-method-name">Д-р Желязова</h3>
         <p class="team-method-role" data-bg="Съосновател · Гастроентеролог · Архитект на метода" data-en="Co-founder · Gastroenterologist · Architect of the method">СЪОСНОВАТЕЛ · ГАСТРОЕНТЕРОЛОГ · АРХИТЕКТ НА МЕТОДА</p>
-        <p class="team-method-bio" data-bg="Мозъкът зад SYNRG Метод. Изградила всеки протокол върху медицинска основа — храненето, движението, възстановяването. 8 години опит с реални пациенти. Защото метаболизмът не се променя от мотивационни цитати." data-en="The mind behind SYNRG Method. Every protocol — nutrition, movement, recovery — built on medical ground. 8 years of experience with real patients. Because metabolism doesn't change from motivational quotes.">
-          Мозъкът зад SYNRG Метод. Изградила всеки протокол върху медицинска основа — храненето, движението, възстановяването. 8 години опит с реални пациенти. Защото метаболизмът не се променя от мотивационни цитати.
+        <p class="team-method-bio" data-bg="Мозъкът зад SYNRG Метод. Изградила всеки протокол върху медицинска основа — храненето, движението, възстановяването. Над 8 години опит, над 300 реални клиенти. Защото метаболизмът не се променя от мотивационни цитати." data-en="The mind behind SYNRG Method. Every protocol — nutrition, movement, recovery — built on medical ground. 8+ years of experience, 300+ real clients. Because metabolism doesn't change from motivational quotes.">
+          Мозъкът зад SYNRG Метод. Изградила всеки протокол върху медицинска основа — храненето, движението, възстановяването. Над 8 години опит, над 300 реални клиенти. Защото метаболизмът не се променя от мотивационни цитати.
         </p>
       </article>
 
@@ -746,13 +764,13 @@
     <h2 class="section-title" style="margin-left:auto;margin-right:auto;" data-bg="Early Bird — само за първите 100" data-en="Early Bird — only first 100">
       Early Bird — само за първите 100
     </h2>
-    <p class="section-sub" style="margin-left:auto;margin-right:auto;" data-bg="След 100-я клиент цената се връща на €197. Гарантирай си твоето място сега." data-en="After the 100th customer the price returns to €197. Lock in your spot now.">
-      След 100-я клиент цената се връща на €197. Гарантирай си твоето място сега.
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;" data-bg="След 100-я клиент цената се връща на €207. Гарантирай си твоето място сега." data-en="After the 100th customer the price returns to €207. Lock in your spot now.">
+      След 100-я клиент цената се връща на €207. Гарантирай си твоето място сега.
     </p>
     <div class="pricing-card">
       <div class="pricing-pill" data-bg="EARLY BIRD" data-en="EARLY BIRD">EARLY BIRD</div>
-      <div class="pricing-amount"><span class="currency">€</span>127</div>
-      <div class="pricing-old" data-bg="€197 редовна цена" data-en="€197 regular price">€197 редовна цена</div>
+      <div class="pricing-amount"><span class="currency">€</span>98</div>
+      <div class="pricing-old" data-bg="€207 редовна цена" data-en="€207 regular price">€207 редовна цена</div>
       <p class="pricing-desc" data-bg="Еднократно плащане · 8 седмици пълен достъп · след това безплатен freemium завинаги" data-en="One-time payment · 8 weeks full access · then free freemium forever">
         Еднократно плащане · 8 седмици пълен достъп · след това безплатен freemium завинаги
       </p>
@@ -862,8 +880,8 @@
           <span data-bg="Колко време на ден ми трябва?" data-en="How much time per day?">Колко време на ден ми трябва?</span>
           <span class="arrow">▼</span>
         </button>
-        <div class="faq-a" data-bg="Тренировки: 30-50 минути, 3-5 пъти седмично. Логване в приложението: 5 минути на ден. Готвене: спрямо твоя стил — има бързи варианти за тези с малко време. Общо: 4-5 часа седмично активно ангажиране." data-en="Workouts: 30-50 min, 3-5 times a week. App logging: 5 min/day. Cooking: depends on your style — quick options available. Total: 4-5 hours active engagement per week.">
-          Тренировки: 30-50 минути, 3-5 пъти седмично. Логване в приложението: 5 минути на ден. Готвене: спрямо твоя стил — има бързи варианти за тези с малко време. Общо: 4-5 часа седмично активно ангажиране.
+        <div class="faq-a" data-bg="Тренировки: 15-20 минути на ден. Логване в приложението: 5 минути на ден. Готвене: спрямо твоя стил — има бързи варианти за тези с малко време." data-en="Workouts: 15-20 min/day. App logging: 5 min/day. Cooking: depends on your style — quick options available.">
+          Тренировки: 15-20 минути на ден. Логване в приложението: 5 минути на ден. Готвене: спрямо твоя стил — има бързи варианти за тези с малко време.
         </div>
       </div>
       <div class="faq-item">
@@ -889,8 +907,8 @@
           <span data-bg="Как се плаща?" data-en="How do I pay?">Как се плаща?</span>
           <span class="arrow">▼</span>
         </button>
-        <div class="faq-a" data-bg="Еднократно плащане €127 през Stripe (карта, Apple Pay, Google Pay). Получаваш фактура автоматично на email. Достъпът се активира веднага след плащането. Менторът е насреща в чата от първия ден." data-en="One-time €127 payment via Stripe (card, Apple Pay, Google Pay). Auto invoice by email. Access activates immediately after payment. Your mentor is there in the chat from day one.">
-          Еднократно плащане €127 през Stripe (карта, Apple Pay, Google Pay). Получаваш фактура автоматично на email. Достъпът се активира веднага след плащането. Менторът е насреща в чата от първия ден.
+        <div class="faq-a" data-bg="Еднократно плащане €98 през Stripe (карта, Apple Pay, Google Pay). Получаваш фактура автоматично на email. Достъпът се активира веднага след плащането. Менторът е насреща в чата от първия ден." data-en="One-time €98 payment via Stripe (card, Apple Pay, Google Pay). Auto invoice by email. Access activates immediately after payment. Your mentor is there in the chat from day one.">
+          Еднократно плащане €98 през Stripe (карта, Apple Pay, Google Pay). Получаваш фактура автоматично на email. Достъпът се активира веднага след плащането. Менторът е насреща в чата от първия ден.
         </div>
       </div>
     </div>
@@ -902,12 +920,12 @@
   <div class="container">
     <span class="section-overline" data-bg="ВРЕМЕ Е" data-en="IT'S TIME">ВРЕМЕ Е</span>
     <h2 data-bg="Това е последният път, когато започваш програма." data-en="This is the last time you start a program.">Това е последният път, когато започваш програма.</h2>
-    <p data-bg="Защото или работи и не трябва друга. Или решението е, че онова, което правеше досега, е по-добро." data-en="Because either it works and you won't need another one. Or the decision is that what you were doing until now is better.">
-      Защото или работи и не трябва друга. Или решението е, че онова, което правеше досега, е по-добро.
+    <p data-bg="Защото работи. Затова екипът ни застава с името си зад нея." data-en="Because it works. That's why our team stands behind it with our names.">
+      Защото работи. Затова екипът ни застава с името си зад нея.
     </p>
     <div class="final-cta-price">
-      <div class="final-cta-amount"><span class="currency">€</span>127 <span class="final-cta-old">€197</span></div>
-      <div class="final-cta-terms" data-bg="8 седмици · еднократно · €1.13 на ден" data-en="8 weeks · one-time · €1.13 per day">8 седмици · еднократно · €1.13 на ден</div>
+      <div class="final-cta-amount"><span class="currency">€</span>98 <span class="final-cta-old">€207</span></div>
+      <div class="final-cta-terms" data-bg="8 седмици · еднократно · €1.75 на ден" data-en="8 weeks · one-time · €1.75 per day">8 седмици · еднократно · €1.75 на ден</div>
     </div>
     <button class="btn btn-primary buy-btn" id="footer-buy-btn" style="font-size:15px;padding:14px 28px;" data-bg="Започни SYNRG Метод →" data-en="Start SYNRG Method →">Започни SYNRG Метод →</button>
     <p class="final-cta-urgency" data-bg="Първите 100 клиента. Местата са ограничени." data-en="First 100 customers. Spots are limited.">
@@ -956,10 +974,10 @@
   // Buy buttons → add to cart + open cart drawer
   function buyNow() {
     const programId = 'b83982f2-7d7c-4ede-b721-4d0e3642c8ed'
-    const priceId = 'price_1TR4JyKVGaXBBpHh3XNFFuW8'
+    const priceId = 'price_1TTHvwKVGaXBBpHh8daWQe5U'
     if (typeof addToCart === 'function') {
       // cart.js signature: addToCart(priceId, nameBg, nameEn, price, currency, programId)
-      addToCart(priceId, 'SYNRG Метод', 'SYNRG Method', 12700, 'EUR', programId)
+      addToCart(priceId, 'SYNRG Метод', 'SYNRG Method', 9800, 'EUR', programId)
       // addToCart() already opens the cart drawer internally
     } else {
       // Fallback — go to cart page
