@@ -992,6 +992,20 @@
   }
   document.getElementById('main-buy-btn').addEventListener('click', buyNow)
   document.getElementById('footer-buy-btn').addEventListener('click', buyNow)
+
+  // Meta Pixel: ViewContent on product landing (fires after consent)
+  window.addEventListener('load', function () {
+    if (window.synrgPixel) {
+      window.synrgPixel.track('ViewContent', {
+        content_ids: ['b83982f2-7d7c-4ede-b721-4d0e3642c8ed'],
+        content_name: 'SYNRG Метод',
+        content_category: 'Online program',
+        content_type: 'product',
+        value: 98,
+        currency: 'EUR',
+      });
+    }
+  });
 </script>
 <script src="cms.js"></script>
 <script src="cart.js"></script>
@@ -1144,5 +1158,6 @@
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="cookie-banner.js" defer></script>
+<script src="meta-pixel.js" defer></script>
 </body>
 </html>

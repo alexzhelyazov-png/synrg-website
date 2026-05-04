@@ -42,6 +42,16 @@ function addToCart(priceId, nameBg, nameEn, price, currency, programId) {
   }
   saveCart(cart);
   openCartDrawer();
+  // Meta Pixel: AddToCart (gated by marketing consent inside meta-pixel.js)
+  if (window.synrgPixel) {
+    window.synrgPixel.track('AddToCart', {
+      content_ids: [programId || priceId],
+      content_name: nameBg || nameEn,
+      content_type: 'product',
+      value: (price || 0) / 100,
+      currency: currency || 'EUR',
+    });
+  }
 }
 
 function removeFromCart(priceId) {
@@ -276,6 +286,17 @@ async function handleCheckout() {
   var btn = document.getElementById('cartCheckoutBtn');
   if (btn) { btn.disabled = true; btn.textContent = '…'; }
 
+  // Meta Pixel: InitiateCheckout
+  if (window.synrgPixel) {
+    var totalCents = cart.reduce(function (s, it) { return s + (it.price || 0) * (it.quantity || 1); }, 0);
+    window.synrgPixel.track('InitiateCheckout', {
+      content_ids: cart.map(function (it) { return it.program_id || it.priceId; }),
+      num_items: cart.reduce(function (s, it) { return s + (it.quantity || 1); }, 0),
+      value: totalCents / 100,
+      currency: cart[0] && cart[0].currency || 'EUR',
+    });
+  }
+
   var items = cart.map(function (item) {
     return { price: item.priceId, quantity: item.quantity };
   });
@@ -301,6 +322,8 @@ async function handleCheckout() {
     });
     var data = await res.json();
     if (data.url) {
+      // Snapshot cart so Purchase event on /remote.html?checkout=success has accurate data
+      try { sessionStorage.setItem('synrg_pre_checkout_cart', JSON.stringify(cart)); } catch (e) {}
       window.location.href = data.url;
     } else {
       throw new Error(data.error || 'Checkout failed');
@@ -326,6 +349,22 @@ function handleCheckoutReturn() {
   if (!status) return;
 
   if (status === 'success') {
+    // Meta Pixel: Purchase event (browser-side; CAPI server-side later)
+    // Read pre-checkout snapshot of cart for accurate value/contents
+    var preCheckoutCart = [];
+    try { preCheckoutCart = JSON.parse(sessionStorage.getItem('synrg_pre_checkout_cart') || '[]'); } catch (e) {}
+    if (window.synrgPixel) {
+      var totalCents = preCheckoutCart.reduce(function (s, it) { return s + (it.price || 0) * (it.quantity || 1); }, 0);
+      window.synrgPixel.track('Purchase', {
+        content_ids: preCheckoutCart.map(function (it) { return it.program_id || it.priceId; }),
+        content_type: 'product',
+        num_items: preCheckoutCart.reduce(function (s, it) { return s + (it.quantity || 1); }, 0),
+        value: totalCents / 100 || 98,
+        currency: (preCheckoutCart[0] && preCheckoutCart[0].currency) || 'EUR',
+      });
+    }
+    sessionStorage.removeItem('synrg_pre_checkout_cart');
+
     clearCart();
     sessionStorage.removeItem('synrg_client_id');
     var lang = localStorage.getItem('synrg-lang') || 'bg';
