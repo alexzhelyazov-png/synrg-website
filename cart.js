@@ -92,6 +92,16 @@ function injectCartDrawer() {
           '<span data-bg="Общо" data-en="Total">Общо</span>' +
           '<span id="cartTotalAmount"></span>' +
         '</div>' +
+        '<label class="cart-consent" for="cartConsent" style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#9aa39a;margin-bottom:12px;line-height:1.5;cursor:pointer;">' +
+          '<input type="checkbox" id="cartConsent" style="margin-top:3px;flex:0 0 auto;accent-color:#c4e9bf;" />' +
+          '<span>' +
+            '<span data-bg="Прочетох и приемам " data-en="I have read and accept the ">Прочетох и приемам </span>' +
+            '<a href="terms.html" target="_blank" rel="noopener" style="color:#c4e9bf;text-decoration:underline;" data-bg="Общи условия" data-en="Terms of Service">Общи условия</a>' +
+            '<span data-bg=" и " data-en=" and "> и </span>' +
+            '<a href="privacy.html" target="_blank" rel="noopener" style="color:#c4e9bf;text-decoration:underline;" data-bg="Политика за поверителност" data-en="Privacy Policy">Политика за поверителност</a>' +
+            '<span data-bg=". Цените са в евро. Синерджи 93 ООД не е регистрирано по ЗДДС." data-en=". Prices are in EUR. Sinerji 93 Ltd is not VAT-registered.">. Цените са в евро. Синерджи 93 ООД не е регистрирано по ЗДДС.</span>' +
+          '</span>' +
+        '</label>' +
         '<button class="cart-checkout-btn" id="cartCheckoutBtn" ' +
           'data-bg="Към плащане →" data-en="Proceed to payment →">' +
           'Към плащане →' +
@@ -250,6 +260,16 @@ async function handleCheckout() {
     alert(lang === 'en'
       ? 'This product is not available for purchase yet. Coming soon!'
       : 'Този продукт все още не е наличен за покупка. Очаквайте скоро!');
+    return;
+  }
+
+  // Block checkout if consent (T&C + Privacy) is not accepted — required for legal sale
+  var consent = document.getElementById('cartConsent');
+  if (consent && !consent.checked) {
+    alert(lang === 'en'
+      ? 'Please accept the Terms of Service and Privacy Policy to continue.'
+      : 'Моля приеми Общите условия и Политиката за поверителност, за да продължиш.');
+    consent.focus();
     return;
   }
 

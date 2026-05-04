@@ -1,0 +1,3 @@
+This folder contains internal compliance documents NOT intended for the public site.
+The .md files here are for the company's GDPR records, audit trails, etc.
+They are still committed to git for backup, but no HTML page links to them.
