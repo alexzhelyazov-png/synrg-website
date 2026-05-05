@@ -47,8 +47,14 @@
 
   // Public API for tracking custom events
   window.synrgPixel = {
-    track: function (eventName, params) {
-      var args = ['track', eventName].concat(params ? [params] : []);
+    track: function (eventName, params, options) {
+      // 4th arg `options` supports { eventID } for CAPI deduplication.
+      var args = ['track', eventName];
+      if (params) args.push(params);
+      if (options) {
+        if (!params) args.push({}); // fbq requires params slot before options
+        args.push(options);
+      }
       if (loaded) {
         try { fbq.apply(null, args); } catch (e) { console.warn('fbq track failed', e); }
       } else {

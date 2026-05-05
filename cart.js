@@ -308,6 +308,12 @@ async function handleCheckout() {
   var origin = window.location.origin;
   var basePath = window.location.pathname.replace(/\/[^/]*$/, '');
 
+  // Capture Meta tracking cookies/params for server-side CAPI dedup
+  var fbp = (document.cookie.match(/(?:^|; )_fbp=([^;]+)/) || [])[1] || '';
+  var fbcCookie = (document.cookie.match(/(?:^|; )_fbc=([^;]+)/) || [])[1] || '';
+  var fbclid = new URLSearchParams(window.location.search).get('fbclid');
+  var fbc = fbcCookie || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : '');
+
   try {
     var res = await fetch(CHECKOUT_URL, {
       method: 'POST',
@@ -315,15 +321,24 @@ async function handleCheckout() {
       body: JSON.stringify({
         line_items: items,
         locale: lang === 'bg' ? 'bg' : 'en',
-        success_url: origin + basePath + '/remote.html?checkout=success',
+        // {CHECKOUT_SESSION_ID} placeholder is replaced by Stripe so client gets the real id
+        success_url: origin + basePath + '/remote.html?checkout=success&session_id={CHECKOUT_SESSION_ID}',
         cancel_url: origin + basePath + '/remote.html?checkout=cancel',
-        metadata: { client_id: clientId, program_id: programId },
+        metadata: {
+          client_id: clientId,
+          program_id: programId,
+          fbp: fbp,
+          fbc: fbc,
+          client_user_agent: navigator.userAgent.slice(0, 200),
+        },
       }),
     });
     var data = await res.json();
     if (data.url) {
-      // Snapshot cart so Purchase event on /remote.html?checkout=success has accurate data
-      try { sessionStorage.setItem('synrg_pre_checkout_cart', JSON.stringify(cart)); } catch (e) {}
+      // Snapshot cart so Purchase event on /remote.html?checkout=success has accurate data.
+      // localStorage (not sessionStorage) — sessionStorage is lost if Stripe opens checkout in
+      // a new tab, then user closes original tab. localStorage survives full browser restart.
+      try { localStorage.setItem('synrg_pre_checkout_cart', JSON.stringify(cart)); } catch (e) {}
       window.location.href = data.url;
     } else {
       throw new Error(data.error || 'Checkout failed');
@@ -349,21 +364,27 @@ function handleCheckoutReturn() {
   if (!status) return;
 
   if (status === 'success') {
-    // Meta Pixel: Purchase event (browser-side; CAPI server-side later)
-    // Read pre-checkout snapshot of cart for accurate value/contents
+    // Meta Pixel: Purchase event with eventID matching server-side CAPI for deduplication.
+    // Read pre-checkout snapshot of cart for accurate value/contents (from localStorage —
+    // survives tab close / browser restart between Stripe redirect roundtrip).
     var preCheckoutCart = [];
-    try { preCheckoutCart = JSON.parse(sessionStorage.getItem('synrg_pre_checkout_cart') || '[]'); } catch (e) {}
+    try { preCheckoutCart = JSON.parse(localStorage.getItem('synrg_pre_checkout_cart') || '[]'); } catch (e) {}
+    var stripeSessionId = params.get('session_id') || '';
     if (window.synrgPixel) {
       var totalCents = preCheckoutCart.reduce(function (s, it) { return s + (it.price || 0) * (it.quantity || 1); }, 0);
-      window.synrgPixel.track('Purchase', {
+      var purchaseParams = {
         content_ids: preCheckoutCart.map(function (it) { return it.program_id || it.priceId; }),
         content_type: 'product',
         num_items: preCheckoutCart.reduce(function (s, it) { return s + (it.quantity || 1); }, 0),
         value: totalCents / 100 || 98,
         currency: (preCheckoutCart[0] && preCheckoutCart[0].currency) || 'EUR',
-      });
+      };
+      // eventID dedups with server-side CAPI Purchase (sent from stripe-webhook).
+      // Same id `purchase_${session.id}` on both sides.
+      var purchaseOptions = stripeSessionId ? { eventID: 'purchase_' + stripeSessionId } : undefined;
+      window.synrgPixel.track('Purchase', purchaseParams, purchaseOptions);
     }
-    sessionStorage.removeItem('synrg_pre_checkout_cart');
+    localStorage.removeItem('synrg_pre_checkout_cart');
 
     clearCart();
     sessionStorage.removeItem('synrg_client_id');
