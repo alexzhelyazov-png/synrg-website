@@ -139,9 +139,38 @@
     .pay-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
 
     /* ── Address slide ── */
-    .address-wrap { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-    .address-wrap.show { max-height: 220px; }
+    .address-wrap { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+    .address-wrap.show { max-height: 600px; }
     .address-wrap .field { margin-top: 14px; }
+
+    /* ── Delivery method sub-tabs (To address / To office) ── */
+    .delivery-tabs {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 4px;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .delivery-tab {
+      flex: 1;
+      padding: 10px 12px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 9px;
+      transition: background 0.18s, color 0.18s;
+      user-select: none;
+    }
+    .delivery-tab.active {
+      background: var(--mint-dim);
+      color: var(--mint);
+    }
+    .delivery-panel { display: none; }
+    .delivery-panel.show { display: block; }
 
     .consent {
       display: flex; gap: 10px; align-items: flex-start;
@@ -243,10 +272,31 @@
       </label>
 
       <div class="address-wrap" id="addressWrap">
-        <div class="field">
-          <label class="fld-label" for="address">Адрес за доставка</label>
-          <textarea id="address" name="address" autocomplete="street-address" placeholder="Град, квартал, улица, номер, етаж, апартамент"></textarea>
-          <div class="field-error" id="err-address">Моля въведи пълен адрес за доставка.</div>
+        <div class="delivery-tabs">
+          <div class="delivery-tab active" data-tab="home" id="tabHome">До моя адрес</div>
+          <div class="delivery-tab" data-tab="office" id="tabOffice">До офис на куриер</div>
+        </div>
+
+        <div class="delivery-panel show" id="panelHome">
+          <div class="field">
+            <label class="fld-label" for="address">Адрес за доставка</label>
+            <textarea id="address" name="address" autocomplete="street-address" placeholder="Град, квартал, улица, номер, етаж, апартамент"></textarea>
+            <div class="field-error" id="err-address">Моля въведи пълен адрес за доставка.</div>
+          </div>
+        </div>
+
+        <div class="delivery-panel" id="panelOffice">
+          <div class="field">
+            <label class="fld-label" for="officeCity">Град</label>
+            <input type="text" id="officeCity" autocomplete="address-level2" placeholder="напр. София, Варна, Пловдив">
+            <div class="field-error" id="err-officeCity">Моля въведи град.</div>
+          </div>
+          <div class="field">
+            <label class="fld-label" for="officeName">Офис (Еконт или Спиди)</label>
+            <input type="text" id="officeName" placeholder="напр. Еконт офис бул. Александър Малинов 5">
+            <div class="hint">Може и Спиди. Напиши името на офиса както го виждаш в trackers.</div>
+            <div class="field-error" id="err-officeName">Моля въведи офис на куриер.</div>
+          </div>
         </div>
       </div>
 
@@ -293,6 +343,24 @@
     const optOnline   = document.getElementById('optOnline');
     const optCod      = document.getElementById('optCod');
     const addressWrap = document.getElementById('addressWrap');
+    const tabHome     = document.getElementById('tabHome');
+    const tabOffice   = document.getElementById('tabOffice');
+    const panelHome   = document.getElementById('panelHome');
+    const panelOffice = document.getElementById('panelOffice');
+
+    let deliveryMode = 'home'; // 'home' | 'office'
+    function selectDelivery(mode) {
+      deliveryMode = mode;
+      if (mode === 'home') {
+        tabHome.classList.add('active');   tabOffice.classList.remove('active');
+        panelHome.classList.add('show');   panelOffice.classList.remove('show');
+      } else {
+        tabOffice.classList.add('active'); tabHome.classList.remove('active');
+        panelOffice.classList.add('show'); panelHome.classList.remove('show');
+      }
+    }
+    tabHome.addEventListener('click', () => selectDelivery('home'));
+    tabOffice.addEventListener('click', () => selectDelivery('office'));
 
     // ── Payment radio toggle ──────────────────────────────────────────
     function selectMethod(method) {
@@ -359,24 +427,39 @@
       e.preventDefault();
       clearError();
 
-      const method  = document.querySelector('input[name="payment_method"]:checked').value;
-      const name    = document.getElementById('name').value.trim();
-      const phone   = document.getElementById('phone').value.trim();
-      const email   = document.getElementById('email').value.trim();
-      const address = document.getElementById('address').value.trim();
-      const consent = document.getElementById('consent').checked;
+      const method     = document.querySelector('input[name="payment_method"]:checked').value;
+      const name       = document.getElementById('name').value.trim();
+      const phone      = document.getElementById('phone').value.trim();
+      const email      = document.getElementById('email').value.trim();
+      const address    = document.getElementById('address').value.trim();
+      const officeCity = document.getElementById('officeCity').value.trim();
+      const officeName = document.getElementById('officeName').value.trim();
+      const consent    = document.getElementById('consent').checked;
 
-      const nameBad    = !name || name.length < 3;
-      const phoneBad   = !validateBgPhone(phone);
-      const emailBad   = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      const addressBad = method === 'cod' && (!address || address.length < 10);
+      // For CoD we compose the final shipping_address string from either the
+      // home-address textarea or the office picker so the merchant gets one
+      // unambiguous line to print on the waybill.
+      let shippingAddress = '';
+      if (method === 'cod') {
+        if (deliveryMode === 'home')  shippingAddress = address;
+        else                          shippingAddress = officeCity && officeName ? `Куриерски офис: ${officeName}, ${officeCity}` : '';
+      }
 
-      setFieldError('name',    nameBad);
-      setFieldError('phone',   phoneBad);
-      setFieldError('email',   emailBad);
-      setFieldError('address', addressBad);
+      const nameBad       = !name || name.length < 3;
+      const phoneBad      = !validateBgPhone(phone);
+      const emailBad      = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const addressBad    = method === 'cod' && deliveryMode === 'home'   && (!address    || address.length < 10);
+      const officeCityBad = method === 'cod' && deliveryMode === 'office' && !officeCity;
+      const officeNameBad = method === 'cod' && deliveryMode === 'office' && (!officeName || officeName.length < 5);
 
-      if (nameBad || phoneBad || emailBad || addressBad) {
+      setFieldError('name',       nameBad);
+      setFieldError('phone',      phoneBad);
+      setFieldError('email',      emailBad);
+      setFieldError('address',    addressBad);
+      setFieldError('officeCity', officeCityBad);
+      setFieldError('officeName', officeNameBad);
+
+      if (nameBad || phoneBad || emailBad || addressBad || officeCityBad || officeNameBad) {
         showError('Моля попълни всички задължителни полета.');
         return;
       }
@@ -447,7 +530,12 @@
           const res = await fetch(COD_EDGE_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, phone, email, address, turnstile_token: turnstileToken }),
+            body: JSON.stringify({
+              name, phone, email,
+              address: shippingAddress,
+              delivery_mode: deliveryMode,
+              turnstile_token: turnstileToken,
+            }),
           });
           const data = await res.json();
           if (!res.ok) {
