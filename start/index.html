@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d1510">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Активация — SYNRG Метод</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <style>
+    @font-face { font-family: 'MontBlanc'; src: url('/fonts/MontBlanc-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'MontBlanc'; src: url('/fonts/MontBlanc-BoldItalic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'MontBlanc'; src: url('/fonts/MontBlanc-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --mint:         #c4e9bf;
+      --mint-dim:     rgba(196,233,191,0.12);
+      --mint-border:  rgba(196,233,191,0.24);
+      --cream:        #f0eded;
+      --bg:           #0d1510;
+      --surface:      #111c13;
+      --surface-2:    #182520;
+      --border:       rgba(255,255,255,0.08);
+      --muted:        #8a9a8a;
+      --danger:       #ff7676;
+    }
+
+    body {
+      font-family: 'MontBlanc', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(ellipse at 50% 0%, rgba(196,233,191,0.08) 0%, var(--bg) 60%);
+      color: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo { font-size: 22px; font-weight: 700; font-style: italic; letter-spacing: -0.5px; margin-bottom: 24px; color: var(--cream); text-decoration: none; }
+
+    .card {
+      width: 100%; max-width: 440px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px 28px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.55; }
+
+    label { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 6px; letter-spacing: 0.3px; text-transform: uppercase; }
+    .field { margin-bottom: 16px; }
+    input[type="email"], input[type="tel"], input[type="password"] {
+      width: 100%;
+      padding: 13px 14px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--cream);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.18s;
+    }
+    input:focus { border-color: var(--mint-border); }
+    input.invalid { border-color: var(--danger); }
+    .hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    button.submit {
+      width: 100%;
+      padding: 16px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 800;
+      font-style: italic;
+      letter-spacing: 0.3px;
+      background: var(--mint);
+      color: var(--bg);
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.18s;
+    }
+    button.submit:hover:not(:disabled) { background: #aedba9; }
+    button.submit:disabled { opacity: 0.55; cursor: wait; }
+
+    .fallback-toggle {
+      display: block; width: 100%; background: none; border: none;
+      color: var(--muted); font-size: 13px; font-weight: 600; font-family: inherit;
+      cursor: pointer; padding: 12px 0 0; text-align: center;
+    }
+    .fallback-toggle:hover { color: var(--cream); }
+
+    .phone-field { display: none; margin-top: 8px; }
+    .phone-field.show { display: block; }
+
+    .alert { padding: 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
+    .alert.error   { background: rgba(255,118,118,0.1); border: 1px solid rgba(255,118,118,0.3); color: var(--danger); }
+    .alert.success { background: var(--mint-dim); border: 1px solid var(--mint-border); color: var(--mint); }
+
+    .footnote { font-size: 11px; color: var(--muted); margin-top: 18px; text-align: center; line-height: 1.5; }
+
+    /* ── Success screen ── */
+    .success-screen { display: none; text-align: center; }
+    .success-screen .icon { width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 50%; background: var(--mint-dim); display: flex; align-items: center; justify-content: center; }
+    .success-screen h2 { font-size: 24px; font-style: italic; font-weight: 700; margin-bottom: 16px; }
+    .success-screen p { font-size: 14px; color: var(--cream); margin-bottom: 12px; line-height: 1.55; }
+    .credentials {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    .credentials .label { font-size: 11px; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.4px; text-transform: uppercase; }
+    .credentials .value { font-size: 17px; font-weight: 700; color: var(--mint); margin-bottom: 14px; word-break: break-word; }
+    .credentials .value:last-child { margin-bottom: 0; }
+    .cta-app {
+      display: inline-block;
+      padding: 14px 28px;
+      background: var(--mint);
+      color: var(--bg);
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 800;
+      font-style: italic;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="logo">synrg метод</a>
+
+  <div class="card" id="activateCard">
+    <h1>Активирай профила си</h1>
+    <p class="sub">Въведи имейла, който написа при поръчката, и избери парола за приложението.</p>
+
+    <div id="formAlert"></div>
+
+    <form id="activateForm" autocomplete="on" novalidate>
+      <div class="field">
+        <label for="email">Имейл от поръчката</label>
+        <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="имейл@поща.com">
+      </div>
+
+      <div class="field">
+        <label for="password">Избери парола</label>
+        <input type="password" id="password" name="password" required autocomplete="new-password" minlength="6" placeholder="поне 6 символа">
+        <div class="hint">Тази парола ще използваш всеки път, когато влизаш в приложението.</div>
+      </div>
+
+      <div class="field phone-field" id="phoneField">
+        <label for="phone">Телефон от поръчката</label>
+        <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="0888 123 456">
+        <div class="hint">Същият номер, който написа при поръчката.</div>
+      </div>
+
+      <button type="submit" class="submit" id="submitBtn">Активирай и влез</button>
+      <button type="button" class="fallback-toggle" id="phoneFallbackBtn">Сгреших имейла → намери ме по телефон</button>
+    </form>
+
+    <div class="footnote">
+      Получаваш съобщение „Не намираме поръчка"? Провери дали имейлът е същият, който написа при поръчката. Ако все още не работи — Viber: <strong>0888 XXX XXX</strong>
+    </div>
+  </div>
+
+  <div class="card success-screen" id="successCard">
+    <div class="icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+        <path d="M5 12L10 17L19 8" stroke="#c4e9bf" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Готова си.</h2>
+    <p>Програмата ти е активна за 8 седмици.</p>
+
+    <div class="credentials">
+      <div class="label">Влез в приложението с:</div>
+      <div class="label" style="margin-top:6px">Име</div>
+      <div class="value" id="loginNameVal">—</div>
+      <div class="label">Парола</div>
+      <div class="value" style="font-size:14px;font-weight:600;color:var(--cream)">тази, която избра преди малко</div>
+    </div>
+
+    <p id="coachLine" style="display:none;font-size:13px;color:var(--muted)">Менторът ти <strong id="coachName" style="color:var(--cream)">—</strong> ще те потърси в приложението.</p>
+
+    <a href="https://synrg-beyondfitness.com/app/" class="cta-app">Отвори приложението →</a>
+
+    <p style="margin-top:18px;font-size:12px;color:var(--muted)">
+      Изпратихме потвърждение и на твоя имейл.
+    </p>
+  </div>
+
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+  <script>
+    const EDGE_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/activate-cod-order';
+    const TURNSTILE_SITE_KEY = '0x4AAAAAADEztvIQI3wSK9Pl';
+
+    const form = document.getElementById('activateForm');
+    const alertBox = document.getElementById('formAlert');
+    const submitBtn = document.getElementById('submitBtn');
+    const phoneField = document.getElementById('phoneField');
+    const phoneFallbackBtn = document.getElementById('phoneFallbackBtn');
+    const activateCard = document.getElementById('activateCard');
+    const successCard = document.getElementById('successCard');
+
+    phoneFallbackBtn.addEventListener('click', () => {
+      phoneField.classList.add('show');
+      phoneFallbackBtn.style.display = 'none';
+      document.getElementById('phone').focus();
+    });
+
+    function showError(msg) {
+      alertBox.innerHTML = '<div class="alert error">' + msg + '</div>';
+    }
+    function clearError() { alertBox.innerHTML = ''; }
+
+    async function getTurnstileToken() {
+      if (!window.turnstile) return null;
+      return new Promise((resolve) => {
+        try {
+          const container = document.createElement('div');
+          container.style.display = 'none';
+          document.body.appendChild(container);
+          window.turnstile.render(container, {
+            sitekey: TURNSTILE_SITE_KEY,
+            size: 'invisible',
+            callback: (token) => resolve(token),
+            'error-callback': () => resolve(null),
+          });
+          setTimeout(() => resolve(null), 5000);
+        } catch { resolve(null); }
+      });
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearError();
+
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const phone    = document.getElementById('phone').value.trim();
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('Невалиден имейл адрес.');
+        return;
+      }
+      if (password.length < 6) {
+        showError('Паролата трябва да е поне 6 символа.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Активирам…';
+
+      const turnstileToken = await getTurnstileToken();
+
+      try {
+        const res = await fetch(EDGE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email, password,
+            phone: phone || undefined,
+            turnstile_token: turnstileToken,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          showError(data.message || 'Не успяхме да активираме профила.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Активирай и влез';
+          // If no_pending_order and phone field not shown yet, offer it.
+          if (data.error === 'no_pending_order' && !phoneField.classList.contains('show')) {
+            phoneField.classList.add('show');
+            phoneFallbackBtn.style.display = 'none';
+          }
+          return;
+        }
+        // Success
+        document.getElementById('loginNameVal').textContent = data.login_name || '—';
+        if (data.coach_name) {
+          document.getElementById('coachName').textContent = data.coach_name;
+          document.getElementById('coachLine').style.display = 'block';
+        }
+        activateCard.style.display = 'none';
+        successCard.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        console.error(err);
+        showError('Мрежова грешка. Опитай отново.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Активирай и влез';
+      }
+    });
+  </script>
+
+  <script src="/cookie-banner.js"></script>
+</body>
+</html>
