@@ -17,8 +17,6 @@
       --mint:         #c4e9bf;
       --mint-dim:     rgba(196,233,191,0.12);
       --mint-border:  rgba(196,233,191,0.24);
-      --logan:        #AAA9CD;
-      --logan-border: rgba(170,169,205,0.26);
       --cream:        #f0eded;
       --bg:           #0d1510;
       --surface:      #111c13;
@@ -73,8 +71,18 @@
     .price-name strong { color: var(--cream); display: block; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
     .price-amount { font-size: 24px; font-weight: 700; color: var(--mint); }
 
-    label { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 6px; letter-spacing: 0.3px; text-transform: uppercase; }
-    .field { margin-bottom: 18px; }
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      margin: 24px 0 10px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+
+    label.fld-label { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 6px; letter-spacing: 0.3px; text-transform: uppercase; }
+    .field { margin-bottom: 16px; }
     input[type="text"], input[type="tel"], input[type="email"], textarea {
       width: 100%;
       padding: 13px 14px;
@@ -94,6 +102,47 @@
     .field-error { font-size: 12px; color: var(--danger); margin-top: 4px; display: none; }
     .field-error.show { display: block; }
 
+    /* ── Payment method radios (eMAG-style) ── */
+    .pay-option {
+      display: block;
+      padding: 14px 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .pay-option:hover { border-color: rgba(196,233,191,0.18); }
+    .pay-option.selected { border-color: var(--mint); background: var(--mint-dim); }
+    .pay-option-row { display: flex; align-items: center; gap: 12px; }
+    .pay-radio {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--muted);
+      flex: 0 0 auto;
+      position: relative;
+      transition: border-color 0.18s;
+    }
+    .pay-option.selected .pay-radio { border-color: var(--mint); }
+    .pay-option.selected .pay-radio::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 10px; height: 10px;
+      background: var(--mint);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .pay-option-title { font-size: 15px; font-weight: 700; color: var(--cream); }
+    .pay-option-desc { font-size: 12px; color: var(--muted); margin-top: 4px; margin-left: 32px; line-height: 1.5; }
+    .pay-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+
+    /* ── Address slide ── */
+    .address-wrap { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+    .address-wrap.show { max-height: 220px; }
+    .address-wrap .field { margin-top: 14px; }
+
     .consent {
       display: flex; gap: 10px; align-items: flex-start;
       font-size: 12px; color: var(--muted);
@@ -104,20 +153,7 @@
     .consent input { margin-top: 3px; flex: 0 0 auto; accent-color: var(--mint); }
     .consent a { color: var(--mint); text-decoration: underline; }
 
-    .payment-section {
-      padding-top: 22px;
-      border-top: 1px solid var(--border);
-    }
-    .payment-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--cream);
-      margin-bottom: 14px;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-    }
-
-    button.pay-btn {
+    button.submit {
       width: 100%;
       padding: 16px;
       font-family: inherit;
@@ -125,27 +161,15 @@
       font-weight: 800;
       font-style: italic;
       letter-spacing: 0.3px;
+      background: var(--mint);
+      color: var(--bg);
       border: none;
       border-radius: 14px;
       cursor: pointer;
       transition: background 0.18s, transform 0.1s;
-      display: block;
-      margin-bottom: 12px;
     }
-    button.pay-btn:disabled { opacity: 0.55; cursor: wait; }
-    button.pay-btn.primary {
-      background: var(--mint);
-      color: var(--bg);
-    }
-    button.pay-btn.primary:hover:not(:disabled) { background: #aedba9; }
-    button.pay-btn.secondary {
-      background: transparent;
-      color: var(--cream);
-      border: 1px solid var(--logan-border);
-      font-style: normal;
-    }
-    button.pay-btn.secondary:hover:not(:disabled) { border-color: var(--logan); }
-    .pay-btn-note { font-size: 11px; color: var(--muted); margin-top: -6px; margin-bottom: 14px; line-height: 1.5; padding: 0 4px; }
+    button.submit:hover:not(:disabled) { background: #aedba9; }
+    button.submit:disabled { opacity: 0.55; cursor: wait; }
 
     .alert { padding: 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
     .alert.error { background: rgba(255,118,118,0.1); border: 1px solid rgba(255,118,118,0.3); color: var(--danger); }
@@ -176,31 +200,54 @@
     <div id="formAlert"></div>
 
     <form id="orderForm" autocomplete="on" novalidate>
+      <div class="section-title">Твоите данни</div>
+
       <div class="field">
-        <label for="name">Име и фамилия</label>
+        <label class="fld-label" for="name">Име и фамилия</label>
         <input type="text" id="name" name="name" required autocomplete="name" placeholder="напр. Мария Иванова">
         <div class="hint">С това име ще влизаш в приложението.</div>
         <div class="field-error" id="err-name">Моля въведи име и фамилия.</div>
       </div>
 
       <div class="field">
-        <label for="phone">Телефон</label>
+        <label class="fld-label" for="phone">Телефон</label>
         <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="0888 123 456" inputmode="tel">
         <div class="field-error" id="err-phone">Невалиден български телефонен номер.</div>
       </div>
 
       <div class="field">
-        <label for="email">Имейл</label>
+        <label class="fld-label" for="email">Имейл</label>
         <input type="email" id="email" name="email" required autocomplete="email" placeholder="имейл@поща.com" inputmode="email">
         <div class="hint">С този имейл ще активираш профила си.</div>
         <div class="field-error" id="err-email">Невалиден имейл адрес.</div>
       </div>
 
-      <div class="field" id="addressField">
-        <label for="address">Адрес за доставка</label>
-        <textarea id="address" name="address" autocomplete="street-address" placeholder="Град, квартал, улица, номер, етаж, апартамент"></textarea>
-        <div class="hint" id="addressHint">Нужен е само ако избереш наложен платеж.</div>
-        <div class="field-error" id="err-address">Моля въведи пълен адрес за доставка.</div>
+      <div class="section-title">Метод на плащане</div>
+
+      <label class="pay-option selected" data-method="online" id="optOnline">
+        <input type="radio" name="payment_method" value="online" checked>
+        <div class="pay-option-row">
+          <div class="pay-radio"></div>
+          <div class="pay-option-title">Онлайн с банкова карта</div>
+        </div>
+        <div class="pay-option-desc">Сигурно плащане през Stripe · Visa, Mastercard, Apple Pay · профилът се активира веднага.</div>
+      </label>
+
+      <label class="pay-option" data-method="cod" id="optCod">
+        <input type="radio" name="payment_method" value="cod">
+        <div class="pay-option-row">
+          <div class="pay-radio"></div>
+          <div class="pay-option-title">Наложен платеж</div>
+        </div>
+        <div class="pay-option-desc">Плащаш в момента, в който куриерът на Еконт ти достави пратката (2-3 работни дни). Профилът се активира когато получиш картичката.</div>
+      </label>
+
+      <div class="address-wrap" id="addressWrap">
+        <div class="field">
+          <label class="fld-label" for="address">Адрес за доставка</label>
+          <textarea id="address" name="address" autocomplete="street-address" placeholder="Град, квартал, улица, номер, етаж, апартамент"></textarea>
+          <div class="field-error" id="err-address">Моля въведи пълен адрес за доставка.</div>
+        </div>
       </div>
 
       <label class="consent" for="consent">
@@ -210,15 +257,7 @@
         </span>
       </label>
 
-      <div class="payment-section">
-        <div class="payment-title">Избери начин на плащане</div>
-
-        <button type="button" class="pay-btn primary" id="payOnlineBtn">Плати с карта — €98</button>
-        <div class="pay-btn-note">Сигурно плащане през Stripe · профилът се активира веднага</div>
-
-        <button type="button" class="pay-btn secondary" id="payCodBtn">Наложен платеж — €98</button>
-        <div class="pay-btn-note">Плащаш на куриера на Еконт · профилът се активира когато получиш пратката (2-3 работни дни)</div>
-      </div>
+      <button type="submit" class="submit" id="submitBtn">Поръчай — €98</button>
     </form>
   </div>
 
@@ -247,12 +286,32 @@
 
     const form        = document.getElementById('orderForm');
     const alertBox    = document.getElementById('formAlert');
-    const payOnline   = document.getElementById('payOnlineBtn');
-    const payCod      = document.getElementById('payCodBtn');
+    const submitBtn   = document.getElementById('submitBtn');
     const orderCard   = document.getElementById('orderCard');
     const successCard = document.getElementById('successCard');
     const successEmail= document.getElementById('successEmail');
+    const optOnline   = document.getElementById('optOnline');
+    const optCod      = document.getElementById('optCod');
+    const addressWrap = document.getElementById('addressWrap');
 
+    // ── Payment radio toggle ──────────────────────────────────────────
+    function selectMethod(method) {
+      if (method === 'online') {
+        optOnline.classList.add('selected');
+        optCod.classList.remove('selected');
+        optOnline.querySelector('input').checked = true;
+        addressWrap.classList.remove('show');
+      } else {
+        optCod.classList.add('selected');
+        optOnline.classList.remove('selected');
+        optCod.querySelector('input').checked = true;
+        addressWrap.classList.add('show');
+      }
+    }
+    optOnline.addEventListener('click', () => selectMethod('online'));
+    optCod.addEventListener('click', () => selectMethod('cod'));
+
+    // ── Helpers ───────────────────────────────────────────────────────
     function showError(msg) {
       alertBox.innerHTML = '<div class="alert error">' + msg + '</div>';
       alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -277,35 +336,6 @@
       return /^[89]\d{8}$/.test(body);
     }
 
-    // Returns {ok, values} with normalized form values, or {ok:false} after showing errors.
-    function readAndValidateForm(requireAddress) {
-      clearError();
-      const name    = document.getElementById('name').value.trim();
-      const phone   = document.getElementById('phone').value.trim();
-      const email   = document.getElementById('email').value.trim();
-      const address = document.getElementById('address').value.trim();
-      const consent = document.getElementById('consent').checked;
-
-      let ok = true;
-      const nameBad    = !name || name.length < 3;
-      const phoneBad   = !validateBgPhone(phone);
-      const emailBad   = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      const addressBad = requireAddress && (!address || address.length < 10);
-
-      setFieldError('name',    nameBad);
-      setFieldError('phone',   phoneBad);
-      setFieldError('email',   emailBad);
-      setFieldError('address', addressBad);
-
-      if (nameBad || phoneBad || emailBad || addressBad) ok = false;
-      if (!consent) {
-        showError('Моля приеми Общите условия и Политиката за поверителност.');
-        return { ok: false };
-      }
-      if (!ok) return { ok: false };
-      return { ok: true, values: { name, phone, email, address } };
-    }
-
     async function getTurnstileToken() {
       if (!window.turnstile) return null;
       return new Promise((resolve) => {
@@ -324,109 +354,124 @@
       });
     }
 
-    function disableButtons(disabled, busyBtn, label) {
-      payOnline.disabled = disabled;
-      payCod.disabled = disabled;
-      if (busyBtn) busyBtn.textContent = label;
-    }
+    // ── Submit ────────────────────────────────────────────────────────
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearError();
 
-    // ── Online (Stripe) payment ───────────────────────────────────────
-    payOnline.addEventListener('click', async () => {
-      const r = readAndValidateForm(false /* address not required */);
-      if (!r.ok) return;
+      const method  = document.querySelector('input[name="payment_method"]:checked').value;
+      const name    = document.getElementById('name').value.trim();
+      const phone   = document.getElementById('phone').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const consent = document.getElementById('consent').checked;
 
-      disableButtons(true, payOnline, 'Подготвям…');
+      const nameBad    = !name || name.length < 3;
+      const phoneBad   = !validateBgPhone(phone);
+      const emailBad   = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const addressBad = method === 'cod' && (!address || address.length < 10);
 
-      // Capture Meta Pixel tracking cookies for CAPI dedup.
-      const fbp = (document.cookie.match(/(?:^|; )_fbp=([^;]+)/) || [])[1] || '';
-      const fbcCookie = (document.cookie.match(/(?:^|; )_fbc=([^;]+)/) || [])[1] || '';
-      const fbclid = new URLSearchParams(window.location.search).get('fbclid');
-      const fbc = fbcCookie || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : '');
+      setFieldError('name',    nameBad);
+      setFieldError('phone',   phoneBad);
+      setFieldError('email',   emailBad);
+      setFieldError('address', addressBad);
 
-      try {
-        // Pixel: InitiateCheckout
-        if (window.synrgPixel) {
-          window.synrgPixel.track('InitiateCheckout', {
-            content_ids: [PROGRAM_ID],
-            num_items: 1, value: 98, currency: 'EUR',
-          });
-        }
-
-        const origin = window.location.origin;
-        const res = await fetch(STRIPE_EDGE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            line_items: [{ price: STRIPE_PRICE_ID, quantity: 1 }],
-            locale: 'bg',
-            success_url: origin + '/remote.html?checkout=success&session_id={CHECKOUT_SESSION_ID}',
-            cancel_url:  origin + '/order/?checkout=cancel',
-            metadata: {
-              program_id: PROGRAM_ID,
-              customer_email: r.values.email,
-              buyer_name: r.values.name,
-              buyer_phone: r.values.phone,
-              fbp, fbc,
-              client_user_agent: navigator.userAgent.slice(0, 200),
-            },
-          }),
-        });
-        const data = await res.json();
-        if (data.url) {
-          // Snapshot for Purchase Pixel event on success page.
-          try {
-            localStorage.setItem('synrg_pre_checkout_cart', JSON.stringify([{
-              priceId: STRIPE_PRICE_ID, name_bg: 'SYNRG Метод', name_en: 'SYNRG Method',
-              price: 9800, currency: 'EUR', quantity: 1, program_id: PROGRAM_ID,
-            }]));
-          } catch {}
-          window.location.href = data.url;
-        } else {
-          showError(data.message || data.error || 'Не успяхме да започнем плащането. Опитай отново.');
-          disableButtons(false, payOnline, 'Плати с карта — €98');
-        }
-      } catch (err) {
-        console.error(err);
-        showError('Мрежова грешка. Опитай отново.');
-        disableButtons(false, payOnline, 'Плати с карта — €98');
+      if (nameBad || phoneBad || emailBad || addressBad) {
+        showError('Моля попълни всички задължителни полета.');
+        return;
       }
-    });
+      if (!consent) {
+        showError('Моля приеми Общите условия и Политиката за поверителност.');
+        return;
+      }
 
-    // ── CoD payment ────────────────────────────────────────────────────
-    payCod.addEventListener('click', async () => {
-      const r = readAndValidateForm(true /* address required */);
-      if (!r.ok) return;
+      submitBtn.disabled = true;
+      submitBtn.textContent = method === 'online' ? 'Подготвям плащането…' : 'Изпращам поръчката…';
 
-      disableButtons(true, payCod, 'Изпращам…');
-      const turnstileToken = await getTurnstileToken();
+      if (method === 'online') {
+        // ── Online → Stripe Checkout ────────────────────────────────
+        const fbp = (document.cookie.match(/(?:^|; )_fbp=([^;]+)/) || [])[1] || '';
+        const fbcCookie = (document.cookie.match(/(?:^|; )_fbc=([^;]+)/) || [])[1] || '';
+        const fbclid = new URLSearchParams(window.location.search).get('fbclid');
+        const fbc = fbcCookie || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : '');
 
-      try {
-        const res = await fetch(COD_EDGE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...r.values, turnstile_token: turnstileToken }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          showError(data.message || 'Не успяхме да приемем поръчката. Опитай отново.');
-          disableButtons(false, payCod, 'Наложен платеж — €98');
-          return;
-        }
-        successEmail.textContent = r.values.email;
-        orderCard.style.display = 'none';
-        successCard.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        if (window.synrgPixel) {
-          window.synrgPixel.track('Lead', {
-            content_name: 'SYNRG Метод CoD order',
-            value: 98, currency: 'EUR',
+        try {
+          if (window.synrgPixel) {
+            window.synrgPixel.track('InitiateCheckout', {
+              content_ids: [PROGRAM_ID], num_items: 1, value: 98, currency: 'EUR',
+            });
+          }
+          const origin = window.location.origin;
+          const res = await fetch(STRIPE_EDGE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              line_items: [{ price: STRIPE_PRICE_ID, quantity: 1 }],
+              locale: 'bg',
+              success_url: origin + '/remote.html?checkout=success&session_id={CHECKOUT_SESSION_ID}',
+              cancel_url:  origin + '/order/?checkout=cancel',
+              metadata: {
+                program_id: PROGRAM_ID,
+                customer_email: email,
+                buyer_name: name,
+                buyer_phone: phone,
+                fbp, fbc,
+                client_user_agent: navigator.userAgent.slice(0, 200),
+              },
+            }),
           });
+          const data = await res.json();
+          if (data.url) {
+            try {
+              localStorage.setItem('synrg_pre_checkout_cart', JSON.stringify([{
+                priceId: STRIPE_PRICE_ID, name_bg: 'SYNRG Метод', name_en: 'SYNRG Method',
+                price: 9800, currency: 'EUR', quantity: 1, program_id: PROGRAM_ID,
+              }]));
+            } catch {}
+            window.location.href = data.url;
+          } else {
+            showError(data.message || data.error || 'Не успяхме да започнем плащането. Опитай отново.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Поръчай — €98';
+          }
+        } catch (err) {
+          console.error(err);
+          showError('Мрежова грешка. Опитай отново.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Поръчай — €98';
         }
-      } catch (err) {
-        console.error(err);
-        showError('Мрежова грешка. Опитай отново.');
-        disableButtons(false, payCod, 'Наложен платеж — €98');
+      } else {
+        // ── CoD → create order ──────────────────────────────────────
+        const turnstileToken = await getTurnstileToken();
+        try {
+          const res = await fetch(COD_EDGE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, phone, email, address, turnstile_token: turnstileToken }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            showError(data.message || 'Не успяхме да приемем поръчката. Опитай отново.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Поръчай — €98';
+            return;
+          }
+          successEmail.textContent = email;
+          orderCard.style.display = 'none';
+          successCard.style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if (window.synrgPixel) {
+            window.synrgPixel.track('Lead', {
+              content_name: 'SYNRG Метод CoD order',
+              value: 98, currency: 'EUR',
+            });
+          }
+        } catch (err) {
+          console.error(err);
+          showError('Мрежова грешка. Опитай отново.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Поръчай — €98';
+        }
       }
     });
   </script>
