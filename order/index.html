@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d1510">
   <meta name="robots" content="noindex,nofollow">
-  <title>Поръчай с наложен платеж — SYNRG Метод</title>
+  <title>Поръчай — SYNRG Метод</title>
   <link rel="icon" href="/assets/favicon.ico">
   <style>
     @font-face { font-family: 'MontBlanc'; src: url('/fonts/MontBlanc-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
@@ -17,6 +17,8 @@
       --mint:         #c4e9bf;
       --mint-dim:     rgba(196,233,191,0.12);
       --mint-border:  rgba(196,233,191,0.24);
+      --logan:        #AAA9CD;
+      --logan-border: rgba(170,169,205,0.26);
       --cream:        #f0eded;
       --bg:           #0d1510;
       --surface:      #111c13;
@@ -60,16 +62,16 @@
     .sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
 
     .price-row {
-      display: flex; align-items: baseline; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 14px 16px;
       background: var(--surface-2);
       border-radius: 14px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       border: 1px solid var(--border);
     }
     .price-name { font-size: 13px; color: var(--muted); }
-    .price-amount { font-size: 22px; font-weight: 700; color: var(--mint); }
-    .price-note { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    .price-name strong { color: var(--cream); display: block; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .price-amount { font-size: 24px; font-weight: 700; color: var(--mint); }
 
     label { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 6px; letter-spacing: 0.3px; text-transform: uppercase; }
     .field { margin-bottom: 18px; }
@@ -87,7 +89,7 @@
     }
     input:focus, textarea:focus { border-color: var(--mint-border); }
     input.invalid, textarea.invalid { border-color: var(--danger); }
-    textarea { resize: vertical; min-height: 88px; font-family: inherit; }
+    textarea { resize: vertical; min-height: 84px; font-family: inherit; }
     .hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
     .field-error { font-size: 12px; color: var(--danger); margin-top: 4px; display: none; }
     .field-error.show { display: block; }
@@ -95,14 +97,27 @@
     .consent {
       display: flex; gap: 10px; align-items: flex-start;
       font-size: 12px; color: var(--muted);
-      margin: 8px 0 20px;
+      margin: 6px 0 22px;
       line-height: 1.5;
       cursor: pointer;
     }
     .consent input { margin-top: 3px; flex: 0 0 auto; accent-color: var(--mint); }
     .consent a { color: var(--mint); text-decoration: underline; }
 
-    button.submit {
+    .payment-section {
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+    .payment-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 14px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    button.pay-btn {
       width: 100%;
       padding: 16px;
       font-family: inherit;
@@ -110,27 +125,36 @@
       font-weight: 800;
       font-style: italic;
       letter-spacing: 0.3px;
-      background: var(--mint);
-      color: var(--bg);
       border: none;
       border-radius: 14px;
       cursor: pointer;
       transition: background 0.18s, transform 0.1s;
+      display: block;
+      margin-bottom: 12px;
     }
-    button.submit:hover:not(:disabled) { background: #aedba9; }
-    button.submit:disabled { opacity: 0.55; cursor: wait; }
-
-    .footnote { font-size: 11px; color: var(--muted); margin-top: 18px; text-align: center; line-height: 1.5; }
+    button.pay-btn:disabled { opacity: 0.55; cursor: wait; }
+    button.pay-btn.primary {
+      background: var(--mint);
+      color: var(--bg);
+    }
+    button.pay-btn.primary:hover:not(:disabled) { background: #aedba9; }
+    button.pay-btn.secondary {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid var(--logan-border);
+      font-style: normal;
+    }
+    button.pay-btn.secondary:hover:not(:disabled) { border-color: var(--logan); }
+    .pay-btn-note { font-size: 11px; color: var(--muted); margin-top: -6px; margin-bottom: 14px; line-height: 1.5; padding: 0 4px; }
 
     .alert { padding: 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
     .alert.error { background: rgba(255,118,118,0.1); border: 1px solid rgba(255,118,118,0.3); color: var(--danger); }
-    .alert.success { background: var(--mint-dim); border: 1px solid var(--mint-border); color: var(--mint); }
 
     .success-screen { display: none; text-align: center; }
     .success-screen .icon { width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; background: var(--mint-dim); display: flex; align-items: center; justify-content: center; }
     .success-screen h2 { font-size: 22px; font-style: italic; font-weight: 700; margin-bottom: 12px; }
-    .success-screen p { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
-    .success-screen .email-display { color: var(--cream); font-weight: 700; }
+    .success-screen p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .email-display { color: var(--cream); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -138,13 +162,13 @@
   <a href="/synrg-method.html" class="back-link">← Назад към програмата</a>
 
   <div class="card" id="orderCard">
-    <h1>Поръчай с наложен платеж</h1>
-    <p class="sub">SYNRG Метод · 8-седмична онлайн програма · Плащаш при получаване</p>
+    <h1>Поръчай SYNRG Метод</h1>
+    <p class="sub">8-седмична онлайн програма · Метод от двама лекари</p>
 
     <div class="price-row">
-      <div>
-        <div class="price-name">Общо</div>
-        <div class="price-note">Доставка до врата от Еконт</div>
+      <div class="price-name">
+        <strong>SYNRG Метод</strong>
+        Еднократно · 8 седмици
       </div>
       <div class="price-amount">€98</div>
     </div>
@@ -155,27 +179,27 @@
       <div class="field">
         <label for="name">Име и фамилия</label>
         <input type="text" id="name" name="name" required autocomplete="name" placeholder="напр. Мария Иванова">
-        <div class="hint">Това име ще използваш за вход в приложението след активация.</div>
+        <div class="hint">С това име ще влизаш в приложението.</div>
         <div class="field-error" id="err-name">Моля въведи име и фамилия.</div>
       </div>
 
       <div class="field">
         <label for="phone">Телефон</label>
         <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="0888 123 456" inputmode="tel">
-        <div class="hint">На този номер ще се обади куриерът.</div>
         <div class="field-error" id="err-phone">Невалиден български телефонен номер.</div>
       </div>
 
       <div class="field">
         <label for="email">Имейл</label>
         <input type="email" id="email" name="email" required autocomplete="email" placeholder="имейл@поща.com" inputmode="email">
-        <div class="hint">Внимавай — с този имейл ще активираш профила си, когато получиш картичката.</div>
+        <div class="hint">С този имейл ще активираш профила си.</div>
         <div class="field-error" id="err-email">Невалиден имейл адрес.</div>
       </div>
 
-      <div class="field">
+      <div class="field" id="addressField">
         <label for="address">Адрес за доставка</label>
-        <textarea id="address" name="address" required autocomplete="street-address" placeholder="Град, квартал, улица, номер, етаж, апартамент"></textarea>
+        <textarea id="address" name="address" autocomplete="street-address" placeholder="Град, квартал, улица, номер, етаж, апартамент"></textarea>
+        <div class="hint" id="addressHint">Нужен е само ако избереш наложен платеж.</div>
         <div class="field-error" id="err-address">Моля въведи пълен адрес за доставка.</div>
       </div>
 
@@ -186,10 +210,14 @@
         </span>
       </label>
 
-      <button type="submit" class="submit" id="submitBtn">Поръчай — €98 при доставка</button>
+      <div class="payment-section">
+        <div class="payment-title">Избери начин на плащане</div>
 
-      <div class="footnote">
-        Профилът ти ще се активира когато получиш пратката и сканираш QR кода от картичката.
+        <button type="button" class="pay-btn primary" id="payOnlineBtn">Плати с карта — €98</button>
+        <div class="pay-btn-note">Сигурно плащане през Stripe · профилът се активира веднага</div>
+
+        <button type="button" class="pay-btn secondary" id="payCodBtn">Наложен платеж — €98</button>
+        <div class="pay-btn-note">Плащаш на куриера на Еконт · профилът се активира когато получиш пратката (2-3 работни дни)</div>
       </div>
     </form>
   </div>
@@ -211,15 +239,19 @@
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <script>
-    const EDGE_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/create-cod-order';
+    const COD_EDGE_URL    = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/create-cod-order';
+    const STRIPE_EDGE_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/create-checkout-session';
     const TURNSTILE_SITE_KEY = '0x4AAAAAADEztvIQI3wSK9Pl';
+    const STRIPE_PRICE_ID = 'price_1TTHvwKVGaXBBpHh8daWQe5U';
+    const PROGRAM_ID = 'b83982f2-7d7c-4ede-b721-4d0e3642c8ed';
 
-    const form = document.getElementById('orderForm');
-    const alertBox = document.getElementById('formAlert');
-    const submitBtn = document.getElementById('submitBtn');
-    const orderCard = document.getElementById('orderCard');
+    const form        = document.getElementById('orderForm');
+    const alertBox    = document.getElementById('formAlert');
+    const payOnline   = document.getElementById('payOnlineBtn');
+    const payCod      = document.getElementById('payCodBtn');
+    const orderCard   = document.getElementById('orderCard');
     const successCard = document.getElementById('successCard');
-    const successEmail = document.getElementById('successEmail');
+    const successEmail= document.getElementById('successEmail');
 
     function showError(msg) {
       alertBox.innerHTML = '<div class="alert error">' + msg + '</div>';
@@ -229,7 +261,8 @@
 
     function setFieldError(field, show) {
       const input = document.getElementById(field);
-      const err = document.getElementById('err-' + field);
+      const err   = document.getElementById('err-' + field);
+      if (!input || !err) return;
       if (show) { input.classList.add('invalid'); err.classList.add('show'); }
       else      { input.classList.remove('invalid'); err.classList.remove('show'); }
     }
@@ -242,6 +275,35 @@
       else if (body.startsWith('359'))   body = body.slice(3);
       else if (body.startsWith('0'))     body = body.slice(1);
       return /^[89]\d{8}$/.test(body);
+    }
+
+    // Returns {ok, values} with normalized form values, or {ok:false} after showing errors.
+    function readAndValidateForm(requireAddress) {
+      clearError();
+      const name    = document.getElementById('name').value.trim();
+      const phone   = document.getElementById('phone').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const consent = document.getElementById('consent').checked;
+
+      let ok = true;
+      const nameBad    = !name || name.length < 3;
+      const phoneBad   = !validateBgPhone(phone);
+      const emailBad   = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const addressBad = requireAddress && (!address || address.length < 10);
+
+      setFieldError('name',    nameBad);
+      setFieldError('phone',   phoneBad);
+      setFieldError('email',   emailBad);
+      setFieldError('address', addressBad);
+
+      if (nameBad || phoneBad || emailBad || addressBad) ok = false;
+      if (!consent) {
+        showError('Моля приеми Общите условия и Политиката за поверителност.');
+        return { ok: false };
+      }
+      if (!ok) return { ok: false };
+      return { ok: true, values: { name, phone, email, address } };
     }
 
     async function getTurnstileToken() {
@@ -257,76 +319,114 @@
             callback: (token) => resolve(token),
             'error-callback': () => resolve(null),
           });
-          // Hard timeout to avoid hanging the submit forever.
           setTimeout(() => resolve(null), 5000);
         } catch { resolve(null); }
       });
     }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      clearError();
+    function disableButtons(disabled, busyBtn, label) {
+      payOnline.disabled = disabled;
+      payCod.disabled = disabled;
+      if (busyBtn) busyBtn.textContent = label;
+    }
 
-      const name    = document.getElementById('name').value.trim();
-      const phone   = document.getElementById('phone').value.trim();
-      const email   = document.getElementById('email').value.trim();
-      const address = document.getElementById('address').value.trim();
-      const consent = document.getElementById('consent').checked;
+    // ── Online (Stripe) payment ───────────────────────────────────────
+    payOnline.addEventListener('click', async () => {
+      const r = readAndValidateForm(false /* address not required */);
+      if (!r.ok) return;
 
-      let ok = true;
-      setFieldError('name',    !name || name.length < 3);
-      setFieldError('phone',   !validateBgPhone(phone));
-      setFieldError('email',   !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
-      setFieldError('address', !address || address.length < 10);
-      if (!name || name.length < 3) ok = false;
-      if (!validateBgPhone(phone)) ok = false;
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) ok = false;
-      if (!address || address.length < 10) ok = false;
-      if (!consent) {
-        showError('Моля приеми Общите условия и Политиката за поверителност.');
-        return;
+      disableButtons(true, payOnline, 'Подготвям…');
+
+      // Capture Meta Pixel tracking cookies for CAPI dedup.
+      const fbp = (document.cookie.match(/(?:^|; )_fbp=([^;]+)/) || [])[1] || '';
+      const fbcCookie = (document.cookie.match(/(?:^|; )_fbc=([^;]+)/) || [])[1] || '';
+      const fbclid = new URLSearchParams(window.location.search).get('fbclid');
+      const fbc = fbcCookie || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : '');
+
+      try {
+        // Pixel: InitiateCheckout
+        if (window.synrgPixel) {
+          window.synrgPixel.track('InitiateCheckout', {
+            content_ids: [PROGRAM_ID],
+            num_items: 1, value: 98, currency: 'EUR',
+          });
+        }
+
+        const origin = window.location.origin;
+        const res = await fetch(STRIPE_EDGE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            line_items: [{ price: STRIPE_PRICE_ID, quantity: 1 }],
+            locale: 'bg',
+            success_url: origin + '/remote.html?checkout=success&session_id={CHECKOUT_SESSION_ID}',
+            cancel_url:  origin + '/order/?checkout=cancel',
+            metadata: {
+              program_id: PROGRAM_ID,
+              customer_email: r.values.email,
+              buyer_name: r.values.name,
+              buyer_phone: r.values.phone,
+              fbp, fbc,
+              client_user_agent: navigator.userAgent.slice(0, 200),
+            },
+          }),
+        });
+        const data = await res.json();
+        if (data.url) {
+          // Snapshot for Purchase Pixel event on success page.
+          try {
+            localStorage.setItem('synrg_pre_checkout_cart', JSON.stringify([{
+              priceId: STRIPE_PRICE_ID, name_bg: 'SYNRG Метод', name_en: 'SYNRG Method',
+              price: 9800, currency: 'EUR', quantity: 1, program_id: PROGRAM_ID,
+            }]));
+          } catch {}
+          window.location.href = data.url;
+        } else {
+          showError(data.message || data.error || 'Не успяхме да започнем плащането. Опитай отново.');
+          disableButtons(false, payOnline, 'Плати с карта — €98');
+        }
+      } catch (err) {
+        console.error(err);
+        showError('Мрежова грешка. Опитай отново.');
+        disableButtons(false, payOnline, 'Плати с карта — €98');
       }
-      if (!ok) return;
+    });
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Изпращам…';
+    // ── CoD payment ────────────────────────────────────────────────────
+    payCod.addEventListener('click', async () => {
+      const r = readAndValidateForm(true /* address required */);
+      if (!r.ok) return;
 
+      disableButtons(true, payCod, 'Изпращам…');
       const turnstileToken = await getTurnstileToken();
 
       try {
-        const res = await fetch(EDGE_URL, {
+        const res = await fetch(COD_EDGE_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, phone, email, address, turnstile_token: turnstileToken }),
+          body: JSON.stringify({ ...r.values, turnstile_token: turnstileToken }),
         });
         const data = await res.json();
         if (!res.ok) {
           showError(data.message || 'Не успяхме да приемем поръчката. Опитай отново.');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Поръчай — €98 при доставка';
+          disableButtons(false, payCod, 'Наложен платеж — €98');
           return;
         }
-        // Success — swap to success screen.
-        successEmail.textContent = email;
+        successEmail.textContent = r.values.email;
         orderCard.style.display = 'none';
         successCard.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Meta Pixel: Purchase intent — fire only with marketing consent.
-        try {
-          if (window.synrgPixel) {
-            window.synrgPixel.track('Lead', {
-              content_name: 'SYNRG Метод CoD order',
-              value: 98,
-              currency: 'EUR',
-            });
-          }
-        } catch {}
+        if (window.synrgPixel) {
+          window.synrgPixel.track('Lead', {
+            content_name: 'SYNRG Метод CoD order',
+            value: 98, currency: 'EUR',
+          });
+        }
       } catch (err) {
         console.error(err);
-        showError('Мрежова грешка. Провери връзката си с интернет и опитай отново.');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Поръчай — €98 при доставка';
+        showError('Мрежова грешка. Опитай отново.');
+        disableButtons(false, payCod, 'Наложен платеж — €98');
       }
     });
   </script>

@@ -778,18 +778,10 @@
       <p class="pricing-desc" data-bg="Еднократно плащане · 8 седмици пълен достъп · след това безплатен freemium завинаги" data-en="One-time payment · 8 weeks full access · then free freemium forever">
         Еднократно плащане · 8 седмици пълен достъп · след това безплатен freemium завинаги
       </p>
-      <button class="btn btn-primary buy-btn" id="main-buy-btn" data-bg="Плати онлайн — €98 →" data-en="Pay online — €98 →">Плати онлайн — €98 →</button>
-      <p class="pricing-fine" data-bg="Сигурно плащане през Stripe · достъпът се активира веднага" data-en="Secure Stripe payment · access activates instantly">
-        Сигурно плащане през Stripe · достъпът се активира веднага
+      <a href="/order" class="btn btn-primary" id="main-buy-btn" data-bg="Купи сега →" data-en="Buy now →">Купи сега →</a>
+      <p class="pricing-fine" data-bg="Плащане с карта или наложен платеж · избираш на следващата стъпка" data-en="Card or cash on delivery · choose on next step">
+        Плащане с карта или наложен платеж · избираш на следващата стъпка
       </p>
-      <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
-        <a href="/order" class="btn btn-ghost" style="width:100%;justify-content:center;" data-bg="Поръчай с наложен платеж" data-en="Order — pay on delivery">
-          Поръчай с наложен платеж
-        </a>
-        <p class="pricing-fine" style="margin-top:10px;" data-bg="Доставка до врата от Еконт · плащаш на куриера · профилът се активира когато получиш пратката" data-en="Door delivery via Econt · pay the courier · account activates when you receive the postcard">
-          Доставка до врата от Еконт · плащаш на куриера · профилът се активира когато получиш пратката
-        </p>
-      </div>
       <p class="pricing-fine" style="opacity:0.6;font-size:10px;margin-top:8px;" data-bg="Цената е крайна, в евро. Синерджи 93 ООД не е регистрирано по ЗДДС." data-en="Final price in EUR. Sinerji 93 Ltd is not VAT-registered.">
         Цената е крайна, в евро. Синерджи 93 ООД не е регистрирано по ЗДДС.
       </p>
@@ -942,7 +934,7 @@
       <div class="final-cta-amount"><span class="currency">€</span>98 <span class="final-cta-old">€207</span></div>
       <div class="final-cta-terms" data-bg="8 седмици · еднократно · €1.75 на ден" data-en="8 weeks · one-time · €1.75 per day">8 седмици · еднократно · €1.75 на ден</div>
     </div>
-    <button class="btn btn-primary buy-btn" id="footer-buy-btn" style="font-size:15px;padding:14px 28px;" data-bg="Започни SYNRG Метод →" data-en="Start SYNRG Method →">Започни SYNRG Метод →</button>
+    <a href="/order" class="btn btn-primary" id="footer-buy-btn" style="font-size:15px;padding:14px 28px;" data-bg="Започни SYNRG Метод →" data-en="Start SYNRG Method →">Започни SYNRG Метод →</a>
     <p class="final-cta-urgency" data-bg="Първите 100 клиента. Местата са ограничени." data-en="First 100 customers. Spots are limited.">
       Първите 100 клиента. Местата са ограничени.
     </p>
@@ -989,21 +981,9 @@
     navbar.classList.toggle('scrolled', window.scrollY > 40)
   }, { passive: true })
 
-  // Buy buttons → add to cart + open cart drawer
-  function buyNow() {
-    const programId = 'b83982f2-7d7c-4ede-b721-4d0e3642c8ed'
-    const priceId = 'price_1TTHvwKVGaXBBpHh8daWQe5U'
-    if (typeof addToCart === 'function') {
-      // cart.js signature: addToCart(priceId, nameBg, nameEn, price, currency, programId)
-      addToCart(priceId, 'SYNRG Метод', 'SYNRG Method', 9800, 'EUR', programId)
-      // addToCart() already opens the cart drawer internally
-    } else {
-      // Fallback — go to cart page
-      window.location.href = 'pricing.html#programs'
-    }
-  }
-  document.getElementById('main-buy-btn').addEventListener('click', buyNow)
-  document.getElementById('footer-buy-btn').addEventListener('click', buyNow)
+  // Buy buttons now navigate to /order (unified checkout page). No JS needed —
+  // the anchors carry href="/order". This block previously called addToCart and
+  // opened the cart drawer for direct Stripe checkout; kept removed for clarity.
 
   // Meta Pixel: ViewContent on product landing (fires after consent)
   window.addEventListener('load', function () {
