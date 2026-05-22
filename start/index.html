@@ -175,7 +175,7 @@
     </form>
 
     <div class="footnote">
-      Получаваш съобщение „Не намираме поръчка"? Провери дали имейлът е същият, който написа при поръчката. Ако все още не работи — Viber: <strong>0888 XXX XXX</strong>
+      При невъзможност се свържи с нашия съпорт на <a href="mailto:info@synrg-beyondfitness.com" style="color:var(--muted);text-decoration:underline">info@synrg-beyondfitness.com</a>
     </div>
   </div>
 
@@ -207,7 +207,9 @@
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <script>
-    const EDGE_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/activate-cod-order';
+    const EDGE_URL       = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/activate-cod-order';
+    const LOGIN_EDGE_URL = 'https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/auth-login';
+    const APP_URL        = 'https://synrg-beyondfitness.com/app/';
     const TURNSTILE_SITE_KEY = '0x4AAAAAADEztvIQI3wSK9Pl';
 
     const form = document.getElementById('activateForm');
@@ -291,7 +293,32 @@
           }
           return;
         }
-        // Success
+        // Success — auto-login so they land directly in the app
+        try {
+          const loginRes = await fetch(LOGIN_EDGE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: data.login_name, password }),
+          });
+          if (loginRes.ok) {
+            const loginData = await loginRes.json();
+            if (loginData.ok && loginData.client) {
+              const c = loginData.client;
+              const authObj = {
+                isLoggedIn: true,
+                role: c.is_coach ? 'coach' : 'client',
+                name: c.name,
+                id: c.id,
+                modules: c.modules || [],
+              };
+              localStorage.setItem('synrg_auth', JSON.stringify(authObj));
+              window.location.href = APP_URL;
+              return;
+            }
+          }
+        } catch (_) { /* auto-login failed — fall through to success screen */ }
+
+        // Fallback: show success screen with credentials
         document.getElementById('loginNameVal').textContent = data.login_name || '—';
         if (data.coach_name) {
           document.getElementById('coachName').textContent = data.coach_name;
