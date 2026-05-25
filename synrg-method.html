@@ -420,6 +420,22 @@
     .review-form-msg.error { color: #e05252; }
     .review-form-fine { font-size: 12px; color: var(--muted); margin-top: 8px; font-style: italic; }
 
+    /* How it works — flow */
+    .how-flow { max-width: 480px; }
+    .how-flow-item { padding: 20px 24px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-lg); transition: border-color 0.25s var(--ease); }
+    .how-flow-item:hover { border-color: var(--mint-border); }
+    .how-flow-item-start { background: var(--mint-dim); border-color: var(--mint-border); }
+    .how-flow-tag { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mint); margin-bottom: 8px; }
+    .how-flow-title { font-size: 19px; font-style: italic; font-weight: 700; color: var(--cream); line-height: 1.2; }
+    .how-flow-sub { font-size: 13px; color: var(--mint); font-weight: 700; margin-top: 4px; }
+    .how-flow-arrow { padding: 6px 0 6px 20px; color: var(--mint-border); font-size: 20px; line-height: 1; }
+
+    /* Team why list */
+    .team-why-list { list-style: none; margin: 0 auto 20px; max-width: 640px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+    .team-why-list li { padding: 10px 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; color: var(--cream); font-weight: 600; display: flex; align-items: center; gap: 10px; }
+    .team-why-list li::before { content: '—'; color: var(--mint); font-weight: 800; flex-shrink: 0; }
+    .team-why-footer { font-size: 16px; font-style: italic; font-weight: 700; color: var(--cream); max-width: 640px; margin: 0 auto 56px; }
+
     /* Footer */
     footer { border-top: 1px solid var(--border); padding: 40px 0 32px; }
     .footer-main { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
@@ -463,13 +479,12 @@
   <div class="container">
     <div class="hero-grid">
       <div>
-        <span class="hero-overline" data-bg="SYNRG МЕТОД · 8 СЕДМИЦИ · ОНЛАЙН ПРОГРАМА" data-en="SYNRG METHOD · 8 WEEKS · ONLINE PROGRAM">SYNRG МЕТОД · 8 СЕДМИЦИ · ОНЛАЙН ПРОГРАМА</span>
         <h1 class="hero-title">
-          <span data-bg="€1.75 и 5 минути на ден —" data-en="€1.75 and 5 minutes a day —">€1.75 и 5 минути на ден —</span><br>
-          <span class="accent" data-bg="за да влезеш във форма." data-en="to get in shape.">за да влезеш във форма.</span>
+          <span data-bg="Повечето хора следват чужд режим." data-en="Most people follow someone else's plan.">Повечето хора следват чужд режим.</span><br>
+          <span class="accent" data-bg="Затова не издържат." data-en="That's why they don't last.">Затова не издържат.</span>
         </h1>
         <p class="hero-sub">
-          <span class="hero-sub-key" data-bg="<b>56-дневен метод от двама лекари, треньори.</b> За заети хора, които не искат да пазят диети. Работи, защото е изпълнимо." data-en="<b>56-day method by two doctors, coaches.</b> For busy people who don't want to follow diets. It works because it's doable."><b>56-дневен метод от двама лекари, треньори.</b> За заети хора, които не искат да пазят диети. Работи, защото е изпълнимо.</span>
+          <span class="hero-sub-key" data-bg="SYNRG Method ти показва как да отслабваш според собствения си живот — без диети, без специални менюта." data-en="SYNRG Method shows you how to lose weight on your own terms — no diets, no special menus.">SYNRG Method ти показва как да отслабваш според собствения си живот — без диети, без специални менюта.</span>
         </p>
         <div class="hero-cta-row">
           <a href="#pricing" class="btn btn-primary" data-bg="Започни →" data-en="Start →">Започни →</a>
@@ -490,7 +505,7 @@
         <div class="hero-trust">
           <div>
             <strong data-bg="5.0 ★" data-en="5.0 ★">5.0 ★</strong>
-            <span data-bg="от реални отзиви" data-en="from real reviews">от реални отзиви</span>
+            <span data-bg="от студио и онлайн клиенти" data-en="from studio and online clients">от студио и онлайн клиенти</span>
           </div>
           <div>
             <strong data-bg="Метод от лекари-треньори" data-en="Method by doctor-coaches">Метод от лекари-треньори</strong>
@@ -578,8 +593,8 @@
       <div class="persona">
         <div class="persona-icon">🧠</div>
         <h3 data-bg="Не искаш още един провал" data-en="You don't want another failure">Не искаш още един провал</h3>
-        <p data-bg="Не „минус 8 кг за месец“. Не глад. Не забрани, които ще се счупят на първото семейно хранене. Искаш система за хранене — за да не се връщаш на тази позиция след половин година." data-en="Not 'lose 8kg in a month'. No starvation. No rules that break at the first family dinner. You want a system for eating — so you don't end up here again in six months.">
-          Не „минус 8 кг за месец“. Не глад. Не забрани, които ще се счупят на първото семейно хранене. Искаш система за хранене — за да не се връщаш на тази позиция след половин година.
+        <p data-bg="Не „минус 8 кг за месец". Не глад. Не забрани, които ще се счупят на първото семейно хранене. Искаш система за хранене — за да не се връщаш на тази позиция след половин година." data-en="Not 'lose 8kg in a month'. No starvation. No rules that break at the first family dinner. You want a system for eating — so you don't end up here again in six months.">
+          Не „минус 8 кг за месец". Не глад. Не забрани, които ще се счупят на първото семейно хранене. Искаш система за хранене — за да не се връщаш на тази позиция след половин година.
         </p>
       </div>
     </div>
@@ -637,49 +652,30 @@
 <section class="block" id="how">
   <div class="container">
     <span class="section-overline" data-bg="КАК РАБОТИ" data-en="HOW IT WORKS">КАК РАБОТИ</span>
-    <h2 class="section-title" data-bg="Стъпка по стъпка през 8 седмици" data-en="Step by step over 8 weeks">
-      Стъпка по стъпка през 8 седмици
-    </h2>
-    <div class="timeline">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div>
-          <div class="step-week" data-bg="Седмица 1-2" data-en="Week 1-2">Седмица 1-2</div>
-          <h4 data-bg="Първи стъпки и реална картина" data-en="First steps and a real picture">Първи стъпки и реална картина</h4>
-          <p data-bg="Стартиране без насилване. Преглед на сегашния начин на живот — без оценки, без срам. Поставяне на реалистични цели и активиране на първите 2-3 микро-навика. Не се очаква перфектност." data-en="A start without forcing. A review of the current way of life — no judgement, no shame. Realistic goals and the first 2-3 micro-habits get activated. Perfection is not expected.">
-            Стартиране без насилване. Преглед на сегашния начин на живот — без оценки, без срам. Поставяне на реалистични цели и активиране на първите 2-3 микро-навика. Не се очаква перфектност.
-          </p>
-        </div>
+    <div class="how-flow">
+      <div class="how-flow-item how-flow-item-start">
+        <div class="how-flow-tag" data-bg="Ден 1" data-en="Day 1">Ден 1</div>
+        <div class="how-flow-title" data-bg="Кратък въпросник" data-en="Short questionnaire">Кратък въпросник</div>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div>
-          <div class="step-week" data-bg="Седмица 3-5" data-en="Week 3-5">Седмица 3-5</div>
-          <h4 data-bg="Тялото започва да се променя" data-en="The body starts to change">Тялото започва да се променя</h4>
-          <p data-bg="Навиците стават автоматични. Първите килограми падат, дрехите стоят по-добре, повече енергия следобед. Прогресът е видим в трекера. Менторът е насреща, ако нещо не върви." data-en="Habits become automatic. First kilos drop, clothes fit better, more afternoon energy. Progress is visible in the tracker. The mentor is available if something isn't going right.">
-            Навиците стават автоматични. Първите килограми падат, дрехите стоят по-добре, повече енергия следобед. Прогресът е видим в трекера. Менторът е насреща, ако нещо не върви.
-          </p>
-        </div>
+      <div class="how-flow-arrow">↓</div>
+      <div class="how-flow-item">
+        <div class="how-flow-title" data-bg="Получаваш план и стъпки" data-en="You get a plan and steps">Получаваш план и стъпки</div>
+        <div class="how-flow-sub" data-bg="Не готов режим" data-en="Not a preset plan">Не готов режим</div>
       </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div>
-          <div class="step-week" data-bg="Седмица 6-7" data-en="Week 6-7">Седмица 6-7</div>
-          <h4 data-bg="Затвърждаване и тестове" data-en="Consolidation and tests">Затвърждаване и тестове</h4>
-          <p data-bg="Тестване на системата в реални ситуации — семейно хранене, ресторант, стресов ден. Не „ще се прибера от ваканцията 5 кг отгоре“. Учене как да живееш нормално и да задържаш резултата." data-en="Testing the system in real situations — family dinners, restaurants, stressful days. No more 'I'll come back from vacation 5 kg heavier'. Learning how to live normally and keep the result.">
-            Тестване на системата в реални ситуации — семейно хранене, ресторант, стресов ден. Не „ще се прибера от ваканцията 5 кг отгоре“. Учене как да живееш нормално и да задържаш резултата.
-          </p>
-        </div>
+      <div class="how-flow-arrow">↓</div>
+      <div class="how-flow-item">
+        <div class="how-flow-title" data-bg="Следиш прости стъпки" data-en="You track simple steps">Следиш прости стъпки</div>
+        <div class="how-flow-sub" data-bg="Всяка седмица, в приложението" data-en="Every week, in the app">Всяка седмица, в приложението</div>
       </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div>
-          <div class="step-week" data-bg="Седмица 8" data-en="Week 8">Седмица 8</div>
-          <h4 data-bg="Готов за следващото ниво" data-en="Ready for the next level">Готов за следващото ниво</h4>
-          <p data-bg="Финални progress photos. Сравнение преди-след — не само в килограмите, но и в енергията, съня, увереността. Време за следващото — каквото и да е то." data-en="Final progress photos. Before/after — not only in kilos, but in energy, sleep, confidence. Time for whatever's next.">
-            Финални progress photos. Сравнение преди-след — не само в килограмите, но и в енергията, съня, увереността. Време за следващото — каквото и да е то.
-          </p>
-        </div>
+      <div class="how-flow-arrow">↓</div>
+      <div class="how-flow-item">
+        <div class="how-flow-title" data-bg="Получаваш обратна връзка" data-en="You get feedback">Получаваш обратна връзка</div>
+        <div class="how-flow-sub" data-bg="Достъп до личен треньор за въпроси" data-en="Access to a personal trainer for questions">Достъп до личен треньор за въпроси</div>
+      </div>
+      <div class="how-flow-arrow">↓</div>
+      <div class="how-flow-item">
+        <div class="how-flow-title" data-bg="Изграждаш система" data-en="You build a system">Изграждаш система</div>
+        <div class="how-flow-sub" data-bg="Вместо временна диета" data-en="Instead of a temporary diet">Вместо временна диета</div>
       </div>
     </div>
   </div>
@@ -696,13 +692,13 @@
       8-седмична онлайн програма с личен ментор. Достъп през приложението — мобилно (iOS + Android) и десктоп.
     </p>
     <div class="included">
-      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="8 седмици мениториран процес с ясен план седмица по седмица" data-en="8 weeks of mentored progress with a clear week-by-week plan">8 седмици мениториран процес с ясен план седмица по седмица</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="8 седмици в лесен за следване процес" data-en="8 weeks in an easy-to-follow process">8 седмици в лесен за следване процес</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Adaptive домашни тренировки — от bodyweight до напреднало, без оборудване" data-en="Adaptive home workouts — from bodyweight to advanced, no equipment">Adaptive домашни тренировки — от bodyweight до напреднало, без оборудване</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Метод от 15 навика, изграден от лекари" data-en="A method of 15 habits, built by doctors">Метод от 15 навика, изграден от лекари</div></div>
-      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Личен ментор-лекар в чата + 2 check-in сесии месечно" data-en="Personal doctor-mentor in chat + 2 check-in sessions per month">Личен ментор-лекар в чата + 2 check-in сесии месечно</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Личен ментор в чата + 2 check-in сесии месечно" data-en="Personal mentor in chat + 2 check-in sessions per month">Личен ментор в чата + 2 check-in сесии месечно</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Над 50 български рецепти и meal-шаблони" data-en="Over 50 Bulgarian recipes and meal templates">Над 50 български рецепти и meal-шаблони</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="AI калориен брояч от снимка — снимаш чинията, получаваш макроси" data-en="AI calorie counter from photo — snap the plate, get macros">AI калориен брояч от снимка — снимаш чинията, получаваш макроси</div></div>
-      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Трекери: тегло, храна, стъпки, тренировки + лични дневни цели" data-en="Trackers: weight, food, steps, workouts + personal daily goals">Трекери: тегло, храна, стъпки, тренировки + лични дневни цели</div></div>
+      <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Тракери: тегло, храна, стъпки, тренировки + лични дневни цели" data-en="Trackers: weight, food, steps, workouts + personal daily goals">Тракери: тегло, храна, стъпки, тренировки + лични дневни цели</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="Достъп до затворена общност от хора в програмата" data-en="Access to a closed community of people in the program">Достъп до затворена общност от хора в програмата</div></div>
       <div class="incl-item"><div class="incl-check">✓</div><div class="incl-text" data-bg="След 8-те седмици: безплатен freemium достъп завинаги" data-en="After the 8 weeks: free freemium access forever">След 8-те седмици: безплатен freemium достъп завинаги</div></div>
     </div>
@@ -713,12 +709,19 @@
 <section class="block" id="team-method">
   <div class="container" style="text-align:center;">
     <span class="section-overline" data-bg="ЕКИПЪТ ЗАД МЕТОДА" data-en="THE TEAM BEHIND IT">ЕКИПЪТ ЗАД МЕТОДА</span>
-    <h2 class="section-title" style="margin-left:auto;margin-right:auto;" data-bg="Лекари, не маркетолози" data-en="Doctors, not marketers">
-      Лекари, не маркетолози
+    <h2 class="section-title" style="margin-left:auto;margin-right:auto;" data-bg="Създаден от лекари и треньори" data-en="Built by doctors and coaches">
+      Създаден от лекари и треньори
     </h2>
-    <p class="section-sub" style="margin-left:auto;margin-right:auto;" data-bg="Зад простотата на SYNRG Метод стои екип с медицинско образование. Това не е поредната онлайн концепция — това е дисциплина, изградена от хора, които я живеят всеки ден в студиото във Варна." data-en="Behind the simplicity of SYNRG Method stands a team with medical education. This is not yet another online concept — it is a discipline built by people who live it every day at the studio in Varna.">
-      Зад простотата на SYNRG Метод стои екип с медицинско образование. Това не е поредната онлайн концепция — това е дисциплина, изградена от хора, които я живеят всеки ден в студиото във Варна.
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;margin-bottom:16px;" data-bg="Не инфлуенсъри. Не фитнес гурута. Всеки ден работим с хора, които:" data-en="Not influencers. Not fitness gurus. Every day we work with people who:">
+      Не инфлуенсъри. Не фитнес гурута.<br>Всеки ден работим с хора, които:
     </p>
+    <ul class="team-why-list">
+      <li data-bg="не могат да пазят диети" data-en="can't follow diets">не могат да пазят диети</li>
+      <li data-bg="имат подуване" data-en="have bloating">имат подуване</li>
+      <li data-bg="имат проблем с теглото" data-en="have weight issues">имат проблем с теглото</li>
+      <li data-bg="започват и спират отново" data-en="keep starting and stopping">започват и спират отново</li>
+    </ul>
+    <p class="team-why-footer" data-bg="Оттам е роден методът." data-en="That's where the method was born.">Оттам е роден методът.</p>
 
     <div class="team-method-grid">
       <article class="team-method-card" style="text-align:left;">
@@ -878,8 +881,8 @@
           <span data-bg="Имам алергия или специфично хранене. Ще работи ли?" data-en="I have an allergy or specific eating needs. Will it work?">Имам алергия или специфично хранене. Ще работи ли?</span>
           <span class="arrow">▼</span>
         </button>
-        <div class="faq-a" data-bg="Да. Системата е изградена около навици, не около меню — затова работи за вегетарианец, веган, без глутен/лактоза, диабет, IBS. На първия check-in казваш ограниченията си; правилата се прилагат върху твоя начин на хранене, а не върху „универсална диета“. При въпрос — менторът е на разположение." data-en="Yes. The system is built around habits, not a menu — so it works for vegetarians, vegans, gluten/dairy-free, diabetes, IBS. On the first check-in you share your limitations; the rules apply to how you actually eat, not to a 'universal diet'. When questions come up — your mentor is there.">
-          Да. Системата е изградена около навици, не около меню — затова работи за вегетарианец, веган, без глутен/лактоза, диабет, IBS. На първия check-in казваш ограниченията си; правилата се прилагат върху твоя начин на хранене, а не върху „универсална диета“. При въпрос — менторът е на разположение.
+        <div class="faq-a" data-bg="Да. Системата е изградена около навици, не около меню — затова работи за вегетарианец, веган, без глутен/лактоза, диабет, IBS. На първия check-in казваш ограниченията си; правилата се прилагат върху твоя начин на хранене, а не върху „универсална диета". При въпрос — менторът е на разположение." data-en="Yes. The system is built around habits, not a menu — so it works for vegetarians, vegans, gluten/dairy-free, diabetes, IBS. On the first check-in you share your limitations; the rules apply to how you actually eat, not to a 'universal diet'. When questions come up — your mentor is there.">
+          Да. Системата е изградена около навици, не около меню — затова работи за вегетарианец, веган, без глутен/лактоза, диабет, IBS. На първия check-in казваш ограниченията си; правилата се прилагат върху твоя начин на хранене, а не върху „универсална диета". При въпрос — менторът е на разположение.
         </div>
       </div>
       <div class="faq-item">
