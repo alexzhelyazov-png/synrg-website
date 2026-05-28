@@ -95,6 +95,20 @@
     .hero-sub { font-size: clamp(16px, 1.8vw, 19px); color: var(--muted); line-height: 1.6; margin-bottom: 32px; max-width: 540px; }
     .hero-tagline { font-size: clamp(15px, 1.6vw, 18px); font-weight: 700; color: var(--mint); letter-spacing: 0.02em; margin-bottom: 24px; font-style: italic; }
 
+    /* Stand-behind + guarantee */
+    #stand-behind { padding: 56px 0; border-top: 1px solid var(--border); }
+    .stand-behind-card { max-width: 760px; margin: 0 auto; text-align: center; padding: 36px 32px; background: rgba(170,169,205,0.05); border: 1px solid var(--logan); border-radius: var(--radius-lg); }
+    .stand-behind-text { font-size: clamp(18px, 2.2vw, 24px); font-weight: 700; font-style: italic; color: var(--cream); line-height: 1.35; margin: 0 0 24px; }
+    .stand-behind-guarantee { display: inline-flex; align-items: center; gap: 14px; padding: 14px 22px; background: var(--mint-dim); border: 1px solid var(--mint-border); border-radius: 14px; text-align: left; }
+    .stand-behind-guarantee .sb-check { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--mint); color: var(--bg); font-size: 16px; font-weight: 800; flex-shrink: 0; }
+    .stand-behind-guarantee .sb-text { display: flex; flex-direction: column; gap: 2px; }
+    .stand-behind-guarantee .sb-text strong { font-size: 13.5px; font-weight: 800; color: var(--mint); letter-spacing: 0.04em; }
+    .stand-behind-guarantee .sb-text span { font-size: 13px; font-weight: 600; color: var(--cream); }
+    @media (max-width: 560px) {
+      .stand-behind-card { padding: 28px 20px; }
+      .stand-behind-guarantee { width: 100%; }
+    }
+
     /* Offer summary (между hero и why-not-worked) */
     #offer-summary { padding: 72px 0 56px; border-top: 1px solid var(--border); background: var(--surface); }
     .offer-core-row { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 8px 0 36px; }
@@ -758,6 +772,24 @@
         <img src="images/vivy.jpg" alt="Виви" loading="lazy" />
         <div class="team-method-mini-name">Виви</div>
         <div class="team-method-mini-role" data-bg="Физиотерапевт" data-en="Physiotherapist">ФИЗИОТЕРАПЕВТ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stand-behind + guarantee band -->
+<section id="stand-behind">
+  <div class="container">
+    <div class="stand-behind-card">
+      <p class="stand-behind-text" data-bg="Екипът на SYNRG застава с името и лицето си зад метода — защото работи." data-en="The SYNRG team stands behind the method with our names and faces — because it works.">
+        Екипът на SYNRG застава с името и лицето си зад метода — защото работи.
+      </p>
+      <div class="stand-behind-guarantee">
+        <span class="sb-check" aria-hidden="true">✓</span>
+        <div class="sb-text">
+          <strong data-bg="100% гаранция за връщане на парите" data-en="100% money-back guarantee">100% гаранция за връщане на парите</strong>
+          <span data-bg="Следваш метода и не си доволен — връщаме всичко." data-en="You follow the method and you're not satisfied — we refund everything.">Следваш метода и не си доволен — връщаме всичко.</span>
+        </div>
       </div>
     </div>
   </div>
