@@ -96,6 +96,18 @@
     .hero-sub { font-size: clamp(16px, 1.8vw, 19px); color: var(--muted); line-height: 1.6; margin-bottom: 32px; max-width: 540px; }
     .hero-tagline { font-size: clamp(13px, 1.4vw, 15px); font-weight: 600; color: var(--logan); letter-spacing: 0.02em; margin-bottom: 24px; font-style: italic; }
 
+    /* Who is SYNRG */
+    .synrg-stats { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+    .synrg-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 140px; padding: 20px 18px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+    .synrg-stat strong { font-size: 36px; font-weight: 800; font-style: italic; color: var(--mint); line-height: 1; letter-spacing: -0.02em; }
+    .synrg-stat span { font-size: 13px; color: var(--muted); font-weight: 600; text-align: center; line-height: 1.35; }
+    @media (max-width: 560px) {
+      .synrg-stats { gap: 14px; }
+      .synrg-stat { min-width: 0; flex: 1 1 calc(50% - 7px); padding: 16px 12px; }
+      .synrg-stat strong { font-size: 28px; }
+      .synrg-stat span { font-size: 12px; }
+    }
+
     /* Stand-behind + guarantee */
     #stand-behind { padding: 56px 0; border-top: 1px solid var(--border); }
     .stand-behind-card { max-width: 760px; margin: 0 auto; text-align: center; padding: 36px 32px; background: rgba(170,169,205,0.05); border: 1px solid var(--logan); border-radius: var(--radius-lg); }
@@ -641,6 +653,24 @@
           Метод изграден от лекари и треньори. Структура от 15 прости навика, не диета. И реален човек насреща в чата, когато имаш въпрос.
         </p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Кой е SYNRG -->
+<section class="block" id="who-is-synrg">
+  <div class="container" style="text-align:center;">
+    <span class="section-overline" data-bg="КОЙ Е SYNRG" data-en="WHO IS SYNRG">КОЙ Е SYNRG</span>
+    <h2 class="section-title" style="margin-left:auto;margin-right:auto;" data-bg="Студио, което работи от над 5 години." data-en="A studio that has been running for over 5 years.">
+      Студио, което работи от над 5 години.
+    </h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center;" data-bg="Над 300 реални клиента са минали през нас. Не вярваме в диетите — защото диетата не е реалният живот. В SYNRG лекари, физиотерапевти и треньори работят като един екип, за да дадем на клиента дълготрайни резултати." data-en="Over 300 real clients have come through our doors. We don't believe in diets — because a diet isn't real life. At SYNRG, doctors, physiotherapists, and coaches work as one team to give our clients long-lasting results.">
+      Над 300 реални клиента са минали през нас. Не вярваме в диетите — защото диетата не е реалният живот. В SYNRG лекари, физиотерапевти и треньори работят като един екип, за да дадем на клиента дълготрайни резултати.
+    </p>
+    <div class="synrg-stats">
+      <div class="synrg-stat"><strong>5+</strong><span data-bg="години студио" data-en="years studio">години студио</span></div>
+      <div class="synrg-stat"><strong>300+</strong><span data-bg="реални клиента" data-en="real clients">реални клиента</span></div>
+      <div class="synrg-stat"><strong>1</strong><span data-bg="екип — лекари, физиотерапевти и треньори" data-en="team — doctors, physiotherapists and coaches">екип — лекари, физиотерапевти, треньори</span></div>
     </div>
   </div>
 </section>
