@@ -125,6 +125,9 @@
       .offer-core-row { gap: 8px 14px; }
     }
     .hero-cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 24px; margin-bottom: 24px; }
+    .hero-guarantee-mini { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; margin-top: 16px; background: var(--mint-dim); border: 1px solid var(--mint-border); border-radius: 100px; }
+    .hero-guarantee-mini .hgm-check { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--mint); color: var(--bg); font-size: 12px; font-weight: 800; flex-shrink: 0; }
+    .hero-guarantee-mini .hgm-text { font-size: 13px; font-weight: 700; color: var(--mint); letter-spacing: 0.01em; }
     /* Price hierarchy: mint = the offer (matches CTA), cream = supporting calc, muted = meta */
     .hero-price-line { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; margin-top: 8px; }
     .hero-price-line .price-now { color: var(--mint); font-size: 44px; font-weight: 800; font-style: italic; letter-spacing: -0.02em; line-height: 1; }
@@ -527,7 +530,10 @@
           <span class="price-was">€147</span>
           <span class="price-sep">—</span>
           <span class="price-day" data-bg="€1.75 на ден" data-en="€1.75 per day">€1.75 на ден</span>
-          <span class="price-meta" data-bg="8 седмици · 100% гаранция" data-en="8 weeks · 100% guarantee">8 седмици · 100% гаранция</span>
+        </div>
+        <div class="hero-guarantee-mini" role="note">
+          <span class="hgm-check" aria-hidden="true">✓</span>
+          <span class="hgm-text" data-bg="100% гаранция за връщане на парите" data-en="100% money-back guarantee">100% гаранция за връщане на парите</span>
         </div>
         <div class="hero-cta-row">
           <a href="#pricing" class="btn btn-primary" data-bg="Започни →" data-en="Start →">Започни →</a>
