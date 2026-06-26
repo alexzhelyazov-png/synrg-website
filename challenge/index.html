@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>SYNRG · 7 дни яснота — запази мястото си</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,800;1,900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F120E;
+    --card:#181C17;
+    --field:#11140F;
+    --lavender:#C9C4F0;
+    --lavender-dark:#26215C;
+    --mint:#A6E3A8;
+    --mint-dark:#0F3D24;
+    --berry:#E2546A;
+    --text:#F4F1EA;
+    --muted:#93978C;
+    --border:rgba(244,241,234,.12);
+    --border-strong:rgba(244,241,234,.24);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text);font-family:"Nunito",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .wrap{width:100%;max-width:460px}
+  .brand{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:20px;letter-spacing:.04em}
+  .brand .logo{font-weight:900;font-style:italic;font-size:22px;color:var(--text)}
+  .brand .tag{font-size:12px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:.12em;padding:4px 10px;border:1px solid var(--border);border-radius:999px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px 24px}
+  .eyebrow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--lavender);margin-bottom:12px}
+  h1{font-weight:900;font-style:italic;font-size:30px;line-height:1.08;margin-bottom:10px}
+  .sub{font-size:15px;color:var(--muted);line-height:1.55;margin-bottom:18px}
+  .spots{display:inline-flex;align-items:center;gap:8px;background:rgba(166,227,168,.1);border:1px solid rgba(166,227,168,.35);color:var(--mint);font-size:13px;font-weight:700;padding:7px 12px;border-radius:999px;margin-bottom:22px}
+  .spots .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  label{display:block;font-size:13px;font-weight:700;margin-bottom:7px;color:var(--text)}
+  .field{margin-bottom:16px}
+  input[type=text],input[type=email],input[type=tel]{width:100%;background:var(--field);border:1px solid var(--border);border-radius:12px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:15px;font-weight:600;transition:border-color .15s}
+  input::placeholder{color:#5e6258;font-weight:400}
+  input:focus{outline:none;border-color:var(--lavender)}
+  input.err{border-color:var(--berry)}
+  .msg{font-size:12px;color:var(--berry);margin-top:6px;min-height:14px;font-weight:600}
+  .pledge{display:flex;gap:11px;align-items:flex-start;background:var(--field);border:1px solid var(--border);border-radius:12px;padding:14px;margin:4px 0 8px;cursor:pointer;transition:border-color .15s}
+  .pledge.on{border-color:var(--mint)}
+  .pledge input{appearance:none;-webkit-appearance:none;min-width:22px;height:22px;border:2px solid var(--border-strong);border-radius:7px;margin-top:1px;cursor:pointer;position:relative;transition:all .15s}
+  .pledge input:checked{background:var(--mint);border-color:var(--mint)}
+  .pledge input:checked::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid var(--bg);border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+  .pledge .ptxt{font-size:14px;line-height:1.45;font-weight:700}
+  .pledge .ptxt span{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:2px}
+  .cta{width:100%;background:var(--lavender);color:var(--lavender-dark);border:none;border-radius:12px;padding:15px;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;margin-top:14px;transition:transform .12s,opacity .15s}
+  .cta:hover{transform:translateY(-1px)}
+  .cta:active{transform:translateY(0)}
+  .cta:disabled{opacity:.55;cursor:not-allowed;transform:none}
+  .fine{font-size:12px;color:var(--muted);line-height:1.5;margin-top:16px;text-align:center}
+  .fine a{color:var(--mint);text-decoration:none}
+  /* success state */
+  .done{display:none;text-align:center;padding:8px 0}
+  .done.show{display:block}
+  .badge{width:84px;height:84px;border-radius:50%;background:rgba(166,227,168,.12);border:2px solid var(--mint);display:flex;align-items:center;justify-content:center;margin:6px auto 18px;animation:pop .5s cubic-bezier(.2,1.3,.5,1) both}
+  .badge svg{width:38px;height:38px;stroke:var(--mint)}
+  @keyframes pop{0%{transform:scale(.3);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+  .done h2{font-weight:900;font-style:italic;font-size:26px;margin-bottom:8px}
+  .done p{color:var(--muted);font-size:15px;line-height:1.55;margin-bottom:22px}
+  .viber{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--mint);color:var(--mint-dark);border:none;border-radius:12px;padding:15px;font-family:inherit;font-size:16px;font-weight:800;text-decoration:none;animation:pop .5s .15s cubic-bezier(.2,1.3,.5,1) both}
+  .viber svg{width:22px;height:22px;fill:var(--mint-dark)}
+  .viber:hover{transform:translateY(-1px)}
+  .nextline{font-size:13px;color:var(--muted);margin-top:16px;line-height:1.5}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <span class="logo">synrg</span>
+    <span class="tag">7 дни яснота</span>
+  </div>
+
+  <div class="card">
+    <!-- FORM STATE -->
+    <div id="formState">
+      <div class="eyebrow">Безплатно · старт понеделник</div>
+      <h1>Запази мястото си</h1>
+      <p class="sub">7 дни. Една малка стъпка на ден, без диети и без забрани. Аз и Кари сме с теб всеки ден в групата.</p>
+      <div class="spots"><span class="dot"></span><span id="spotsTxt">Тази група започва в понеделник</span></div>
+
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label for="name">Име</label>
+          <input type="text" id="name" placeholder="Как да се обръщаме към теб" autocomplete="given-name">
+          <div class="msg" id="nameMsg"></div>
+        </div>
+        <div class="field">
+          <label for="email">Имейл</label>
+          <input type="email" id="email" placeholder="ti@primer.bg" autocomplete="email">
+          <div class="msg" id="emailMsg"></div>
+        </div>
+        <div class="field">
+          <label for="phone">Viber номер</label>
+          <input type="tel" id="phone" placeholder="0888 123 456" autocomplete="tel">
+          <div class="msg" id="phoneMsg"></div>
+        </div>
+
+        <label class="pledge" id="pledge" for="commit">
+          <input type="checkbox" id="commit">
+          <span class="ptxt">Приемам да участвам активно 7 дни
+            <span>Само 5 минути на ден. Започвам този понеделник.</span>
+          </span>
+        </label>
+        <div class="msg" id="commitMsg"></div>
+
+        <label class="pledge" id="consentBox" for="consent">
+          <input type="checkbox" id="consent">
+          <span class="ptxt">Съгласявам се с обработката на данните ми
+            <span>За да участвам в предизвикателството. Виж <a href="https://synrg-beyondfitness.com/privacy.html" target="_blank" rel="noopener" style="color:var(--mint);text-decoration:none">Политиката за поверителност</a>.</span>
+          </span>
+        </label>
+        <div class="msg" id="consentMsg"></div>
+
+        <button type="submit" class="cta" id="submitBtn">Запази мястото си</button>
+      </form>
+
+      <p class="fine">Да записваш какво ядеш 1 седмица ще ти донесе яснота и основа за целия ти живот напред. Нека ти покажем.<br><span style="opacity:.7">Ако записването на храна някога ти е носило тревожност — чуй себе си, няма нужда на сила.</span></p>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="done" id="doneState">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h2>Мястото е твое</h2>
+      <p id="doneName">Последна стъпка: влез в Viber групата, за да си вътре, когато започнем в понеделник.</p>
+      <a class="viber" id="viberBtn" href="https://invite.viber.com/?g2=AQAEHMI4GEukN1bA7byJAaMIQ0bmNQscqaB2r0HDjfG7PX23NyIbFPg20AHRLSyz">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 5.9 2 10.7c0 2.6 1.3 4.9 3.4 6.5v3.6l3.3-1.8c1 .2 2.1.4 3.3.4 5.5 0 10-3.9 10-8.7S17.5 2 12 2z"/></svg>
+        Влез в Viber групата
+      </a>
+      <p class="nextline">Изпратихме ти и имейл с линка — за всеки случай.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ====== НАСТРОЙКИ — смени тези две неща ======
+  var VIBER_INVITE_LINK = "https://invite.viber.com/?g2=AQAEHMI4GEukN1bA7byJAaMIQ0bmNQscqaB2r0HDjfG7PX23NyIbFPg20AHRLSyz"; // линкът към Viber групата на седмицата
+  var SUBMIT_ENDPOINT = "https://nzrtdqlgljcipfmectwp.supabase.co/functions/v1/signup-challenge";  // бекенд edge функция
+  // =============================================
+
+  var form = document.getElementById('signupForm');
+  var pledge = document.getElementById('pledge');
+  var commit = document.getElementById('commit');
+  var consentBox = document.getElementById('consentBox');
+  var consent = document.getElementById('consent');
+  var btn = document.getElementById('submitBtn');
+
+  commit.addEventListener('change', function(){
+    pledge.classList.toggle('on', commit.checked);
+  });
+  consent.addEventListener('change', function(){
+    consentBox.classList.toggle('on', consent.checked);
+  });
+
+  function setErr(id, text){
+    document.getElementById(id+'Msg').textContent = text || '';
+    var f = document.getElementById(id);
+    if(f) f.classList.toggle('err', !!text);
+  }
+
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function validPhone(v){ return v.replace(/\D/g,'').length >= 9; }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var ok = true;
+
+    if(!name){ setErr('name','Напиши името си'); ok=false; } else setErr('name','');
+    if(!validEmail(email)){ setErr('email','Провери имейла'); ok=false; } else setErr('email','');
+    if(!validPhone(phone)){ setErr('phone','Провери Viber номера'); ok=false; } else setErr('phone','');
+    if(!commit.checked){ document.getElementById('commitMsg').textContent='Потвърди, че влизаш за 7 дни'; ok=false; }
+    else document.getElementById('commitMsg').textContent='';
+    if(!consent.checked){ document.getElementById('consentMsg').textContent='Нужно е съгласие за обработка на данните'; ok=false; }
+    else document.getElementById('consentMsg').textContent='';
+
+    if(!ok) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Запазваме…';
+
+    var data = { name:name, email:email, phone:phone, committed:true, consent:true, ts:new Date().toISOString() };
+
+    var finish = function(viberLink){
+      document.getElementById('viberBtn').setAttribute('href', viberLink || VIBER_INVITE_LINK);
+      document.getElementById('doneName').textContent =
+        name + ', последна стъпка: влез в Viber групата, за да си вътре, когато започнем в понеделник.';
+      document.getElementById('formState').style.display='none';
+      document.getElementById('doneState').classList.add('show');
+    };
+
+    var fail = function(text){
+      btn.disabled=false; btn.textContent='Запази мястото си';
+      document.getElementById('commitMsg').textContent = text || 'Нещо се обърка. Опитай отново след малко.';
+    };
+
+    if(SUBMIT_ENDPOINT){
+      fetch(SUBMIT_ENDPOINT, {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)
+      }).then(function(res){
+        return res.json().catch(function(){ return {}; });
+      }).then(function(out){
+        if(out && out.ok){ finish(out.viber_link); }
+        else { fail((out && out.message) || 'Нещо се обърка. Опитай отново след малко.'); }
+      }).catch(function(){
+        fail('Нещо се обърка. Опитай отново след малко.');
+      });
+    } else {
+      setTimeout(function(){ finish(VIBER_INVITE_LINK); }, 500); // тестов режим
+    }
+  });
+</script>
+</body>
+</html>
