@@ -855,8 +855,10 @@
     /* ── Mobile ────────────────────────────────────── */
     @media (max-width: 768px) {
       .section { padding: 72px 0; }
-      .nav-links, .nav-right .btn-ghost, .nav-right .btn-primary { display: none; }
+      .nav-links, .nav-right .btn-ghost, .nav-right .btn-primary, .nav-right .lang-toggle { display: none; }
       .nav-right .btn-register-mobile { display: inline-flex; padding: 9px 16px; font-size: 12px; }
+      .mobile-menu .lang-toggle { font-size: 15px; gap: 4px; }
+      .mobile-menu .lang-toggle .lang-btn { font-size: 15px; padding: 6px 10px; }
       .nav-toggle { display: flex; }
       .mobile-menu {
         display: none; position: fixed; top: 0; left: 0; right: 0;
@@ -978,6 +980,11 @@
   <!-- ── Mobile menu ──────────────────────────────── -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Затвори">✕</button>
+    <div class="lang-toggle">
+      <button onclick="setLang('bg')" class="lang-btn" data-lang="bg">BG</button>
+      <span>|</span>
+      <button onclick="setLang('en')" class="lang-btn" data-lang="en">EN</button>
+    </div>
     <a href="studio.html"  onclick="closeMobileMenu()" data-bg="Студио"                data-en="Studio">Студио</a>
     <a href="remote.html" onclick="closeMobileMenu()" data-bg="Онлайн" data-en="Online">Онлайн</a>
     <a href="pricing.html" onclick="closeMobileMenu()" data-bg="Цени"                   data-en="Pricing">Цени</a>
@@ -1002,9 +1009,9 @@
       </nav>
       <div class="nav-right">
         <div class="lang-toggle">
-          <button onclick="setLang('bg')" class="lang-btn active" id="btn-bg">BG</button>
+          <button onclick="setLang('bg')" class="lang-btn active" id="btn-bg" data-lang="bg">BG</button>
           <span>|</span>
-          <button onclick="setLang('en')" class="lang-btn" id="btn-en">EN</button>
+          <button onclick="setLang('en')" class="lang-btn" id="btn-en" data-lang="en">EN</button>
         </div>
         <button class="cart-btn" onclick="toggleCartDrawer()" aria-label="Cart">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -1336,8 +1343,7 @@
   <section id="cta" class="section-sm" aria-labelledby="cta-heading">
     <div class="container">
       <div class="cta-inner">
-        <span class="overline" style="margin-bottom:16px" data-cms="index.cta.overline" data-bg="Студио · Варна" data-en="Studio · Varna">Студио · Варна</span>
-        <h2 id="cta-heading" data-cms="index.cta.heading" data-bg="Интересуваш се от студиото ни във Варна.<br>Нека поговорим." data-en="Interested in our studio in Varna.<br>Let's talk.">Интересуваш се от студиото ни във Варна.<br>Нека поговорим.</h2>
+        <h2 id="cta-heading" data-cms="index.cta.heading" data-bg="Интересуваш се от студиото ни във Варна?" data-en="Interested in our studio in Varna?">Интересуваш се от студиото ни във Варна?</h2>
         <p data-cms="index.cta.desc" data-bg="Безплатна консултация — без ангажимент, без натиск. Просто разговор за това какво търсиш." data-en="Free consultation — no commitment, no pressure. Just a conversation about what you're looking for.">Безплатна консултация — без ангажимент, без натиск. Просто разговор за това какво търсиш.</p>
         <p class="cta-note" data-bg="Това е запитване за студиото във Варна — не дава достъп до приложението. Търсиш само безплатното приложение? Не попълвай формата — просто <a href='/app/'>си направи регистрация тук</a>." data-en="This is an inquiry for the Varna studio — it does not grant app access. Just want the free app? Don't fill this out — simply <a href='/app/'>register here</a>.">Това е запитване за студиото във Варна — не дава достъп до приложението. Търсиш само безплатното приложение? Не попълвай формата — просто <a href='/app/'>си направи регистрация тук</a>.</p>
 
@@ -1384,7 +1390,7 @@
             </div>
           </div>
           <button type="submit" class="btn btn-primary form-submit"
-                  data-cms="index.cta.form_submit" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</button>
+                  data-cms="index.cta.form_submit" data-bg="Нека поговорим →" data-en="Let's talk →">Нека поговорим →</button>
         </form>
         <div class="cta-form-footer"></div>
       </div>
@@ -1488,8 +1494,7 @@
         const val = el.getAttribute('data-' + lang)
         if (val !== null) el.innerHTML = val
       })
-      document.getElementById('btn-bg').classList.toggle('active', lang === 'bg')
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en')
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang))
       document.documentElement.lang = lang === 'bg' ? 'bg' : 'en'
       localStorage.setItem('synrg-lang', lang)
     }
