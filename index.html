@@ -166,6 +166,8 @@
       border-color: var(--logan);
       background: var(--logan-deep);
     }
+    /* Register CTA — hidden on desktop ("Влез" already visible), shown on mobile */
+    .btn-register-mobile { display: none; background: var(--mint); color: #0d1510; }
 
     /* ── Tags / Badges ─────────────────────────────── */
     .tag {
@@ -854,6 +856,7 @@
     @media (max-width: 768px) {
       .section { padding: 72px 0; }
       .nav-links, .nav-right .btn-ghost, .nav-right .btn-primary { display: none; }
+      .nav-right .btn-register-mobile { display: inline-flex; padding: 9px 16px; font-size: 12px; }
       .nav-toggle { display: flex; }
       .mobile-menu {
         display: none; position: fixed; top: 0; left: 0; right: 0;
@@ -980,7 +983,8 @@
     <a href="pricing.html" onclick="closeMobileMenu()" data-bg="Цени"                   data-en="Pricing">Цени</a>
     <a href="javascript:void(0)" onclick="closeMobileMenu();toggleCartDrawer()" data-bg="Кошница" data-en="Cart">Кошница</a>
     <a href="./app/index.html" onclick="closeMobileMenu()" data-bg="Влез" data-en="Login">Влез</a>
-    <a href="#cta" onclick="closeMobileMenu()" class="btn btn-primary" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
+    <a href="./app/index.html?register=1" onclick="closeMobileMenu()" class="btn btn-primary" data-bg="Регистрирай се безплатно" data-en="Sign up free">Регистрирай се безплатно</a>
+    <a href="#cta" onclick="closeMobileMenu()" class="btn btn-ghost" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
   </div>
 
   <!-- ── Navbar ───────────────────────────────────── -->
@@ -1007,6 +1011,7 @@
           <span class="cart-badge"></span>
         </button>
         <a href="./app/index.html" class="btn btn-ghost" data-bg="Влез" data-en="Login">Влез</a>
+        <a href="./app/index.html?register=1" class="btn btn-register-mobile" data-bg="Регистрирай се" data-en="Sign up">Регистрирай се</a>
         <a href="#cta" class="btn btn-primary" data-bg="Безплатна консултация →" data-en="Free consultation →">Безплатна консултация →</a>
         <button class="nav-toggle" onclick="openMobileMenu()" aria-label="Меню">
           <span></span><span></span><span></span>
