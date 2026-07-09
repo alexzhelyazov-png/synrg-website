@@ -276,6 +276,7 @@
     }
     .value-stack-head { text-align: center; margin-bottom: 28px; }
     .value-stack-head h2 { font-size: clamp(24px, 3.2vw, 34px); margin-top: 6px; }
+    .value-stack-sub { font-size: 14px; font-weight: 700; font-style: normal; color: var(--muted); margin-top: 14px; max-width: 520px; margin-left: auto; margin-right: auto; }
     .value-items { display: flex; flex-direction: column; gap: 0; }
     .value-item {
       display: flex; align-items: baseline; gap: 16px;
@@ -284,10 +285,20 @@
     .value-item-name { flex: 1; }
     .vi-title { display: block; font-size: 15px; font-weight: 700; font-style: normal; color: var(--text); line-height: 1.35; }
     .vi-sub { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 3px; }
-    .value-item-price {
-      flex-shrink: 0; font-size: 20px; font-weight: 700; font-style: italic;
-      color: var(--logan); letter-spacing: -0.02em;
+    .value-item-price { flex-shrink: 0; text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .vi-euro {
+      font-size: 20px; font-weight: 700; font-style: italic;
+      color: var(--muted); letter-spacing: -0.02em;
       text-decoration: line-through; text-decoration-color: var(--logan-border);
+    }
+    .vi-incl {
+      font-size: 11px; font-weight: 700; font-style: normal; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--mint);
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .vi-incl::before {
+      content: ''; width: 13px; height: 13px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.5' stroke='%23c4e9bf' stroke-opacity='.6'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%23c4e9bf' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
     }
     .value-total {
       display: flex; align-items: baseline; justify-content: space-between;
@@ -487,6 +498,7 @@
         <div class="value-stack-head">
           <span class="overline" data-bg="Във всеки план е включено" data-en="Included in every plan">Във всеки план е включено</span>
           <h2 data-bg="Не плащаш за посещения. Плащаш за цялостна грижа." data-en="You're not paying per visit. You're paying for complete care.">Не плащаш за посещения. Плащаш за цялостна грижа.</h2>
+          <p class="value-stack-sub" data-bg="Тези услуги обикновено се плащат отделно. При теб са включени в плана — без доплащане." data-en="These are normally paid for separately. For you they're included in the plan — no extra charge.">Тези услуги обикновено се плащат отделно. При теб са включени в плана — без доплащане.</p>
         </div>
         <div class="value-items">
           <div class="value-item">
@@ -494,25 +506,34 @@
               <span class="vi-title" data-bg="Консултация с д-р Желязова" data-en="Consultation with Dr. Zhelyazova">Консултация с д-р Желязова</span>
               <span class="vi-sub" data-bg="30 минути · гастроентеролог" data-en="30 minutes · gastroenterologist">30 минути · гастроентеролог</span>
             </div>
-            <div class="value-item-price">60€</div>
+            <div class="value-item-price">
+              <span class="vi-euro">60€</span>
+              <span class="vi-incl" data-bg="включено" data-en="included">включено</span>
+            </div>
           </div>
           <div class="value-item">
             <div class="value-item-name">
-              <span class="vi-title" data-bg="SYNRG App + програми" data-en="SYNRG App + programs">SYNRG App + програми</span>
-              <span class="vi-sub" data-bg="болки и мобилност · рецепти · тракери" data-en="pain &amp; mobility · recipes · trackers">болки и мобилност · рецепти · тракери</span>
+              <span class="vi-title" data-bg="SYNRG App + достъп до треньорите" data-en="SYNRG App + coach access">SYNRG App + достъп до треньорите</span>
+              <span class="vi-sub" data-bg="чат с треньорите · онлайн тренировки · болки, рецепти, тракери" data-en="coach chat · online workouts · pain, recipes, trackers">чат с треньорите · онлайн тренировки · болки, рецепти, тракери</span>
             </div>
-            <div class="value-item-price">98€</div>
+            <div class="value-item-price">
+              <span class="vi-euro">98€</span>
+              <span class="vi-incl" data-bg="включено" data-en="included">включено</span>
+            </div>
           </div>
           <div class="value-item">
             <div class="value-item-name">
               <span class="vi-title" data-bg="Изграждане на стратегия" data-en="Strategy building">Изграждане на стратегия</span>
               <span class="vi-sub" data-bg="персонален план · проследяване" data-en="personal plan · tracking">персонален план · проследяване</span>
             </div>
-            <div class="value-item-price">68€</div>
+            <div class="value-item-price">
+              <span class="vi-euro">68€</span>
+              <span class="vi-incl" data-bg="включено" data-en="included">включено</span>
+            </div>
           </div>
         </div>
         <div class="value-total">
-          <span class="value-total-label" data-bg="Обща стойност" data-en="Total value">Обща стойност</span>
+          <span class="value-total-label" data-bg="Стойност, включена без доплащане" data-en="Value included at no extra cost">Стойност, включена без доплащане</span>
           <span class="value-total-num">226€</span>
         </div>
         <p class="value-note" data-bg="Всичко това е включено във всеки студио план — <b>плюс личните ти тренировки на живо.</b>" data-en="All of this is included in every studio plan — <b>plus your live personal training.</b>">Всичко това е включено във всеки студио план — <b>плюс личните ти тренировки на живо.</b></p>
