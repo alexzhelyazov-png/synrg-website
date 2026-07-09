@@ -267,6 +267,44 @@
     .price-cta-note a { color: var(--logan); text-decoration: underline; text-underline-offset: 3px; }
     .price-cta-note a:hover { color: var(--cream); }
 
+    /* ── Value stack: what every studio plan includes ── */
+    .value-stack {
+      max-width: 780px; margin: 0 auto 56px;
+      background: linear-gradient(160deg, var(--surface), var(--bg));
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 40px 40px 32px;
+    }
+    .value-stack-head { text-align: center; margin-bottom: 28px; }
+    .value-stack-head h2 { font-size: clamp(24px, 3.2vw, 34px); margin-top: 6px; }
+    .value-items { display: flex; flex-direction: column; gap: 0; }
+    .value-item {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 16px 0; border-bottom: 1px dashed var(--border);
+    }
+    .value-item-name { flex: 1; }
+    .vi-title { display: block; font-size: 15px; font-weight: 700; font-style: normal; color: var(--text); line-height: 1.35; }
+    .vi-sub { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 3px; }
+    .value-item-price {
+      flex-shrink: 0; font-size: 20px; font-weight: 700; font-style: italic;
+      color: var(--logan); letter-spacing: -0.02em;
+      text-decoration: line-through; text-decoration-color: var(--logan-border);
+    }
+    .value-total {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--mint-border);
+    }
+    .value-total-label { font-size: 15px; font-weight: 700; font-style: italic; color: var(--cream); }
+    .value-total-num { font-size: clamp(30px, 4vw, 40px); font-weight: 700; font-style: italic; color: var(--mint); letter-spacing: -0.03em; }
+    .value-note {
+      margin-top: 18px; text-align: center; font-size: 14px; font-weight: 700;
+      color: var(--text); line-height: 1.6; font-style: normal;
+    }
+    .value-note b { color: var(--mint); font-style: italic; }
+    @media (max-width: 560px) {
+      .value-stack { padding: 32px 22px 26px; }
+      .value-item-price { font-size: 17px; }
+    }
+
     /* ── Product cards (programs + planner) ── */
     .products-grid {
       display: grid; grid-template-columns: repeat(2, 1fr);
@@ -443,6 +481,43 @@
   <div class="tab-panel active" id="tab-studio">
   <section class="pricing-section" id="studio-plans">
     <div class="container">
+
+      <!-- Value stack — reframes "per session" into total value received -->
+      <div class="value-stack reveal">
+        <div class="value-stack-head">
+          <span class="overline" data-bg="Във всеки план е включено" data-en="Included in every plan">Във всеки план е включено</span>
+          <h2 data-bg="Не плащаш за посещения. Плащаш за цялостна грижа." data-en="You're not paying per visit. You're paying for complete care.">Не плащаш за посещения. Плащаш за цялостна грижа.</h2>
+        </div>
+        <div class="value-items">
+          <div class="value-item">
+            <div class="value-item-name">
+              <span class="vi-title" data-bg="Консултация с д-р Желязова" data-en="Consultation with Dr. Zhelyazova">Консултация с д-р Желязова</span>
+              <span class="vi-sub" data-bg="30 минути · гастроентеролог" data-en="30 minutes · gastroenterologist">30 минути · гастроентеролог</span>
+            </div>
+            <div class="value-item-price">60€</div>
+          </div>
+          <div class="value-item">
+            <div class="value-item-name">
+              <span class="vi-title" data-bg="SYNRG App + програми" data-en="SYNRG App + programs">SYNRG App + програми</span>
+              <span class="vi-sub" data-bg="болки и мобилност · рецепти · тракери" data-en="pain &amp; mobility · recipes · trackers">болки и мобилност · рецепти · тракери</span>
+            </div>
+            <div class="value-item-price">98€</div>
+          </div>
+          <div class="value-item">
+            <div class="value-item-name">
+              <span class="vi-title" data-bg="Изграждане на стратегия" data-en="Strategy building">Изграждане на стратегия</span>
+              <span class="vi-sub" data-bg="персонален план · проследяване" data-en="personal plan · tracking">персонален план · проследяване</span>
+            </div>
+            <div class="value-item-price">68€</div>
+          </div>
+        </div>
+        <div class="value-total">
+          <span class="value-total-label" data-bg="Обща стойност" data-en="Total value">Обща стойност</span>
+          <span class="value-total-num">226€</span>
+        </div>
+        <p class="value-note" data-bg="Всичко това е включено във всеки студио план — <b>плюс личните ти тренировки на живо.</b>" data-en="All of this is included in every studio plan — <b>plus your live personal training.</b>">Всичко това е включено във всеки студио план — <b>плюс личните ти тренировки на живо.</b></p>
+      </div>
+
       <div class="pricing-grid">
         <!-- SYNRG FLEX -->
         <div class="price-card reveal">
