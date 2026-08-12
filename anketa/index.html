@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Анкета · SYNRG</title>
+<style>
+  :root{
+    --bg:#0e100e; --card:#171a17; --line:#2a2e2a; --line2:#383d38;
+    --text:#e9ede9; --muted:#8b948b; --acc:#c4e9bf; --accOn:#0f1c11;
+    --violet:#b9a7f5; --bad:#f08a8a;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font:400 16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    padding:0 0 64px;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px}
+
+  header{padding:38px 0 8px;text-align:center}
+  .logo{font:800 26px/1 -apple-system,Arial,sans-serif;letter-spacing:-.5px;color:var(--text)}
+  .logo span{color:var(--acc)}
+  h1{font-size:23px;line-height:1.3;font-weight:800;margin:26px 0 14px}
+  .lead{color:#c3ccc3;font-size:15px;margin:0 0 13px}
+  .note{
+    background:rgba(196,233,191,.07);border:1px solid rgba(196,233,191,.22);
+    border-radius:14px;padding:14px 16px;font-size:14px;color:#cdd6cd;margin:22px 0 8px
+  }
+  .note b{color:var(--acc)}
+
+  .q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px;margin:14px 0}
+  .q.missing{border-color:var(--bad);box-shadow:0 0 0 3px rgba(240,138,138,.1)}
+  .qn{display:flex;gap:9px;align-items:baseline;margin-bottom:14px}
+  .qi{color:var(--acc);font-weight:800;font-size:13px;flex:none;padding-top:2px}
+  .qt{font-weight:700;font-size:16px;line-height:1.4}
+  .opt{color:var(--muted);font-size:12.5px;margin:-6px 0 12px;padding-left:22px}
+
+  /* Скали 1–5 и звезди */
+  .scale{display:flex;gap:7px}
+  .scale label{flex:1}
+  .scale input{position:absolute;opacity:0;width:0;height:0}
+  .scale span{
+    display:flex;align-items:center;justify-content:center;height:48px;
+    border:1px solid var(--line2);border-radius:12px;font-weight:800;font-size:16px;
+    color:var(--text);cursor:pointer;transition:.16s;background:rgba(255,255,255,.02)
+  }
+  .scale input:checked+span{background:var(--acc);border-color:var(--acc);color:var(--accOn)}
+  .scale input:focus-visible+span{outline:2px solid var(--violet);outline-offset:2px}
+  .ends{display:flex;justify-content:space-between;gap:10px;margin-top:9px}
+  .ends small{color:var(--muted);font-size:11.5px;max-width:47%;line-height:1.35}
+  .ends small:last-child{text-align:right}
+
+  /* NPS 0–10 */
+  .nps{display:grid;grid-template-columns:repeat(11,1fr);gap:5px}
+  .nps span{height:44px;border-radius:10px;font-size:14px}
+  @media(max-width:430px){
+    .nps{grid-template-columns:repeat(6,1fr)}
+    .nps span{height:42px}
+  }
+
+  /* Радио списъци */
+  .choices{display:flex;flex-direction:column;gap:8px}
+  .choices label{position:relative;display:block}
+  .choices input{position:absolute;opacity:0;width:0;height:0}
+  .choices span{
+    display:flex;align-items:center;gap:11px;padding:13px 14px;border-radius:12px;
+    border:1px solid var(--line2);cursor:pointer;font-size:15px;transition:.16s;
+    background:rgba(255,255,255,.02)
+  }
+  .choices span::before{
+    content:"";width:18px;height:18px;border-radius:50%;flex:none;
+    border:2px solid var(--line2);transition:.16s
+  }
+  /* Квадратче за многозначния въпрос — окото различава „избери няколко“ от „избери едно“ */
+  .choices.multi span{align-items:flex-start}
+  .choices.multi span::before{border-radius:5px;margin-top:2px}
+  .choices.multi input:checked+span::before{
+    box-shadow:none;background:var(--acc);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f1c11' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    background-size:13px;background-repeat:no-repeat;background-position:center
+  }
+  .choices input:checked+span{border-color:var(--acc);background:rgba(196,233,191,.1)}
+  .choices input:checked+span::before{border-color:var(--acc);background:var(--acc);box-shadow:inset 0 0 0 3px var(--card)}
+  .choices input:focus-visible+span{outline:2px solid var(--violet);outline-offset:2px}
+
+  textarea{
+    width:100%;background:rgba(255,255,255,.03);color:var(--text);
+    border:1px solid var(--line2);border-radius:12px;padding:13px 14px;
+    font:inherit;font-size:15px;resize:vertical;min-height:96px
+  }
+  textarea:focus{outline:none;border-color:var(--acc)}
+  textarea::placeholder{color:#6b736b}
+
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  button.send{
+    width:100%;margin-top:22px;padding:17px;border:0;border-radius:100px;
+    background:var(--acc);color:var(--accOn);font:800 17px/1 inherit;cursor:pointer;
+    transition:.16s
+  }
+  button.send:disabled{opacity:.55;cursor:default}
+  button.send:active{transform:scale(.99)}
+
+  .err{color:var(--bad);font-size:14px;margin-top:14px;text-align:center;min-height:20px}
+  .foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:20px;line-height:1.6}
+
+  /* Благодарствен екран */
+  #done{display:none;text-align:center;padding:70px 0 40px}
+  #done .big{
+    width:64px;height:64px;margin:0 auto 18px;border-radius:50%;
+    background:rgba(196,233,191,.12);border:1px solid rgba(196,233,191,.35);
+    color:var(--acc);font-size:32px;font-weight:800;
+    display:flex;align-items:center;justify-content:center
+  }
+  #done h2{font-size:22px;margin:0 0 12px;font-weight:800}
+  #done p{color:#c3ccc3;font-size:15px;margin:0 auto;max-width:430px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="form-view">
+    <header>
+      <div class="logo">syn<span>rg</span></div>
+    </header>
+
+    <h1>Помогни ни да направим SYNRG по-добро</h1>
+    <p class="lead">Искаме SYNRG да бъде място, в което не просто идваш да тренираш, а получаваш истинско внимание, отношение и резултати. Затова искаме да чуем твоето мнение.</p>
+    <div class="note">
+      Анкетата е <b>напълно анонимна</b> и отнема около 2 минути. Моля те, бъди максимално откровен/а — както за нещата, които харесваш, така и за тези, които можем да подобрим.
+    </div>
+
+    <form id="f" novalidate>
+      <!-- капан за ботове -->
+      <div class="hp"><label>Не попълвай това поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <div class="q" data-q="q1_overall">
+        <div class="qn"><div class="qi">1</div><div class="qt">Колко си доволен/а от SYNRG като цяло?</div></div>
+        <div class="scale" data-name="q1_overall" data-star="1"></div>
+        <div class="ends"><small>1 — Изобщо не съм доволен/а</small><small>5 — Изключително съм доволен/а</small></div>
+      </div>
+
+      <div class="q" data-q="q2_attention">
+        <div class="qn"><div class="qi">2</div><div class="qt">Чувстваш ли, че треньорите ти обръщат достатъчно лично внимание?</div></div>
+        <div class="scale" data-name="q2_attention"></div>
+        <div class="ends"><small>1 — Почти никакво</small><small>5 — Да, определено</small></div>
+      </div>
+
+      <div class="q" data-q="q3_understood">
+        <div class="qn"><div class="qi">3</div><div class="qt">Чувстваш ли се разбран/а и изслушан/а от треньорите?</div></div>
+        <div class="scale" data-name="q3_understood"></div>
+        <div class="ends"><small>1 — Не</small><small>5 — Напълно</small></div>
+      </div>
+
+      <div class="q" data-q="q4_tailored">
+        <div class="qn"><div class="qi">4</div><div class="qt">Имаш ли усещането, че тренировките ти са съобразени конкретно с твоите възможности, цели и проблеми?</div></div>
+        <div class="scale" data-name="q4_tailored"></div>
+        <div class="ends"><small>1 — Не</small><small>5 — Напълно</small></div>
+      </div>
+
+      <div class="q" data-q="q5_results">
+        <div class="qn"><div class="qi">5</div><div class="qt">Виждаш ли резултат от времето, от което тренираш при нас?</div></div>
+        <div class="choices" data-name="q5_results"
+             data-opts="Да, определено|По-скоро да|Има известен резултат, но очаквах повече|По-скоро не|Не"></div>
+      </div>
+
+      <div class="q" data-q="q6_progress">
+        <div class="qn"><div class="qi">6</div><div class="qt">Знаеш ли какъв прогрес си постигнал/а до момента?</div></div>
+        <div class="choices" data-name="q6_progress"
+             data-opts="Да, ясно ми е|Донякъде|Не особено|Не"></div>
+      </div>
+
+      <div class="q" data-q="q7_value">
+        <div class="qn"><div class="qi">7</div><div class="qt">Кое е най-важното нещо, което SYNRG ти дава?</div></div>
+        <div class="opt">избери до 3 отговора · <span id="v-count">0 от 3</span></div>
+        <div class="choices multi" data-name="q7_value" data-max="3"
+             data-opts="Резултати в отслабването/визията|Ставам по-силен/на и физически способен/на|Намаляване на болки и физически дискомфорт|Някой ме следи и това ме кара да бъда постоянен/на|Чувствам се сигурен/на, защото има специалисти, към които мога да се обърна|Личното отношение и вниманието|Приятната атмосфера и хората|Това е време, което отделям за себе си|Подобряване на здравето ми в дългосрочен план|Друго"></div>
+        <textarea id="q7_other" name="q7_value_other" maxlength="500" placeholder="Друго — какво?"
+                  style="display:none;margin-top:9px;min-height:64px"></textarea>
+      </div>
+
+      <div class="q" data-q="q8_cleanliness">
+        <div class="qn"><div class="qi">8</div><div class="qt">Как оценяваш чистотата и подредбата в студиото?</div></div>
+        <div class="scale" data-name="q8_cleanliness"></div>
+        <div class="ends"><small>1 — Незадоволителни</small><small>5 — Отлични</small></div>
+      </div>
+
+      <div class="q">
+        <div class="qn"><div class="qi">9</div><div class="qt">Има ли нещо в отношението или поведението на екипа, което те дразни или смяташ, че трябва да променим?</div></div>
+        <div class="opt">по желание</div>
+        <textarea name="q9_annoyance" maxlength="2000" placeholder="Пиши свободно…"></textarea>
+      </div>
+
+      <div class="q">
+        <div class="qn"><div class="qi">10</div><div class="qt">Кое е нещото, което харесваш НАЙ-МНОГО в SYNRG?</div></div>
+        <div class="opt">по желание</div>
+        <textarea name="q10_best" maxlength="2000" placeholder="Пиши свободно…"></textarea>
+      </div>
+
+      <div class="q">
+        <div class="qn"><div class="qi">11</div><div class="qt">Ако можеше да промениш ЕДНО нещо в SYNRG, какво би било то?</div></div>
+        <div class="opt">по желание</div>
+        <textarea name="q11_change" maxlength="2000" placeholder="Пиши свободно…"></textarea>
+      </div>
+
+      <div class="q" data-q="q12_nps">
+        <div class="qn"><div class="qi">12</div><div class="qt">Колко вероятно е да препоръчаш SYNRG на приятел или близък?</div></div>
+        <div class="scale nps" data-name="q12_nps" data-from="0" data-to="10"></div>
+        <div class="ends"><small>0 — Никога не бих препоръчал/а</small><small>10 — Със сигурност бих препоръчал/а</small></div>
+      </div>
+
+      <div class="q">
+        <div class="qn"><div class="qi">✱</div><div class="qt">И последно… Има ли нещо, което не те попитахме, но би искал/а да ни кажеш?</div></div>
+        <div class="opt">по желание</div>
+        <textarea name="q13_anything" maxlength="2000" placeholder="Пиши свободно…"></textarea>
+      </div>
+
+      <button class="send" type="submit" id="send">Изпрати анонимно</button>
+      <div class="err" id="err"></div>
+      <div class="foot">
+        Не записваме име, имейл или каквото и да е, което да те разпознае.<br>
+        Отговорите няма да бъдат използвани, за да търсим „кой какво е казал“.
+      </div>
+    </form>
+  </div>
+
+  <div id="done">
+    <div class="big">✓</div>
+    <h2>Благодарим ти!</h2>
+    <p>Искаме да разберем къде сме добри и къде трябва да станем по-добри. Колкото по-откровен/а си, толкова повече ни помагаш.</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var URL = "https://nzrtdqlgljcipfmectwp.supabase.co/rest/v1/survey_responses";
+  var KEY = "sb_publishable_Rs2gzY1pSf67S-uq6VpGGA_fQdSgMah";
+
+  // Изграждаме скалите и изборите от data-атрибутите, за да няма 60 реда повтарящ се HTML.
+  document.querySelectorAll('.scale').forEach(function(el){
+    var name = el.dataset.name,
+        from = el.dataset.from ? +el.dataset.from : 1,
+        to   = el.dataset.to   ? +el.dataset.to   : 5,
+        star = el.dataset.star === "1";
+    var html = "";
+    for (var i = from; i <= to; i++){
+      html += '<label><input type="radio" name="'+name+'" value="'+i+'">'
+            + '<span>'+(star ? '★' : i)+'</span></label>';
+    }
+    el.innerHTML = html;
+  });
+
+  document.querySelectorAll('.choices').forEach(function(el){
+    var name = el.dataset.name,
+        type = el.classList.contains('multi') ? 'checkbox' : 'radio';
+    el.innerHTML = el.dataset.opts.split('|').map(function(o){
+      return '<label><input type="'+type+'" name="'+name+'" value="'+o.replace(/"/g,'&quot;')+'">'
+           + '<span>'+o+'</span></label>';
+    }).join('');
+  });
+
+  // Многозначният въпрос: таван от 3 отговора + поле за „Друго“.
+  // Над тавана заключваме неотметнатите, вместо мълчаливо да игнорираме клика —
+  // иначе изглежда като счупен бутон.
+  var multi = document.querySelector('.choices.multi');
+  if (multi){
+    var max     = +multi.dataset.max,
+        counter = document.getElementById('v-count'),
+        other   = document.getElementById('q7_other');
+    multi.addEventListener('change', function(){
+      var boxes   = [].slice.call(multi.querySelectorAll('input')),
+          checked = boxes.filter(function(b){ return b.checked });
+      counter.textContent = checked.length + ' от ' + max;
+      boxes.forEach(function(b){
+        var lock = !b.checked && checked.length >= max;
+        b.disabled = lock;
+        b.parentNode.querySelector('span').style.opacity = lock ? '.4' : '';
+      });
+      var oth = boxes.filter(function(b){ return b.value === 'Друго' && b.checked }).length > 0;
+      other.style.display = oth ? 'block' : 'none';
+      if (!oth) other.value = '';
+    });
+  }
+
+  // Звездите се пълнят наляво, както очаква окото при рейтинг.
+  var starWrap = document.querySelector('.scale[data-star="1"]');
+  if (starWrap){
+    starWrap.addEventListener('change', function(){
+      var v = +(starWrap.querySelector('input:checked')||{}).value || 0;
+      starWrap.querySelectorAll('label').forEach(function(l, i){
+        l.querySelector('span').style.background = i < v ? 'var(--acc)' : '';
+        l.querySelector('span').style.borderColor = i < v ? 'var(--acc)' : '';
+        l.querySelector('span').style.color      = i < v ? 'var(--accOn)' : '';
+      });
+    });
+  }
+
+  var REQUIRED = ['q1_overall','q2_attention','q3_understood','q4_tailored',
+                  'q5_results','q6_progress','q8_cleanliness','q12_nps'];
+  var TEXTS    = ['q9_annoyance','q10_best','q11_change','q13_anything'];
+  var f = document.getElementById('f'),
+      err = document.getElementById('err'),
+      btn = document.getElementById('send');
+
+  // Щом човек отговори, махаме червеното веднага — да не стои като упрек.
+  f.addEventListener('change', function(e){
+    var box = e.target.closest('.q');
+    if (box) box.classList.remove('missing');
+  });
+
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (f.website.value) return;            // бот
+
+    var data = { survey_key: 'studio_v1' }, missing = [];
+    REQUIRED.forEach(function(n){
+      var el = f.querySelector('[name="'+n+'"]:checked');
+      var box = document.querySelector('.q[data-q="'+n+'"]');
+      if (!el){ missing.push(box); if (box) box.classList.add('missing'); }
+      else data[n] = (n === 'q5_results' || n === 'q6_progress') ? el.value : +el.value;
+    });
+
+    // Многозначният въпрос: поне един отговор, иначе се води неотговорен.
+    var picked = [].slice.call(f.querySelectorAll('[name="q7_value"]:checked'))
+                   .map(function(b){ return b.value });
+    if (!picked.length){
+      var vbox = document.querySelector('.q[data-q="q7_value"]');
+      missing.push(vbox); if (vbox) vbox.classList.add('missing');
+    } else {
+      data.q7_value = picked;
+      var oth = f.q7_value_other.value.trim();
+      if (picked.indexOf('Друго') > -1 && oth) data.q7_value_other = oth;
+    }
+
+    TEXTS.forEach(function(n){
+      var v = f[n].value.trim();
+      if (v) data[n] = v;
+    });
+
+    if (missing.length){
+      err.textContent = missing.length === 1
+        ? 'Остава 1 неотговорен въпрос.'
+        : 'Остават ' + missing.length + ' неотговорени въпроса.';
+      if (missing[0]) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    err.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Изпращане…';
+
+    fetch(URL, {
+      method: 'POST',
+      headers: {
+        'apikey': KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(data)
+    }).then(function(r){
+      if (!r.ok) throw new Error(r.status);
+      try { localStorage.setItem('synrg_survey_studio_v1', '1'); } catch(_){}
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('done').style.display = 'block';
+      window.scrollTo(0,0);
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Изпрати анонимно';
+      err.textContent = 'Нещо се обърка при изпращането. Провери връзката и опитай пак.';
+    });
+  });
+})();
+</script>
+</body>
+</html>
