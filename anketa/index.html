@@ -74,14 +74,6 @@
     content:"";width:18px;height:18px;border-radius:50%;flex:none;
     border:2px solid var(--line2);transition:.16s
   }
-  /* Квадратче за многозначния въпрос — окото различава „избери няколко“ от „избери едно“ */
-  .choices.multi span{align-items:flex-start}
-  .choices.multi span::before{border-radius:5px;margin-top:2px}
-  .choices.multi input:checked+span::before{
-    box-shadow:none;background:var(--acc);
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f1c11' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
-    background-size:13px;background-repeat:no-repeat;background-position:center
-  }
   .choices input:checked+span{border-color:var(--acc);background:rgba(196,233,191,.1)}
   .choices input:checked+span::before{border-color:var(--acc);background:var(--acc);box-shadow:inset 0 0 0 3px var(--card)}
   .choices input:focus-visible+span{outline:2px solid var(--violet);outline-offset:2px}
@@ -173,13 +165,10 @@
              data-opts="Да, ясно ми е|Донякъде|Не особено|Не"></div>
       </div>
 
-      <div class="q" data-q="q7_value">
+      <div class="q">
         <div class="qn"><div class="qi">7</div><div class="qt">Кое е най-важното нещо, което SYNRG ти дава?</div></div>
-        <div class="opt">избери до 3 отговора · <span id="v-count">0 от 3</span></div>
-        <div class="choices multi" data-name="q7_value" data-max="3"
-             data-opts="Резултати в отслабването/визията|Ставам по-силен/на и физически способен/на|Намаляване на болки и физически дискомфорт|Някой ме следи и това ме кара да бъда постоянен/на|Чувствам се сигурен/на, защото има специалисти, към които мога да се обърна|Личното отношение и вниманието|Приятната атмосфера и хората|Това е време, което отделям за себе си|Подобряване на здравето ми в дългосрочен план|Друго"></div>
-        <textarea id="q7_other" name="q7_value_other" maxlength="500" placeholder="Друго — какво?"
-                  style="display:none;margin-top:9px;min-height:64px"></textarea>
+        <div class="opt">по желание</div>
+        <textarea name="q7_value" maxlength="2000" placeholder="Пиши свободно…"></textarea>
       </div>
 
       <div class="q" data-q="q8_cleanliness">
@@ -255,36 +244,12 @@
   });
 
   document.querySelectorAll('.choices').forEach(function(el){
-    var name = el.dataset.name,
-        type = el.classList.contains('multi') ? 'checkbox' : 'radio';
+    var name = el.dataset.name;
     el.innerHTML = el.dataset.opts.split('|').map(function(o){
-      return '<label><input type="'+type+'" name="'+name+'" value="'+o.replace(/"/g,'&quot;')+'">'
+      return '<label><input type="radio" name="'+name+'" value="'+o.replace(/"/g,'&quot;')+'">'
            + '<span>'+o+'</span></label>';
     }).join('');
   });
-
-  // Многозначният въпрос: таван от 3 отговора + поле за „Друго“.
-  // Над тавана заключваме неотметнатите, вместо мълчаливо да игнорираме клика —
-  // иначе изглежда като счупен бутон.
-  var multi = document.querySelector('.choices.multi');
-  if (multi){
-    var max     = +multi.dataset.max,
-        counter = document.getElementById('v-count'),
-        other   = document.getElementById('q7_other');
-    multi.addEventListener('change', function(){
-      var boxes   = [].slice.call(multi.querySelectorAll('input')),
-          checked = boxes.filter(function(b){ return b.checked });
-      counter.textContent = checked.length + ' от ' + max;
-      boxes.forEach(function(b){
-        var lock = !b.checked && checked.length >= max;
-        b.disabled = lock;
-        b.parentNode.querySelector('span').style.opacity = lock ? '.4' : '';
-      });
-      var oth = boxes.filter(function(b){ return b.value === 'Друго' && b.checked }).length > 0;
-      other.style.display = oth ? 'block' : 'none';
-      if (!oth) other.value = '';
-    });
-  }
 
   // Звездите се пълнят наляво, както очаква окото при рейтинг.
   var starWrap = document.querySelector('.scale[data-star="1"]');
@@ -301,7 +266,7 @@
 
   var REQUIRED = ['q1_overall','q2_attention','q3_understood','q4_tailored',
                   'q5_results','q6_progress','q8_cleanliness','q12_nps'];
-  var TEXTS    = ['q9_annoyance','q10_best','q11_change','q13_anything'];
+  var TEXTS    = ['q7_value','q9_annoyance','q10_best','q11_change','q13_anything'];
   var f = document.getElementById('f'),
       err = document.getElementById('err'),
       btn = document.getElementById('send');
@@ -323,18 +288,6 @@
       if (!el){ missing.push(box); if (box) box.classList.add('missing'); }
       else data[n] = (n === 'q5_results' || n === 'q6_progress') ? el.value : +el.value;
     });
-
-    // Многозначният въпрос: поне един отговор, иначе се води неотговорен.
-    var picked = [].slice.call(f.querySelectorAll('[name="q7_value"]:checked'))
-                   .map(function(b){ return b.value });
-    if (!picked.length){
-      var vbox = document.querySelector('.q[data-q="q7_value"]');
-      missing.push(vbox); if (vbox) vbox.classList.add('missing');
-    } else {
-      data.q7_value = picked;
-      var oth = f.q7_value_other.value.trim();
-      if (picked.indexOf('Друго') > -1 && oth) data.q7_value_other = oth;
-    }
 
     TEXTS.forEach(function(n){
       var v = f[n].value.trim();
