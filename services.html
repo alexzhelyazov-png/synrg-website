@@ -346,13 +346,14 @@
     /* ── Footer ── */
     footer { border-top: 1px solid var(--border); padding: 40px 0 32px; }
     .footer-main { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
-    .footer-logo { display: flex; align-items: center; gap: 16px; }
+    .footer-logo { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .footer-meta { display: flex; flex-direction: column; gap: 4px; }
     .footer-logo img { height: 32px; width: auto; }
-    .footer-tagline { font-size: 13px; font-weight: 700; color: var(--muted); font-style: italic; }
+    .footer-tagline { font-size: 13px; font-weight: 700; color: #a8bda8; font-style: italic; }
     .footer-links-inline { display: flex; align-items: center; gap: 28px; list-style: none; }
-    .footer-links-inline a { font-size: 14px; font-weight: 700; color: var(--muted); font-style: italic; transition: color 0.2s; }
+    .footer-links-inline a { font-size: 14px; font-weight: 700; color: #cbd8cb; font-style: italic; transition: color 0.2s; }
     .footer-links-inline a:hover { color: var(--cream); }
-    .footer-copy { font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; }
+    .footer-copy { font-size: 12px; font-weight: 700; color: #a8bda8; margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; }
 
     /* ── Note ── */
     .plans-note {
@@ -375,6 +376,7 @@
       .mobile-menu .btn { white-space: normal; text-align: center; max-width: 85vw; font-size: 18px; color: #0d1510; }
       .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--cream); font-size: 28px; cursor: pointer; }
       .footer-main { flex-direction: column; text-align: center; }
+      .footer-logo { flex-direction: column; gap: 8px; }
       .footer-links-inline { flex-wrap: wrap; justify-content: center; }
       #plans .plans-header { flex-direction: column; }
     }
@@ -581,7 +583,10 @@
       <div class="footer-main">
         <div class="footer-logo">
           <img src="assets/synrg_Logomark.svg" alt="SYNRG Beyond Fitness" style="height:36px;width:auto;" />
-          <p class="footer-tagline" data-cms="shared.footer.tagline" data-bg="Бутиково фитнес студио · Варна" data-en="Boutique fitness studio · Varna">Бутиково фитнес студио · Варна</p>
+          <div class="footer-meta">
+            <p class="footer-tagline" data-cms="shared.footer.tagline" data-bg="Бутиково фитнес студио · Варна" data-en="Boutique fitness studio · Varna">Бутиково фитнес студио · Варна</p>
+            <p class="footer-tagline" style="font-size:12px;margin-top:4px;"><a href="tel:+359889725397" style="color:inherit;text-decoration:none;">0889 725 397</a> · <a href="tel:+359897918113" style="color:inherit;text-decoration:none;">0897 918 113</a></p>
+          </div>
         </div>
         <ul class="footer-links-inline">
           <li><a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a></li>
