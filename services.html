@@ -500,7 +500,6 @@
             <span class="plan-currency">€</span>
             <span class="plan-price">110</span>
           </div>
-          <div class="plan-price-sub" data-bg="(215лв / месец)" data-en="(215 BGN / month)">(215лв / месец)</div>
           <p class="plan-desc" data-bg="Подходящ за хора, които искат да започнат спокойно и под контрол. Идеален избор, ако търсиш сигурност, ясна посока и плавно навлизане." data-en="Ideal for people who want to start calmly and in control. Perfect if you're looking for security, clear direction, and a smooth start.">Подходящ за хора, които искат да започнат спокойно и под контрол. Идеален избор, ако търсиш сигурност, ясна посока и плавно навлизане.</p>
           <div class="plan-validity" data-bg="Валиден за един месец" data-en="Valid for one month">Валиден за един месец</div>
           <hr class="plan-divider" />
@@ -531,7 +530,6 @@
             <span class="plan-currency">€</span>
             <span class="plan-price">190</span>
           </div>
-          <div class="plan-price-sub" data-bg="(370лв / месец)" data-en="(370 BGN / month)">(370лв / месец)</div>
           <p class="plan-desc" data-bg="Най-балансираният и предпочитан вариант. Осигурява постоянство, видими резултати и стабилен ритъм, без да се усеща като ангажимент." data-en="The most balanced and preferred option. Delivers consistency, visible results and a stable rhythm without feeling like a burden.">Най-балансираният и предпочитан вариант. Осигурява постоянство, видими резултати и стабилен ритъм, без да се усеща като ангажимент.</p>
           <div class="plan-validity" data-bg="Валиден за един месец" data-en="Valid for one month">Валиден за един месец</div>
           <hr class="plan-divider" />
@@ -628,7 +626,6 @@
           var title = p.slug.charAt(0).toUpperCase() + p.slug.slice(1);
           html += '<div class="plan-title">' + title + '</div>';
           html += '<div class="plan-price-wrap"><span class="plan-currency">\u20AC</span><span class="plan-price">' + p.price_eur + '</span></div>';
-          html += '<div class="plan-price-sub" data-bg="' + p.price_bgn_text_bg + '" data-en="' + p.price_bgn_text_en + '">' + cmsText(p, 'price_bgn_text') + '</div>';
           html += '<hr class="plan-divider" />';
           var features = p.features || [];
           if (features.length > 0) {
