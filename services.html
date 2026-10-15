@@ -234,9 +234,11 @@
     /* ── Plans grid ── */
     .plans-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       align-items: start;
+      max-width: 760px;
+      margin: 0 auto;
     }
 
     /* ── Plan card ── */
@@ -363,6 +365,17 @@
     .plans-note a { color: var(--logan); text-decoration: underline; text-underline-offset: 3px; }
     .plans-note a:hover { color: var(--cream); }
 
+    .plan-subnote {
+      font-size: 12px; font-weight: 700; font-style: italic;
+      color: var(--mint); margin-top: 16px; line-height: 1.4;
+    }
+    .plan-12-note {
+      text-align: center; margin-top: 28px;
+      font-size: 13px; color: var(--muted);
+    }
+    .plan-12-note a { color: var(--logan); text-decoration: underline; text-underline-offset: 3px; }
+    .plan-12-note a:hover { color: var(--cream); }
+
     @media (max-width: 960px) {
       .plans-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
     }
@@ -460,7 +473,7 @@
     <div class="container services-hero-content">
       <span class="overline" data-cms="services.hero.overline" data-bg="SYNRG · Членство" data-en="SYNRG · Membership">SYNRG · Членство</span>
       <h1 data-cms="services.hero.title" data-bg="Избери<br>своя план." data-en="Choose<br>your plan.">Избери<br>своя план.</h1>
-      <p data-cms="services.hero.desc" data-bg="Три нива на ангажираност. Един стандарт на качество. Намери плана, който е за теб." data-en="Three levels of commitment. One standard of quality. Find the plan that's right for you.">Три нива на ангажираност. Един стандарт на качество. Намери плана, който е за теб.</p>
+      <p data-cms="services.hero.desc" data-bg="Два нива на ангажираност. Един стандарт на качество. Намери плана, който е за теб." data-en="Two levels of commitment. One standard of quality. Find the plan that's right for you.">Два нива на ангажираност. Един стандарт на качество. Намери плана, който е за теб.</p>
     </div>
   </section>
 
@@ -470,7 +483,7 @@
       <div class="plans-header">
         <div>
           <span class="overline" data-cms="services.plans.overline" data-bg="Членство" data-en="Membership">Членство</span>
-          <h2 data-cms="services.plans.heading" data-bg="Три плана.<br>Твоят избор." data-en="Three plans.<br>Your choice.">Три плана.<br>Твоят избор.</h2>
+          <h2 data-cms="services.plans.heading" data-bg="Два плана.<br>Твоят избор." data-en="Two plans.<br>Your choice.">Два плана.<br>Твоят избор.</h2>
           <p class="plans-sub" data-cms="services.plans.subheading" data-bg="Всички планове включват достъп до лимитираното студио и персонализиран подход." data-en="All plans include access to the limited studio and a personalized approach.">Всички планове включват достъп до лимитираното студио и персонализиран подход.</p>
         </div>
         <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener"
@@ -479,22 +492,22 @@
 
       <div class="plans-grid">
 
-        <!-- ── Plan 1: Flex ── -->
+        <!-- ── Plan 1: Flex (4) ── -->
         <div class="plan-card">
           <div class="plan-name" data-bg="Synrg Membership" data-en="Synrg Membership">Synrg Membership</div>
           <div class="plan-title" data-bg="Flex" data-en="Flex">Flex</div>
           <div class="plan-price-wrap">
             <span class="plan-currency">€</span>
-            <span class="plan-price">154</span>
+            <span class="plan-price">110</span>
           </div>
-          <div class="plan-price-sub" data-bg="(300лв / месец)" data-en="(300 BGN / month)">(300лв / месец)</div>
+          <div class="plan-price-sub" data-bg="(215лв / месец)" data-en="(215 BGN / month)">(215лв / месец)</div>
           <p class="plan-desc" data-bg="Подходящ за хора, които искат да започнат спокойно и под контрол. Идеален избор, ако търсиш сигурност, ясна посока и плавно навлизане." data-en="Ideal for people who want to start calmly and in control. Perfect if you're looking for security, clear direction, and a smooth start.">Подходящ за хора, които искат да започнат спокойно и под контрол. Идеален избор, ако търсиш сигурност, ясна посока и плавно навлизане.</p>
           <div class="plan-validity" data-bg="Валиден за един месец" data-en="Valid for one month">Валиден за един месец</div>
           <hr class="plan-divider" />
           <ul class="plan-features">
             <li>
               <span class="feat-icon"><span class="feat-check"></span></span>
-              <span data-bg="8 тренировки с треньор в лимитираното студио" data-en="8 sessions with a coach in the limited studio">8 тренировки с треньор в лимитираното студио</span>
+              <span data-bg="4 сесии с треньор в лимитираното студио" data-en="4 sessions with a coach in the limited studio">4 сесии с треньор в лимитираното студио</span>
             </li>
             <li>
               <span class="feat-icon"><span class="feat-check"></span></span>
@@ -509,23 +522,23 @@
              class="btn btn-ghost plan-cta" data-bg="Изберете" data-en="Choose">Изберете</a>
         </div>
 
-        <!-- ── Plan 2: Progress (Featured) ── -->
+        <!-- ── Plan 2: Progress (8, Featured) ── -->
         <div class="plan-card featured">
-          <div class="plan-badge" data-bg="Най-добра стойност" data-en="Best value">Най-добра стойност</div>
+          <div class="plan-badge" data-bg="Препоръчан" data-en="Recommended">Препоръчан</div>
           <div class="plan-name" data-bg="Synrg Membership" data-en="Synrg Membership">Synrg Membership</div>
           <div class="plan-title" data-bg="Progress" data-en="Progress">Progress</div>
           <div class="plan-price-wrap">
             <span class="plan-currency">€</span>
-            <span class="plan-price">179</span>
+            <span class="plan-price">190</span>
           </div>
-          <div class="plan-price-sub" data-bg="(350лв / месец)" data-en="(350 BGN / month)">(350лв / месец)</div>
+          <div class="plan-price-sub" data-bg="(370лв / месец)" data-en="(370 BGN / month)">(370лв / месец)</div>
           <p class="plan-desc" data-bg="Най-балансираният и предпочитан вариант. Осигурява постоянство, видими резултати и стабилен ритъм, без да се усеща като ангажимент." data-en="The most balanced and preferred option. Delivers consistency, visible results and a stable rhythm without feeling like a burden.">Най-балансираният и предпочитан вариант. Осигурява постоянство, видими резултати и стабилен ритъм, без да се усеща като ангажимент.</p>
           <div class="plan-validity" data-bg="Валиден за един месец" data-en="Valid for one month">Валиден за един месец</div>
           <hr class="plan-divider" />
           <ul class="plan-features">
             <li>
               <span class="feat-icon"><span class="feat-check"></span></span>
-              <span data-bg="12 тренировки с треньор в лимитираното студио" data-en="12 sessions with a coach in the limited studio">12 тренировки с треньор в лимитираното студио</span>
+              <span data-bg="8 сесии с треньор в лимитираното студио" data-en="8 sessions with a coach in the limited studio">8 сесии с треньор в лимитираното студио</span>
             </li>
             <li>
               <span class="feat-icon"><span class="feat-check"></span></span>
@@ -536,41 +549,14 @@
               <span data-bg="Изграждане и проследяване на стратегия" data-en="Building and tracking a personal strategy">Изграждане и проследяване на стратегия</span>
             </li>
           </ul>
+          <p class="plan-subnote" data-bg="2 сесии седмично – оптималното за резултат и възстановяване." data-en="2 sessions a week – the sweet spot for results and recovery.">2 сесии седмично – оптималното за резултат и възстановяване.</p>
           <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener"
              class="btn btn-primary plan-cta" data-bg="Изберете" data-en="Choose">Изберете</a>
         </div>
 
-        <!-- ── Plan 3: Plus ── -->
-        <div class="plan-card">
-          <div class="plan-name" data-bg="Synrg Membership" data-en="Synrg Membership">Synrg Membership</div>
-          <div class="plan-title" data-bg="Plus" data-en="Plus">Plus</div>
-          <div class="plan-price-wrap">
-            <span class="plan-currency">€</span>
-            <span class="plan-price">202</span>
-          </div>
-          <div class="plan-price-sub" data-bg="(400лв / месец)" data-en="(400 BGN / month)">(400лв / месец)</div>
-          <p class="plan-desc" data-bg="Пълния SYNRG метод. Достъп до студиото и до онлайн академията. Важи само за Варна." data-en="The full SYNRG method. Access to the studio and the online academy. Available only in Varna.">Пълния SYNRG метод. Достъп до студиото и до онлайн академията. Важи само за Варна.</p>
-          <div class="plan-validity" data-bg="Валиден за един месец" data-en="Valid for one month">Валиден за един месец</div>
-          <hr class="plan-divider" />
-          <ul class="plan-features">
-            <li>
-              <span class="feat-icon"><span class="feat-check"></span></span>
-              <span data-bg="Неограничен достъп до лимитираното студио с треньор" data-en="Unlimited access to the limited studio with a coach">Неограничен достъп до лимитираното студио с треньор</span>
-            </li>
-            <li>
-              <span class="feat-icon"><span class="feat-check"></span></span>
-              <span data-bg="Пълен достъп до цялата Онлайн Академия" data-en="Full access to the entire Online Academy">Пълен достъп до цялата Онлайн Академия</span>
-            </li>
-            <li>
-              <span class="feat-icon"><span class="feat-check"></span></span>
-              <span data-bg="Персонален треньор" data-en="Personal trainer">Персонален треньор</span>
-            </li>
-          </ul>
-          <a href="https://app.synrg-beyondfitness.com" target="_blank" rel="noopener"
-             class="btn btn-ghost plan-cta" data-bg="Изберете" data-en="Choose">Изберете</a>
-        </div>
-
       </div><!-- /plans-grid -->
+
+      <p class="plan-12-note" data-bg="Искате да тренирате по-често? <a href='index.html#cta'>Попитайте ни</a> за пакет от 12 посещения." data-en="Want to train more often? <a href='index.html#cta'>Ask us</a> about a 12-session package.">Искате да тренирате по-често? <a href="index.html#cta">Попитайте ни</a> за пакет от 12 посещения.</p>
 
       <p class="plans-note" data-bg="Имаш въпроси? <a href='index.html#cta'>Пиши ни</a> или ни намери в <a href='https://www.instagram.com/synrg.beyondfitness' target='_blank' rel='noopener'>Instagram</a>." data-en="Have questions? <a href='index.html#cta'>Contact us</a> or find us on <a href='https://www.instagram.com/synrg.beyondfitness' target='_blank' rel='noopener'>Instagram</a>.">Имаш въпроси? <a href="index.html#cta">Пиши ни</a> или ни намери в <a href="https://www.instagram.com/synrg.beyondfitness" target="_blank" rel="noopener">Instagram</a>.</p>
 
